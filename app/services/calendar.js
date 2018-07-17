@@ -1,3 +1,9 @@
+/**
+ * CalendarService
+ * @author krthr
+ * @since 1.0.0
+ */
+
 const gcal = require("google-calendar");
 let googleCalendar = new gcal.GoogleCalendar(null);
 

@@ -1,9 +1,18 @@
+/**
+ * GoogleCalendarController - Create events 
+ * @author krthr
+ * @since 1.0.0
+ */
+
 const GoogleCalendarRouter = require("express").Router();
 const {
   createEvent
 } = require("./../services/calendar");
 const moment = require("moment");
 
+/**
+ * [ALL] Add the events to user calendar
+ */
 GoogleCalendarRouter.all("/create", async (req, res) => {
   if (!req.body.subject) return res.redirect("/subjects");
 

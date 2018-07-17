@@ -1,13 +1,25 @@
+/**
+ * PagesController - Serve views
+ * @author krthr
+ * @since 1.0.0
+ */
+
 const PagesRouter = require('express').Router()
 const {
   getCalendar
 } = require('./../services/api')
 
+/**
+ * Is the user logged?
+ */
 const isLogged = (req, res, next) => {
   if (req.isAuthenticated()) next()
   else return res.redirect('/')
 }
 
+/**
+ * [GET] Login page
+ */
 PagesRouter.get('/',(req, res) => {
   if (req.isAuthenticated()) return res.redirect('/auth/google')
   return res.render('pages/index', {
@@ -15,6 +27,9 @@ PagesRouter.get('/',(req, res) => {
   })
 })
 
+/**
+ * [GET] Serve and select subjects
+ */
 PagesRouter.get(
   '/subjects',
   isLogged,
@@ -40,6 +55,9 @@ PagesRouter.get(
   }
 )
 
+/**
+ * [GET] Subjects added to the calendar
+ */
 PagesRouter.get(
   '/done',
   isLogged,

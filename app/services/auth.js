@@ -1,3 +1,9 @@
+/**
+ * AuthService - Session management
+ * @author krthr
+ * @since 1.0.0
+ */
+
 const passport = require("passport");
 const GoogleStrategy = require("passport-google-oauth").OAuth2Strategy;
 const LocalStrategy = require("passport-local").Strategy;
@@ -46,10 +52,16 @@ passport.use(
   )
 );
 
+/**
+ * Save session
+ */
 passport.serializeUser((user, done) => {
   done(null, user)
 })
 
+/**
+ * Remove session
+ */
 passport.deserializeUser((user, done) => {
   done(null, user)
 })

@@ -1,3 +1,9 @@
+/**
+ * Router
+ * @author krthr
+ * @since 1.0.0
+ */
+
 const Router = require('express').Router()
 const AuthController = require('./constrollers/AuthController')
 const PagesController = require('./constrollers/PagesController')
