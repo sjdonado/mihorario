@@ -32,11 +32,11 @@ app.use(bodyParser.json())
   httpOnly: true,
   signed: true
 })) */
-app.use(cookieParser('foobarbaz1234567foobarbaz1234567'));
-app.use(cookieEncrypter('foobarbaz1234567foobarbaz1234567'))
+app.use(cookieParser(process.env.SECRET));
+app.use(cookieEncrypter(process.env.SECRET))
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
-  secret: 'keageeegaeg34n2tealgk{gaz9beh14246}cat'
+  secret: process.env.SESSION_SECRET
 }))
 app.use(passport.initialize())
 app.use(passport.session())
