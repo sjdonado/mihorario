@@ -23,7 +23,8 @@ const isLogged = (req, res, next) => {
 PagesRouter.get('/',(req, res) => {
   if (req.isAuthenticated()) return res.redirect('/auth/google')
   return res.render('pages/index', {
-    title: 'MiHorario'
+    title: 'MiHorario',
+    message: req.flash('error')[0]
   })
 })
 

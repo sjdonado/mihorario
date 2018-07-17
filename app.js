@@ -6,6 +6,7 @@ const cookieParser = require('cookie-parser');
 const cookieSession = require('cookie-session')
 const cookieEncrypter = require('cookie-encrypter')
 const bodyParser = require('body-parser')
+const flash = require('connect-flash');
 const logger = require('morgan');
 const helmet = require('helmet')
 const session = require('express-session')
@@ -40,6 +41,7 @@ app.use(session({
 }))
 app.use(passport.initialize())
 app.use(passport.session())
+app.use(flash())
 
 // Rutas
 app.use('/', require('./app/router'));

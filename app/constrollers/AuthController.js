@@ -16,7 +16,8 @@ const {
  */
 AuthRouter.post("/login",
   passport.authenticate('local', {
-    failureRedirect: '/'
+    failureRedirect: '/',
+    failureFlash: true
   }),
   (req, res) => {
     return res.redirect('/auth/google')

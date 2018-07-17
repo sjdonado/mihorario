@@ -46,7 +46,9 @@ passport.use(
           res.p = password
           return done(null, res)
         }).catch(err => {
-          return done(null, false)
+          return done(null, false, {
+            message: 'Credenciales incorrectas.'
+          })
         })
     }
   )

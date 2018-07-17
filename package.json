@@ -9,6 +9,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "body-parser": "^1.18.3",
+    "connect-flash": "^0.1.1",
     "cookie-encrypter": "^1.0.1",
     "cookie-parser": "~1.4.3",
     "cookie-session": "^2.0.0-beta.3",
