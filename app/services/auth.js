@@ -21,7 +21,7 @@ passport.use(
   new GoogleStrategy({
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: process.env.callback
+      callbackURL: process.env.CALLBACK
     },
     (accessToken, refreshToken, profile, done) => {
       profile.accessToken = accessToken;
