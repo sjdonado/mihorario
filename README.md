@@ -2,10 +2,10 @@
 Importa tu horario de la Uninorte a Google Calendar
 
 ## Tabla de contenidos
-- [Motivación](#Motivacion) 
+- [Motivación](#motivación) 
 - Información para nerds
-  - [Tecnologías usadas](#Tecnología)
-  - [Contribuir](#Contribuir)
+  - [Tecnologías usadas](#tecnología)
+  - [Contribuir](#contribuir)
 
 ## Motivación
 La idea de crear **mihorario** viene desde mis primeros semestres en la universidad, donde siempre debíamos entrar a la aplicación de la universidad para ver el horario.
