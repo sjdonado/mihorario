@@ -1,0 +1,18 @@
+doctype html
+html
+  head
+    title= title
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    link(href='/stylesheets/style.css', rel='stylesheet')
+    link(href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css")
+    link(href='https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.8/css/uikit.min.css', rel='stylesheet')
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.8/js/uikit.min.js")
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.8/js/uikit-icons.min.js")
+  body
+    div(
+      class="uk-height-viewport uk-background-muted uk-background-cover uk-background-center" 
+      style="background-image: url(https://source.unsplash.com/1400x800/?sky,stars)"
+    )
+      block content
+      .uk-position-bottom-right.uk-margin-right.uk-color-primary.author-info
+        p Hecho por #[a(href="https://github.com/krthr") Wilson Tovar]

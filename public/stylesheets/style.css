@@ -1,0 +1,17 @@
+* {
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+.exit-btn {
+  margin: 20px;
+}
+
+.author-info a,
+.exit-btn a {
+  color: white !important;
+  text-decoration: none !important
+}
+
+.author-info {
+  color: white !important
+}
