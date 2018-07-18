@@ -3,7 +3,9 @@
  * @author krthr
  * @since 1.0.0
  */
-
+const {
+  reportError
+} = require('./../services/raven')
 const PagesRouter = require('express').Router()
 const {
   getCalendar
@@ -20,7 +22,7 @@ const isLogged = (req, res, next) => {
 /**
  * [GET] Login page
  */
-PagesRouter.get('/',(req, res) => {
+PagesRouter.get('/', (req, res) => {
   if (req.isAuthenticated()) return res.redirect('/auth/google')
   return res.render('pages/index', {
     title: 'MiHorario',
@@ -50,6 +52,7 @@ PagesRouter.get(
         sections: calendar.terms[0].sections
       })
     } catch (er) {
+      reportError(er)
       return res.redirect('/')
     }
 

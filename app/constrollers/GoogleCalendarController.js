@@ -3,7 +3,7 @@
  * @author krthr
  * @since 1.0.0
  */
-
+const {reportError} = require('./../services/raven')
 const GoogleCalendarRouter = require("express").Router();
 const {
   createEvent
@@ -51,7 +51,8 @@ GoogleCalendarRouter.all("/create", async (req, res) => {
       };
 
       // console.log(newEvent);
-      createEvent(newEvent);
+      createEvent(newEvent) 
+        .catch(e => reportError(e))
     });
   });
 

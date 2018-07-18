@@ -14,7 +14,7 @@ const createClient = token => {
 const createEvent = async newEvent => {
   return new Promise((resolve, reject) => {
     googleCalendar.events.insert("primary", newEvent, {}, (err, event) => {
-      // console.log(err, event);
+      if (err) return reject(err)
     });
   });
 };
