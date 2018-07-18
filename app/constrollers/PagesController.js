@@ -3,6 +3,7 @@
  * @author krthr
  * @since 1.0.0
  */
+
 const {
   reportError
 } = require('./../services/raven')
