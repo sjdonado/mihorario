@@ -4,6 +4,9 @@
  * @since 1.0.0
  */
 
+const {
+  reportError
+} = require('./raven')
 const passport = require("passport");
 const GoogleStrategy = require("passport-google-oauth").OAuth2Strategy;
 const LocalStrategy = require("passport-local").Strategy;
@@ -46,6 +49,7 @@ passport.use(
           res.p = password
           return done(null, res)
         }).catch(err => {
+          reportError(err, {})
           return done(null, false, {
             message: 'Credenciales incorrectas.'
           })

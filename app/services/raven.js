@@ -8,7 +8,9 @@ const Raven = require('raven');
 Raven.config(process.env.RAVEN).install();
 
 module.exports = {
-  reportError: (e) => {
-    Raven.captureException(e)
+  reportError: (e, data) => {
+    Raven.captureException(e, {
+      extra: data
+    })
   }
 }

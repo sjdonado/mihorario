@@ -53,7 +53,7 @@ GoogleCalendarRouter.all("/create", async (req, res) => {
 
       // console.log(newEvent);
       createEvent(newEvent) 
-        .catch(e => reportError(e))
+        .catch(e => reportError(e, newEvent))
     });
   });
 

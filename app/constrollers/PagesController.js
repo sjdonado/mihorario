@@ -53,7 +53,7 @@ PagesRouter.get(
         sections: calendar.terms[0].sections
       })
     } catch (er) {
-      reportError(er)
+      reportError(er, {})
       return res.redirect('/')
     }
 
