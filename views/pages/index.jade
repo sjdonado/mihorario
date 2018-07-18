@@ -11,16 +11,14 @@ block content
           a(class="uk-alert-close" uk-close)
           p #{message}
       
-      
-
       h3.uk-card-title Iniciar sesión
       form(action="/auth/login" method="POST")
         fieldset.uk-fieldset
           div(class='uk-grid-collapse' uk-grid)
             div(class='uk-width-1-2@s')
-              input(type="text" class="uk-input uk-form-blank" placeholder="Nombre de usuario" name="user" required)
+              input(type="text" class="uk-input uk-form-blank" autocomplete="username"  oninvalid="this.setCustomValidity('Escribe un nombre de usuario válido')" oninput="this.setCustomValidity('')" pattern="[a-z]{3,}" placeholder="Nombre de usuario" name="user" required)
             div(class='uk-width-1-2@s')
-              input(class="uk-input uk-form-blank" name="pass" type="password" placeholder="Contraseña" required)
+              input(class="uk-input uk-form-blank" autocomplete="current-password" name="pass" type="password" placeholder="Contraseña" required)
             .uk-width-1-1.uk-margin
               button(class="uk-button uk-button-primary uk-width-1-1" type="submit") Iniciar sesión
       

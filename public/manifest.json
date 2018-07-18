@@ -1,0 +1,12 @@
+{
+  "name": "Mi Horario",
+  "short_name": "Exporta tu horario de Uninorte al calendario de Google",
+  "theme_color": "#2196f3",
+  "background_color": "#004174",
+  "display": "minimal-ui",
+  "orientation": "portrait",
+  "Scope": "/",
+  "start_url": "/",
+  "icons": [],
+  "splash_pages": null
+}
