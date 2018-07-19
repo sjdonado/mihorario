@@ -31,8 +31,8 @@ GoogleCalendarRouter.all("/create", async (req, res) => {
   subjects.forEach(subject => {
     subject.meetingPatterns.forEach(ev => {
 
-      const initHour = moment(`${ev.startDate} ${ev.sisStartTimeWTz.split(' ')[0]}`)
-      const endHour = moment(`${ev.startDate} ${ev.sisEndTimeWTz.split(' ')[0]}`)
+      const initHour = moment(`${ev.startDate} ${ev.sisStartTimeWTz.split(' ')[0]}`).utcOffset(-5)
+      const endHour = moment(`${ev.startDate} ${ev.sisEndTimeWTz.split(' ')[0]}`).utcOffset(-5)
 
       const newEvent = {
         location: ev.building + ', ' + ev.room,
