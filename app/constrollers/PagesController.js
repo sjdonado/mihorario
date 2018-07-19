@@ -27,7 +27,10 @@ PagesRouter.get('/', (req, res) => {
   if (req.isAuthenticated()) return res.redirect('/auth/google')
   return res.render('pages/index', {
     title: 'MiHorario',
-    message: req.flash('error')[0]
+    message: req.flash('error')[0],
+    notice: {
+      message: '¡Hey! Ya corregimos el error con las clases que inician a las 6:30PM. Por favor, intenta de nuevo ;)'
+    }
   })
 })
 
