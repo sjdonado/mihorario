@@ -4,7 +4,9 @@
  * @since 1.0.0
  */
 
-const {reportError} = require('./../services/raven')
+const {
+  reportError
+} = require('./../services/raven')
 const GoogleCalendarRouter = require("express").Router();
 const {
   createEvent
@@ -28,20 +30,20 @@ GoogleCalendarRouter.all("/create", async (req, res) => {
 
   subjects.forEach(subject => {
     subject.meetingPatterns.forEach(ev => {
+
+      const initHour = moment(`${ev.startDate} ${ev.sisStartTimeWTz.split(' ')[0]}`)
+      const endHour = moment(`${ev.startDate} ${ev.sisEndTimeWTz.split(' ')[0]}`)
+
       const newEvent = {
         location: ev.building + ', ' + ev.room,
         summary: subject.sectionTitle,
         description: subject.instructors[0].formattedName,
         start: {
-          dateTime: moment(ev.startDate + " " + ev.startTime)
-            .add(ev.daysOfWeek - 2, "days")
-            .format(),
+          dateTime: initHour.add(ev.daysOfWeek - 2, "days").format(),
           timeZone: "America/Bogota"
         },
         end: {
-          dateTime: moment(ev.startDate + " " + ev.endTime)
-            .add(ev.daysOfWeek - 2, "days")
-            .format(),
+          dateTime: endHour.add(ev.daysOfWeek - 2, "days").format(),
           timeZone: "America/Bogota"
         },
         recurrence: [
@@ -52,7 +54,7 @@ GoogleCalendarRouter.all("/create", async (req, res) => {
       };
 
       // console.log(newEvent);
-      createEvent(newEvent) 
+      createEvent(newEvent)
         .catch(e => reportError(e, newEvent))
     });
   });
