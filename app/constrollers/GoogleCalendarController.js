@@ -31,19 +31,20 @@ GoogleCalendarRouter.all("/create", async (req, res) => {
   subjects.forEach(subject => {
     subject.meetingPatterns.forEach(ev => {
 
-      const initHour = moment(`${ev.startDate} ${ev.sisStartTimeWTz.split(' ')[0]}`).utcOffset(-5)
-      const endHour = moment(`${ev.startDate} ${ev.sisEndTimeWTz.split(' ')[0]}`).utcOffset(-5)
-
       const newEvent = {
         location: ev.building + ', ' + ev.room,
         summary: subject.sectionTitle,
         description: subject.instructors[0].formattedName,
         start: {
-          dateTime: initHour.add(ev.daysOfWeek - 2, "days").format(),
+          dateTime: moment(ev.startDate + " " + ev.startTime)
+            .add(ev.daysOfWeek - 2, "days")
+            .format(),
           timeZone: "America/Bogota"
         },
         end: {
-          dateTime: endHour.add(ev.daysOfWeek - 2, "days").format(),
+          dateTime: moment(ev.startDate + " " + ev.endTime)
+            .add(ev.daysOfWeek - 2, "days")
+            .format(),
           timeZone: "America/Bogota"
         },
         recurrence: [
