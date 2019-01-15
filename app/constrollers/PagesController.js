@@ -24,10 +24,7 @@ PagesRouter.get("/", (req, res) => {
   return res.render("pages/index", {
     title: "MiHorario",
     message: req.flash("error")[0],
-    notice: {
-      message:
-        "¡Hey! Ya corregimos el error con las clases que inician a las 6:30PM. Por favor, intenta de nuevo ;)"
-    }
+    notice:  "¡Hey! Ya corregimos el error con las clases que inician a las 6:30PM. Por favor, intenta de nuevo ;)"
   });
 });
 

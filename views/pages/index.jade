@@ -12,6 +12,11 @@ block content
           a(class="uk-alert-close" uk-close)
           p #{message}
       
+      if notice
+        div(class="uk-alert-info" uk-alert)
+          a(class="uk-alert-close" uk-close)
+          p #{notice}
+      
       h3.uk-card-title Iniciar sesión
       form(action="/auth/login" method="POST")
         fieldset.uk-fieldset
