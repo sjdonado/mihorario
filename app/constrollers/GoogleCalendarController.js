@@ -10,13 +10,13 @@ const { createEvent } = require("./../services/calendar");
 const moment = require("moment");
 const colombiaHolidays = require('colombia-holidays');
 
+const colombiaHolidaysArray = colombiaHolidays.getColombiaHolidaysByYear(moment().format('YYYY'));
+
 function holidaysByDate(date) {
-  return colombiaHolidays.getColombiaHolidaysByYear(moment().format('YYYY'))
-    .map(holiday => `EXDATE;TZID=America/Bogota:${holiday.celebrationDay.split("-").join("")}T${date}`
+  return colombiaHolidaysArray
+    .map(holiday => `EXDATE;TZID=America/Bogota:${holiday.celebrationDay.split("-").join("")}T${date.split(":").join("")}00`
   );
 }
-
-// EXDATE;TZID=America/Bogota:20140905T103000
 
 /**
  * [ALL] Add the events to user calendar
@@ -54,10 +54,9 @@ GoogleCalendarRouter.all("/create", async (req, res) => {
           `RRULE:FREQ=WEEKLY;UNTIL=${subject.lastMeetingDate
             .split("-")
             .join("")}`,
+            ...holidaysByDate(ev.sisStartTimeWTz.substr(0,5))
         ]
       };
-
-      console.log(newEvent);
       createEvent(newEvent).catch(e => reportError(e, newEvent));
     });
   });
