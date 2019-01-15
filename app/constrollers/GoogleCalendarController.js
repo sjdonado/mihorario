@@ -23,8 +23,6 @@ GoogleCalendarRouter.all("/create", async (req, res) => {
     return JSON.parse(el);
   });
 
-  const subject = subjects[0];
-
   subjects.forEach(subject => {
     subject.meetingPatterns.forEach(ev => {
       const newEvent = {
