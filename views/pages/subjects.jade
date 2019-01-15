@@ -9,12 +9,19 @@ block content
       h3.uk-card-title Seleccione las materias
       form(action="/calendar/create" method="POST")
         fieldset.uk-fieldset
+          .uk-margin
+            label
+              #[input(class="uk-checkbox" type="checkbox" id="select_all")] SELECCIONAR TODAS
+
+          hr
           each val in sections
             div(class='uk-margin')
               label
-                #[input(class="uk-checkbox" type="checkbox" name="subject" value=`${JSON.stringify(val)}`)] #{val.sectionTitle}
+                #[input(class="uk-checkbox subject-opt" type="checkbox" name="subject" value=`${JSON.stringify(val)}`)] #{val.sectionTitle}
           button(id="customBtn" class="uk-button uk-button-primary uk-width-1-1" type="submit")
             #[span(uk-icon="icon: google-plus; ratio: 1.4" class="uk-margin-right")] #{'Guardar en mi cuenta'}
+
+  script(src="./js/subject.js")
                 
 
         
