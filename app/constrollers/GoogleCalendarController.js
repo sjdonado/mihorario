@@ -16,6 +16,9 @@ GoogleCalendarRouter.all("/create", async (req, res) => {
   if (!req.body.subject) return res.redirect("/subjects");
 
   let subjects = req.body.subject;
+  let reminder_minutes =
+    req.body.reminder && req.body.reminder >= 0 ? req.body.reminder : 30;
+
   if (subjects.constructor !== Array) subjects = [subjects];
 
   subjects = subjects.map(el => {
@@ -23,6 +26,8 @@ GoogleCalendarRouter.all("/create", async (req, res) => {
   });
 
   const subject = subjects[0];
+
+  console.log(reminder_minutes);
 
   subjects.forEach(subject => {
     subject.meetingPatterns.forEach(ev => {
@@ -46,7 +51,16 @@ GoogleCalendarRouter.all("/create", async (req, res) => {
           `RRULE:FREQ=WEEKLY;UNTIL=${subject.lastMeetingDate
             .split("-")
             .join("")}`
-        ]
+        ],
+        reminders: {
+          useDefault: false,
+          overrides: [
+            {
+              method: "popup",
+              minutes: reminder_minutes
+            }
+          ]
+        }
       };
 
       // console.log(newEvent);
