@@ -32,13 +32,13 @@ GoogleCalendarRouter.all("/create", async (req, res) => {
         summary: subject.sectionTitle,
         description: subject.instructors[0].formattedName,
         start: {
-          dateTime: moment(ev.startDate + " " + ev.startTime)
+          dateTime: moment(`${ev.startDate}T${ev.sisStartTimeWTz.substr(0,5)}`)
             .add(ev.daysOfWeek - 2, "days")
             .format(),
           timeZone: "America/Bogota"
         },
         end: {
-          dateTime: moment(ev.startDate + " " + ev.endTime)
+          dateTime: moment(`${ev.startDate}T${ev.sisEndTimeWTz.substr(0,5)}`)
             .add(ev.daysOfWeek - 2, "days")
             .format(),
           timeZone: "America/Bogota"
