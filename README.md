@@ -28,6 +28,8 @@ Si quieres, puedes aportar al proyecto. Inicia un pull request, reporta un bug o
 
 A continuación una lista de personas que han contribuido al proyecto:
 
+- [Juan Rodriguez](https://github.com/sjdonado)
+
 ## Créditos
 A todos los que apoyan el proyecto, ¡muchas gracias! A David Figueroa y José Polo, por aportar ideas.
 
