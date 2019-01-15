@@ -11,10 +11,6 @@ const { google } = require('googleapis');
 const LocalStrategy = require("passport-local").Strategy;
 
 const {
-  reportError
-} = require('./raven')
-
-const {
   getUserCode
 } = require('./api')
 
