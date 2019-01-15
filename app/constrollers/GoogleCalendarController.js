@@ -1,16 +1,12 @@
 /**
- * GoogleCalendarController - Create events 
+ * GoogleCalendarController - Create events
  * @author krthr
  * @since 1.0.0
  */
 
-const {
-  reportError
-} = require('./../services/raven')
+const { reportError } = require("./../services/raven");
 const GoogleCalendarRouter = require("express").Router();
-const {
-  createEvent
-} = require("./../services/calendar");
+const { createEvent } = require("./../services/calendar");
 const moment = require("moment");
 
 /**
@@ -20,7 +16,7 @@ GoogleCalendarRouter.all("/create", async (req, res) => {
   if (!req.body.subject) return res.redirect("/subjects");
 
   let subjects = req.body.subject;
-  if (subjects.constructor !== Array) subjects = [subjects]
+  if (subjects.constructor !== Array) subjects = [subjects];
 
   subjects = subjects.map(el => {
     return JSON.parse(el);
@@ -30,9 +26,8 @@ GoogleCalendarRouter.all("/create", async (req, res) => {
 
   subjects.forEach(subject => {
     subject.meetingPatterns.forEach(ev => {
-
       const newEvent = {
-        location: ev.building + ', ' + ev.room,
+        location: ev.building + ", " + ev.room,
         summary: subject.sectionTitle,
         description: subject.instructors[0].formattedName,
         start: {
@@ -55,12 +50,11 @@ GoogleCalendarRouter.all("/create", async (req, res) => {
       };
 
       // console.log(newEvent);
-      createEvent(newEvent)
-        .catch(e => reportError(e, newEvent))
+      createEvent(newEvent).catch(e => reportError(e, newEvent));
     });
   });
 
-  return res.redirect('/done');
+  return res.redirect("/done");
 });
 
 module.exports = GoogleCalendarRouter;

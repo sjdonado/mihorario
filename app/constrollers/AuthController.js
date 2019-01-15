@@ -5,54 +5,58 @@
  */
 
 const AuthRouter = require("express").Router();
-const {
-  passport
-} = require('./../services/auth')
+const { passport } = require("./../services/auth");
 
 /**
  * [POST] Login with U credentials
  * @param user Username
  * @param pass Password
  */
-AuthRouter.post("/login",
-  passport.authenticate('local', {
-    failureRedirect: '/',
+AuthRouter.post(
+  "/login",
+  passport.authenticate("local", {
+    failureRedirect: "/",
     failureFlash: true
   }),
   (req, res) => {
-    return res.redirect('/auth/google')
+    return res.redirect("/auth/google");
   }
-)
+);
 
 /**
  * [GET] Login with Google Account using passport
  */
 AuthRouter.get(
   "/google",
-  passport.authenticate('google', {
+  passport.authenticate("google", {
     session: false,
     scope: [
-      'https://www.googleapis.com/auth/calendar',
-      'https://www.googleapis.com/auth/plus.me'
+      "https://www.googleapis.com/auth/calendar",
+      "https://www.googleapis.com/auth/plus.me"
     ]
-  }))
+  })
+);
 
 /**
  * [GET] Callback for Google login
  */
-AuthRouter.get("/callback", passport.authenticate('google', {
-  session: false,
-  failureRedirect: '/'
-}), (req, res) => {
-  res.redirect('/subjects');
-})
+AuthRouter.get(
+  "/callback",
+  passport.authenticate("google", {
+    session: false,
+    failureRedirect: "/"
+  }),
+  (req, res) => {
+    res.redirect("/subjects");
+  }
+);
 
 /**
  * [GET] Close session
  */
-AuthRouter.get('/logout', (req, res) => {
-  req.logout()
-  return res.redirect('/')
-})
+AuthRouter.get("/logout", (req, res) => {
+  req.logout();
+  return res.redirect("/");
+});
 
 module.exports = AuthRouter;

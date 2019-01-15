@@ -4,13 +4,13 @@
  * @since 1.0.0
  */
 
-const http = require('axios').default
-const fetch = require('node-fetch').default
+const http = require("axios").default;
+const fetch = require("node-fetch").default;
 
-const BASE = process.env.API_BASE
-const CODE = `${BASE}${process.env.CODE}`
-const CALENDAR = `${BASE}${process.env.CALENDAR}`
-const SUBJECT = `${BASE}${process.env.SUBJECT}`
+const BASE = process.env.API_BASE;
+const CODE = `${BASE}${process.env.CODE}`;
+const CALENDAR = `${BASE}${process.env.CALENDAR}`;
+const SUBJECT = `${BASE}${process.env.SUBJECT}`;
 
 /**
  * Ger user code (Ex: 200089014)
@@ -23,12 +23,12 @@ const getUserCode = async (user, pass) => {
       username: user,
       password: pass
     },
-    method: 'POST'
-  })
+    method: "POST"
+  });
 
-  if (userCode.status === 200) return userCode.data
-  else throw userCode.status
-}
+  if (userCode.status === 200) return userCode.data;
+  else throw userCode.status;
+};
 
 /**
  * Get the actual term (Ex: 20181)
@@ -38,23 +38,23 @@ const getUserCode = async (user, pass) => {
  */
 const getTerm = async (userCode, user, pass) => {
   const calendar = await http(`${CALENDAR}/${userCode}`, {
-    method: 'GET',
+    method: "GET",
     auth: {
       username: user,
       password: pass
     }
-  })
+  });
 
   if (calendar.status !== 200) {
     throw {
       code: calendar.status,
-      msg: 'Error al tratar de obtener semestre',
+      msg: "Error al tratar de obtener semestre",
       json: calendar.statusText
-    }
+    };
   }
 
-  return calendar.data
-}
+  return calendar.data;
+};
 
 /**
  * Get all the courses from the actual term
@@ -64,32 +64,34 @@ const getTerm = async (userCode, user, pass) => {
  */
 const getCalendar = async (userCode, user, pass) => {
   try {
-    const term = await getTerm(userCode, user, pass)
+    const term = await getTerm(userCode, user, pass);
 
-    const subject = await http(`${SUBJECT}/${userCode}?term=${term.terms[0].id}`, {
-      method: 'GET',
-      auth: {
-        username: user,
-        password: pass
+    const subject = await http(
+      `${SUBJECT}/${userCode}?term=${term.terms[0].id}`,
+      {
+        method: "GET",
+        auth: {
+          username: user,
+          password: pass
+        }
       }
-    })
+    );
 
     if (subject.status !== 200) {
       throw {
         code: subject.status,
-        msg: 'Error al tratar de obtener calendario',
+        msg: "Error al tratar de obtener calendario",
         json: subject.statusText
-      }
+      };
     }
 
-    return subject.data
+    return subject.data;
   } catch (er) {
-    throw er
+    throw er;
   }
-
-}
+};
 
 module.exports = {
   getUserCode,
   getCalendar
-}
+};
