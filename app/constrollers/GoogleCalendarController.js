@@ -8,13 +8,18 @@ const { reportError } = require("./../services/raven");
 const GoogleCalendarRouter = require("express").Router();
 const { createEvent } = require("./../services/calendar");
 const moment = require("moment");
-const colombiaHolidays = require('colombia-holidays');
+const colombiaHolidays = require("colombia-holidays");
 
-const colombiaHolidaysArray = colombiaHolidays.getColombiaHolidaysByYear(moment().format('YYYY'));
+const colombiaHolidaysArray = colombiaHolidays.getColombiaHolidaysByYear(
+  moment().format("YYYY")
+);
 
 function holidaysByDate(date) {
-  return colombiaHolidaysArray
-    .map(holiday => `EXDATE;TZID=America/Bogota:${holiday.celebrationDay.split("-").join("")}T${date.split(":").join("")}00`
+  return colombiaHolidaysArray.map(
+    holiday =>
+      `EXDATE;TZID=America/Bogota:${holiday.celebrationDay
+        .split("-")
+        .join("")}T${date.split(":").join("")}00`
   );
 }
 
@@ -39,13 +44,17 @@ GoogleCalendarRouter.all("/create", async (req, res) => {
         summary: subject.sectionTitle,
         description: subject.instructors[0].formattedName,
         start: {
-          dateTime: moment(`${ev.startDate} ${ev.sisStartTimeWTz.substr(0,5)} GMT-0500`)
+          dateTime: moment(
+            `${ev.startDate} ${ev.sisStartTimeWTz.substr(0, 5)} GMT-0500`
+          )
             .add(ev.daysOfWeek - 2, "days")
             .format(),
           timeZone: "America/Bogota"
         },
         end: {
-          dateTime: moment(`${ev.startDate} ${ev.sisEndTimeWTz.substr(0,5)} GMT-0500`)
+          dateTime: moment(
+            `${ev.startDate} ${ev.sisEndTimeWTz.substr(0, 5)} GMT-0500`
+          )
             .add(ev.daysOfWeek - 2, "days")
             .format(),
           timeZone: "America/Bogota"
@@ -54,7 +63,7 @@ GoogleCalendarRouter.all("/create", async (req, res) => {
           `RRULE:FREQ=WEEKLY;UNTIL=${subject.lastMeetingDate
             .split("-")
             .join("")}`,
-            ...holidaysByDate(ev.sisStartTimeWTz.substr(0,5))
+          ...holidaysByDate(ev.sisStartTimeWTz.substr(0, 5))
         ]
       };
       createEvent(newEvent).catch(e => reportError(e, newEvent));
