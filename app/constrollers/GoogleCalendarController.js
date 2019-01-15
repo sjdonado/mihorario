@@ -19,6 +19,8 @@ GoogleCalendarRouter.all("/create", async (req, res) => {
   let reminder_minutes =
     req.body.reminder && req.body.reminder >= 0 ? req.body.reminder : 30;
 
+  let reminder_type = req.body.reminder_type ? req.body.reminder_type : "popup";
+
   if (subjects.constructor !== Array) subjects = [subjects];
 
   subjects = subjects.map(el => {
@@ -56,7 +58,7 @@ GoogleCalendarRouter.all("/create", async (req, res) => {
           useDefault: false,
           overrides: [
             {
-              method: "popup",
+              method: reminder_type,
               minutes: reminder_minutes
             }
           ]
