@@ -9,6 +9,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "body-parser": "^1.18.3",
+    "colombia-holidays": "0.0.1",
     "connect-flash": "^0.1.1",
     "cookie-encrypter": "^1.0.1",
     "cookie-parser": "~1.4.3",

@@ -8,6 +8,15 @@ const { reportError } = require("./../services/raven");
 const GoogleCalendarRouter = require("express").Router();
 const { createEvent } = require("./../services/calendar");
 const moment = require("moment");
+const colombiaHolidays = require('colombia-holidays');
+
+function holidaysByDate(date) {
+  return colombiaHolidays.getColombiaHolidaysByYear(moment().format('YYYY'))
+    .map(holiday => `EXDATE;TZID=America/Bogota:${holiday.celebrationDay.split("-").join("")}T${date}`
+  );
+}
+
+// EXDATE;TZID=America/Bogota:20140905T103000
 
 /**
  * [ALL] Add the events to user calendar
@@ -46,11 +55,11 @@ GoogleCalendarRouter.all("/create", async (req, res) => {
         recurrence: [
           `RRULE:FREQ=WEEKLY;UNTIL=${subject.lastMeetingDate
             .split("-")
-            .join("")}`
+            .join("")}`,
         ]
       };
 
-      // console.log(newEvent);
+      console.log(newEvent);
       createEvent(newEvent).catch(e => reportError(e, newEvent));
     });
   });
