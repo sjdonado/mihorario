@@ -18,7 +18,7 @@ block content
             #[input(class='uk-input' type="number" name="reminder" value="20" min="5" max="60" placeholder="")]
           div(class="uk-margin")
             p Tipo de notificación:
-            select(name="reminder_type")
+            select(class="uk-select" name="reminder_type")
               option(value="popup") Notificación en Celular
               option(value="email") Vía email
           button(id="customBtn" class="uk-button uk-button-primary uk-width-1-1" type="submit")
