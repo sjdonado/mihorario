@@ -5,7 +5,7 @@
  */
 
 const AuthRouter = require("express").Router();
-const { passport } = require("./../services/auth");
+const { passport, scopes, oauth2Client } = require("./../services/auth");
 
 /**
  * [POST] Login with U credentials
@@ -28,13 +28,13 @@ AuthRouter.post(
  */
 AuthRouter.get(
   "/google",
-  passport.authenticate("google", {
-    session: false,
-    scope: [
-      "https://www.googleapis.com/auth/calendar",
-      "https://www.googleapis.com/auth/plus.me"
-    ]
-  })
+  (req, res) => {
+    const url = oauth2Client.generateAuthUrl({
+      access_type: 'offline',
+      scope: scopes
+    });
+    res.redirect(url);
+  }
 );
 
 /**
@@ -42,11 +42,10 @@ AuthRouter.get(
  */
 AuthRouter.get(
   "/callback",
-  passport.authenticate("google", {
-    session: false,
-    failureRedirect: "/"
-  }),
-  (req, res) => {
+  async (req, res) => {
+    const { code } = req.query;
+    const { tokens } = await oauth2Client.getToken(code);
+    req.session.tokens = tokens;
     res.redirect("/subjects");
   }
 );

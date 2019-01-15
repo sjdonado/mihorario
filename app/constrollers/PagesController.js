@@ -12,7 +12,8 @@ const { getCalendar } = require("./../services/api");
  * Is the user logged?
  */
 const isLogged = (req, res, next) => {
-  if (req.isAuthenticated()) next();
+  // req.isAuthenticated()
+  if (req.session.tokens || req.body.tokens || req.session.done) next();
   else return res.redirect("/");
 };
 
@@ -39,7 +40,8 @@ PagesRouter.get("/subjects", isLogged, async (req, res) => {
 
     return res.render("pages/subjects", {
       title: "Seleccionar materias",
-      sections: calendar.terms[0].sections
+      sections: calendar.terms[0].sections,
+      tokens: JSON.stringify(req.session.tokens),
     });
   } catch (er) {
     reportError(er, {});
