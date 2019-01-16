@@ -10,9 +10,10 @@ const PagesController = require("./constrollers/PagesController");
 const GoogleApiController = require("./constrollers/GoogleCalendarController");
 
 const isLogged = (req, res, next) => {
-  if (req.isAuthenticated()) next();
-  else return res.redirect("/");
-};
+  // req.isAuthenticated()
+  if (req.body.tokens) next()
+  else return res.redirect('/')
+}
 
 Router.use("/auth", AuthController);
 Router.use("/calendar", isLogged, GoogleApiController);

@@ -6,27 +6,27 @@
 
 const { reportError } = require("./raven");
 const passport = require("passport");
-const GoogleStrategy = require("passport-google-oauth").OAuth2Strategy;
+const { google } = require('googleapis');
+// const GoogleStrategy = require("passport-google-oauth").OAuth2Strategy;
 const LocalStrategy = require("passport-local").Strategy;
-const { createClient } = require("./calendar");
-const { getUserCode } = require("./api");
+
+const {
+  getUserCode
+} = require('./api')
+
+const scopes = [
+  'https://www.googleapis.com/auth/plus.me',
+  'https://www.googleapis.com/auth/calendar'
+];
 
 /**
  * Login para Google
  */
-passport.use(
-  new GoogleStrategy(
-    {
-      clientID: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: process.env.CALLBACK
-    },
-    (accessToken, refreshToken, profile, done) => {
-      profile.accessToken = accessToken;
-      createClient(accessToken);
-      return done(null, profile);
-    }
-  )
+
+const oauth2Client = new google.auth.OAuth2(
+  process.env.GOOGLE_CLIENT_ID,
+  process.env.GOOGLE_CLIENT_SECRET,
+  process.env.CALLBACK
 );
 
 /**
@@ -70,5 +70,7 @@ passport.deserializeUser((user, done) => {
 });
 
 module.exports = {
-  passport
+  passport,
+  oauth2Client,
+  scopes,
 };

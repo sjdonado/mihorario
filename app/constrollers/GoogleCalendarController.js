@@ -6,7 +6,7 @@
 
 const { reportError } = require("./../services/raven");
 const GoogleCalendarRouter = require("express").Router();
-const { createEvent } = require("./../services/calendar");
+const CalendarService = require("./../services/calendarService");
 const moment = require("moment");
 const colombiaHolidays = require("colombia-holidays");
 
@@ -27,15 +27,18 @@ function holidaysByDate(date) {
  * [ALL] Add the events to user calendar
  */
 GoogleCalendarRouter.all("/create", async (req, res) => {
-  if (!req.body.subject) return res.redirect("/subjects");
+  const { subject, tokens } = req.body;
+  if (!subject) return res.redirect("/subjects");
 
-  let subjects = req.body.subject;
+  let subjects = subject;
 
   if (subjects.constructor !== Array) subjects = [subjects];
 
   subjects = subjects.map(el => {
     return JSON.parse(el);
   });
+
+  const calendarService = new CalendarService(tokens);
 
   subjects.forEach(subject => {
     subject.meetingPatterns.forEach(ev => {
@@ -66,9 +69,13 @@ GoogleCalendarRouter.all("/create", async (req, res) => {
           ...holidaysByDate(ev.sisStartTimeWTz.substr(0, 5))
         ]
       };
-      createEvent(newEvent).catch(e => reportError(e, newEvent));
+      calendarService.createEvent(newEvent)
+        // .then(res => console.log('RES', res))
+        .catch(e => reportError(e, newEvent));
     });
   });
+
+  req.session.done = true;
 
   return res.redirect("/done");
 });
