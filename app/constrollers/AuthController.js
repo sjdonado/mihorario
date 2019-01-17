@@ -29,7 +29,7 @@ AuthRouter.post("/login", async (req, res) => {
 
     return res.redirect("/auth/google");
   } catch (e) {
-    //console.log(e);
+    console.log(e);
     return res.redirect("/");
   }
 });

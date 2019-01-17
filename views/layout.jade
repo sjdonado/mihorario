@@ -20,13 +20,21 @@ html
     script(src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.8/js/uikit.min.js")
     script(src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.8/js/uikit-icons.min.js")
   body
+
+    div(id="modal-data" uk-modal)
+      div(class="uk-modal-dialog uk-modal-body")
+        h2(class="uk-modal-title") Manejo de tus datos
+        p No almacenamos ningún dato acerca de los estudiantes que usan <b>MiHorario</b>. Las credenciales digitadas sólo se usan cuando se obtiene el horario del usuario. Cuando el usuario cierra la sesión o esta se vence, la información asociada a ella es eliminada. 
+        p(class="uk-text-right")
+          button(class="uk-button uk-button-primary uk-modal-close" type="button") Aceptar
+
     div(
       class="uk-height-viewport uk-background-muted uk-background-cover uk-background-center" 
       style="background-image: url(https://source.unsplash.com/collection/136635/1400x800)"
     )
       block content
       .uk-position-bottom-right.uk-margin-right.uk-color-primary.author-info
-        p Hecho por #[a(href="https://github.com/krthr") Wilson Tovar] - #[a(href="https://github.com/krthr") Github]
+        p Hecho por #[a(href="https://github.com/krthr") Wilson Tovar] - #[a(href="https://github.com/krthr/mihorario") Github]
     script(async src="https://www.googletagmanager.com/gtag/js?id=UA-122567116-1")
     script.
       window.dataLayer = window.dataLayer || [];

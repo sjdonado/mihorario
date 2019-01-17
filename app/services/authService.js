@@ -5,7 +5,8 @@
  */
 
 const { google } = require("googleapis");
-const { getUserCode } = require("./api");
+const apiService = require("./apiService");
+const api = new apiService();
 
 const scopes = [
   "https://www.googleapis.com/auth/plus.me",
@@ -23,7 +24,7 @@ const oauth2Client = new google.auth.OAuth2(
 
 const login = async (user, pass) => {
   try {
-    return await getUserCode(user, pass);
+    return await api.getUserCode(user, pass);
   } catch (e) {
     throw e;
   }

@@ -6,7 +6,8 @@
 
 const { reportError } = require("./../services/raven");
 const PagesRouter = require("express").Router();
-const { getCalendar } = require("./../services/api");
+const apiService = require('../services/apiService')
+const api = new apiService()
 
 /**
  * Is the user logged?
@@ -43,7 +44,7 @@ PagesRouter.get("/", (req, res) => {
  */
 PagesRouter.get("/subjects", isLogged, async (req, res) => {
   try {
-    const calendar = await getCalendar(
+    const calendar = await  api.getCalendar(
       req.session.user.userId,
       req.session.user.user,
       req.session.user.pass
