@@ -13,7 +13,13 @@ const { getCalendar } = require("./../services/api");
  */
 const isLogged = (req, res, next) => {
   // req.isAuthenticated()
-  if (req.session.tokens || req.body.tokens || req.session.done) next();
+  if (
+    req.session.tokens ||
+    req.body.tokens ||
+    req.session.done ||
+    req.session.user
+  )
+    next();
   else return res.redirect("/");
 };
 
@@ -21,11 +27,14 @@ const isLogged = (req, res, next) => {
  * [GET] Login page
  */
 PagesRouter.get("/", (req, res) => {
-  if (req.isAuthenticated()) return res.redirect("/auth/google");
+  // console.log(req.session.user)
+
+  if (req.session.user) return res.redirect("/auth/google");
   return res.render("pages/index", {
     title: "MiHorario",
     message: req.flash("error")[0],
-    notice:  "¡Hey! Ya corregimos el error con las clases que inician a las 6:30PM. Por favor, intenta de nuevo ;)"
+    notice:
+      "¡Hey! Ya corregimos el error con las clases que inician a las 6:30PM. Por favor, intenta de nuevo ;)"
   });
 });
 
@@ -34,17 +43,22 @@ PagesRouter.get("/", (req, res) => {
  */
 PagesRouter.get("/subjects", isLogged, async (req, res) => {
   try {
-    const calendar = await getCalendar(req.user.userId, req.user.u, req.user.p);
+    const calendar = await getCalendar(
+      req.session.user.userId,
+      req.session.user.user,
+      req.session.user.pass
+    );
 
-    req.user.sections = calendar.terms[0].sections;
+    req.session.user.sections = calendar.terms[0].sections;
 
     return res.render("pages/subjects", {
       title: "Seleccionar materias",
       sections: calendar.terms[0].sections,
-      tokens: JSON.stringify(req.session.tokens),
+      tokens: JSON.stringify(req.session.tokens)
     });
   } catch (er) {
     reportError(er, {});
+    // console.log(er)
     return res.redirect("/");
   }
 });
