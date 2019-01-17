@@ -7,6 +7,7 @@ const flash = require("connect-flash");
 const logger = require("morgan");
 const helmet = require("helmet");
 const session = require("express-session");
+const MemoryStore = require("memorystore")(session);
 const app = express();
 
 app.use(helmet());
@@ -27,6 +28,9 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
+    store: new MemoryStore({
+      checkPeriod: 86400000 // prune expired entries every 24h
+    }),
     cookie: {
       maxAge: 600000
     },
