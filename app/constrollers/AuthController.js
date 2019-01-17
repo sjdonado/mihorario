@@ -5,7 +5,7 @@
  */
 
 const AuthRouter = require("express").Router();
-const { passport, scopes, oauth2Client } = require("../services/authService");
+const { scopes, oauth2Client } = require("../services/authService");
 const { login } = require("../services/authService");
 
 /**
@@ -59,7 +59,7 @@ AuthRouter.get("/callback", async (req, res) => {
  * [GET] Close session
  */
 AuthRouter.get("/logout", (req, res) => {
-  req.session = null;
+  req.session.destroy()
   return res.redirect("/");
 });
 

@@ -27,7 +27,7 @@ app.use(
 );
 
 app.use(bodyParser.json());
-app.use(
+/** app.use(
   cookieSession({
     name: "data_",
     keys: ["plzAUsNTbTDIfgLQrkr92v8rHNdUtiK7"],
@@ -38,13 +38,16 @@ app.use(
 );
 app.use(cookieParser(process.env.SECRET));
 app.use(cookieEncrypter(process.env.SECRET));
+ */
 app.use(express.static(path.join(__dirname, "public")));
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
     cookie: {
       maxAge: 600000
-    }
+    },
+    resave: false,
+    saveUninitialized: false
   })
 );
 app.use(flash());
