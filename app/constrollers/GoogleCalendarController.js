@@ -27,7 +27,8 @@ function holidaysByDate(date) {
  * [ALL] Add the events to user calendar
  */
 GoogleCalendarRouter.all("/create", async (req, res) => {
-  const { subject, tokens } = req.body;
+  const { subject, tokens, notif_time } = req.body;
+
   if (!subject) return res.redirect("/subjects");
 
   let subjects = subject;
@@ -62,6 +63,15 @@ GoogleCalendarRouter.all("/create", async (req, res) => {
             .format(),
           timeZone: "America/Bogota"
         },
+        reminders: {
+          useDefault: false,
+          overrides: [
+            {
+              method: "popup",
+              minutes: notif_time || 20
+            }
+          ]
+        },
         recurrence: [
           `RRULE:FREQ=WEEKLY;UNTIL=${subject.lastMeetingDate
             .split("-")
@@ -69,9 +79,13 @@ GoogleCalendarRouter.all("/create", async (req, res) => {
           ...holidaysByDate(ev.sisStartTimeWTz.substr(0, 5))
         ]
       };
-      calendarService.createEvent(newEvent)
-        // .then(res => console.log('RES', res))
-        .catch(e => reportError(e, newEvent));
+      calendarService
+        .createEvent(newEvent)
+        .then(res => console.log('RES', res))
+        .catch(e => {
+          console.log(e);
+          reportError(e, newEvent);
+        });
     });
   });
 
