@@ -1,0 +1,17 @@
+version: '3.1'
+
+services:
+  api: 
+    image: node:dubnium-jessie
+    volumes:
+      - .:/usr/src/app
+    command: yarn --cwd /usr/src/app run dev 
+    ports:
+      - 3000:3000
+    depends_on:
+      - redis
+  redis:
+    build: .
+    ports:
+      - 6379:6379
+    restart: always

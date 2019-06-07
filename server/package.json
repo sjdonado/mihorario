@@ -1,0 +1,39 @@
+{
+  "name": "mihorario",
+  "version": "0.0.1",
+  "description": "Mihorario fork",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./bin/www",
+    "dev": "./node_modules/.bin/nodemon ./bin/www",
+    "debug": "node --inspect=0.0.0.0:9229 ./bin/www"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sjdonado/mihorario.git"
+  },
+  "author": "sjdonado",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sjdonado/mihorario/issues"
+  },
+  "homepage": "https://github.com/sjdonado/mihorario#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "connect-redis": "^3.4.1",
+    "cors": "^2.8.5",
+    "dotenv": "^6.2.0",
+    "express": "^4.16.4",
+    "express-session": "^1.16.1",
+    "googleapis": "^40.0.0",
+    "method-override": "^3.0.0",
+    "nodemon": "^1.18.9",
+    "puppeteer": "^1.17.0",
+    "redis": "^2.8.0"
+  },
+  "devDependencies": {
+    "eslint": "^5.12.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.14.0"
+  }
+}
