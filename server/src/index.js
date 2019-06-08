@@ -7,15 +7,18 @@ const redis = require('redis');
 const RedisStore = require('connect-redis')(session);
 const config = require('./config');
 
-const redisClient = redis.createClient(config.redis.uri);
+const redisClient = redis.createClient({
+  host: config.redis.host,
+  port: config.redis.port,
+});
 
 const api = require('./api/v1/');
 
 const app = express();
 
-// redisClient.on('error', (err) => {
-//   console.log('Redis error: ', err);
-// });
+redisClient.on('error', (err) => {
+  console.log('Redis error: ', err);
+});
 
 app.use(session({
   secret: config.session.secret,
@@ -31,7 +34,7 @@ app.use(session({
 //   credentials: true,
 // }));
 
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.use('/api/v1', api);

@@ -7,7 +7,7 @@ const controller = require('./controller');
 //   .post(controller.create)
 //   .put(controller.update);
 
-router.get('/login', controller.login);
-router.get('/logout', controller.logout);
+router.post('/schedule', controller.schedule);
+router.post('/logout', controller.logout);
 
 module.exports = router;

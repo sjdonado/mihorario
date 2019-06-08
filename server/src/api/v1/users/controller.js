@@ -1,17 +1,24 @@
-const { pomeloAuth, pomeloLogout } = require('./model');
+const { pomeloAuth, pomeloLogout, pomeloSchedule } = require('./model');
 
-const login = async (req, res, next) => {
-  const { userName, password } = req.body;
-  const { page, browser } = await pomeloAuth(userName, password);
-  req.session.page = page;
-  req.session.browser = browser;
+const schedule = async (req, res, next) => {
+  try {
+    const { username, password } = req.body;
+
+    const data = await pomeloSchedule(username, password);
+    req.session.user = data;
+
+    res.json({ data });
+  } catch (err) {
+    next(err);
+  }
 };
 
 const logout = async (req, res, next) => {
-  await pomeloLogout(req.session.browser);
+  res.session.user = null;
+  res.json({ data: [] });
 };
 
 module.exports = {
-  login,
   logout,
+  schedule,
 };

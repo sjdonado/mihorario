@@ -1,8 +1,8 @@
 const puppeteer = require('puppeteer');
 
-const openBrowser = async () => puppeteer.launch();
+const openBrowser = () => puppeteer.launch({ args: ['--no-sandbox'] });
 
-const closeBrowser = async browser => browser.close();
+const closeBrowser = browser => browser.close();
 
 const newPage = async (browser) => {
   const page = await browser.newPage();

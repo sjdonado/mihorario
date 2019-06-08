@@ -2,16 +2,22 @@ version: '3.1'
 
 services:
   api: 
-    image: node:dubnium-jessie
+    build: .
     volumes:
       - .:/usr/src/app
-    command: yarn --cwd /usr/src/app run dev 
+    command: bash -c "if [ ! -d 'node_modules' ]; then yarn; fi; yarn run dev"
     ports:
       - 3000:3000
     depends_on:
       - redis
   redis:
-    build: .
+    image: redis
+    entrypoint: redis-server --appendonly yes
+    volumes:
+      - redis-data:/data
     ports:
       - 6379:6379
     restart: always
+
+volumes:
+  redis-data:
