@@ -1,3 +1,4 @@
+const moment = require('moment');
 const {
   openBrowser,
   closeBrowser,
@@ -8,6 +9,11 @@ const {
 const pomeloLogin = 'https://pomelo.uninorte.edu.co/pls/prod/twbkwbis.P_WWWLogin';
 const pomeloScheduleDetils = 'https://pomelo.uninorte.edu.co/pls/prod/bwskfshd.P_CrseSchdDetl';
 
+/**
+ * Get Pomelo schedule
+ * @param {String} username
+ * @param {String} password
+ */
 const pomeloSchedule = async (username, password) => {
   const browser = await openBrowser();
   const page = await newPage(browser);
@@ -37,10 +43,10 @@ const pomeloSchedule = async (username, password) => {
     this.document.querySelector('body > div.pagebodydiv > form > input[type=submit]').click();
   });
 
-  await page.waitFor(() => this.document.querySelectorAll('.datadisplaytable').length);
+  await page.waitFor(() => this.document.querySelectorAll('.datadisplaytable').length > 0);
 
-  const schedule = await page.evaluate(() => {
-    const days = [[], [], [], [], [], [], []];
+  const subjectsByDays = await page.evaluate(() => {
+    const result = [[], [], [], [], [], [], []];
     const tables = [...this.document.querySelectorAll('.datadisplaytable')];
     for (let i = 0; i < tables.length; i += 2) {
       const timesTable = [...[...tables[i + 1].children[1].children].filter((_, idx) => idx !== 0)];
@@ -63,25 +69,25 @@ const pomeloSchedule = async (username, password) => {
         obj[2].split('').forEach((day) => {
           switch (day) {
             case 'L':
-              days[0].push(data);
+              result[0].push(data);
               break;
             case 'M':
-              days[1].push(data);
+              result[1].push(data);
               break;
             case 'I':
-              days[2].push(data);
+              result[2].push(data);
               break;
             case 'J':
-              days[3].push(data);
+              result[3].push(data);
               break;
             case 'V':
-              days[4].push(data);
+              result[4].push(data);
               break;
             case 'S':
-              days[5].push(data);
+              result[5].push(data);
               break;
             case 'D':
-              days[6].push(data);
+              result[6].push(data);
               break;
             default:
               break;
@@ -89,13 +95,37 @@ const pomeloSchedule = async (username, password) => {
         });
       });
     }
-    return days;
+    this.window.scrollTo(0, 1000);
+    return result;
+  });
+
+  const schedule = [];
+  subjectsByDays.forEach((day) => {
+    const scheduleDay = {};
+    day.forEach((row) => {
+      const startSubjectDate = moment(row.start, 'hh:mm A');
+      const finishSubjectDate = moment(row.finish, 'hh:mm A');
+
+      let startSubjectInt = parseInt(startSubjectDate.hours(), 10);
+      const finishSubjectInt = parseInt(finishSubjectDate.hours(), 10);
+
+      while (finishSubjectInt - startSubjectInt >= 1) {
+        scheduleDay[`${startSubjectInt}:${startSubjectDate.minutes()}`] = Object.assign({}, row, {
+          start: `${startSubjectInt}:${startSubjectDate.minutes()}`,
+          finish: `${startSubjectInt + 1}:${finishSubjectDate.minutes()}`,
+          startDate: moment(row.startDate, 'MMM DD, YYYY', 'es').format('DD/MM/YYYY'),
+          finishDate: moment(row.finishDate, 'MMM DD, YYYY', 'es').format('DD/MM/YYYY'),
+        });
+        startSubjectInt += 1;
+      }
+    });
+    schedule.push(scheduleDay);
   });
 
   await page.screenshot({ path: 'schedule.png' });
   await closeBrowser(browser);
 
-  return { fullName, schedule };
+  return { fullName, schedule, subjectsByDays };
 };
 
 module.exports = {

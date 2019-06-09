@@ -1,5 +1,5 @@
 /**
- * ScraperService
+ * Scraper service
  * @author sjdonado
  * @since 1.0.0
  */

@@ -168,31 +168,31 @@
 	],
 	"variable": [
 		{
-			"id": "662b38c2-559c-44dd-bb2a-1a2d28d7bd2e",
+			"id": "ef8196fc-862e-46b2-bc48-9192dd0acfe9",
 			"key": "url",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "51cf57ee-f601-407f-aad8-5ac6d48e026e",
+			"id": "bf2de104-1edb-4899-937a-03924904229a",
 			"key": "username",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "a2fb64e3-3e2e-41dd-88bf-1da3d95f2151",
+			"id": "1c41fab5-decf-43cd-94c8-87d189833679",
 			"key": "password",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "c6931dfb-4e51-4546-a62b-4a24f6c4ebeb",
+			"id": "548bedf8-afbc-4d57-af93-6956c6e84763",
 			"key": "gauth_access_token",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "64455313-52fd-4262-9c3f-49f60896f710",
+			"id": "0d179c38-9aa4-420b-9abe-8da0bc4a80ed",
 			"key": "gauth_refresh_token",
 			"value": "",
 			"type": "string"
