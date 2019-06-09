@@ -14,21 +14,26 @@ La idea de crear **mihorario** viene desde mis primeros semestres en la universi
 ## Tecnología
 
 <b>Cliente</b>
-- Server side templates with [Pug](https://pugjs.org/)
-- [UIKit](https://getuikit.com/)
-- [Unsplash](https://source.unsplash.com/)
+- [Angular](https://github.com/angular/angular)
 
 <b>Servidor</b>
 - [Express](https://expressjs.com/)
-- [Google Calendar API]()
-- [Passport.js](http://www.passportjs.org/) + [Local & Google Strategies](http://www.passportjs.org/docs/)
+- [Googleapis](https://github.com/googleapis/google-api-nodejs-client)
+- [NodeRedis](https://github.com/NodeRedis/node_redis)
+- [Moment](https://github.com/moment/moment)
+- [Puppeteer](https://github.com/GoogleChrome/puppeteer)
+- [Docker](https://hub.docker.com/_/node/)
+
+## Correr para desarrollo
+```
+  docker-compose up
+```
 
 ## Contribuir
 Si quieres, puedes aportar al proyecto. Inicia un pull request, reporta un bug o da una idea.
 
 A continuación una lista de personas que han contribuido al proyecto:
 
-- [Juan Rodriguez](https://github.com/sjdonado)
 - [William Cadenas](https://github.com/WilliamCadenas21)
 
 ## Créditos
@@ -36,4 +41,4 @@ A todos los que apoyan el proyecto, ¡muchas gracias! A David Figueroa y José P
 
 #### mihorario no está asociado directamente con la Universidad.
 
-MIT © [krthr](https://github.com/krthr)
+MIT © [krthr](https://github.com/krthr) [sjdonado](https://github.com/sjdonado)

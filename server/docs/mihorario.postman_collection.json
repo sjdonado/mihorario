@@ -125,10 +125,23 @@
 			"name": "GoogleCalendar import",
 			"request": {
 				"method": "POST",
-				"header": [],
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
 				"body": {
-					"mode": "raw",
-					"raw": ""
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "notificationTime",
+							"value": "15",
+							"type": "text"
+						}
+					]
 				},
 				"url": {
 					"raw": "{{url}}/google-calendar/import",
@@ -168,31 +181,31 @@
 	],
 	"variable": [
 		{
-			"id": "ef8196fc-862e-46b2-bc48-9192dd0acfe9",
+			"id": "5a936f0b-9b20-476e-97cc-fdaf6f90fa44",
 			"key": "url",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "bf2de104-1edb-4899-937a-03924904229a",
+			"id": "56aa16fc-0e23-4ed2-a865-e3b77550f8d2",
 			"key": "username",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "1c41fab5-decf-43cd-94c8-87d189833679",
+			"id": "ce5ebd3c-0ac7-4b19-a600-a72c3e6199ee",
 			"key": "password",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "548bedf8-afbc-4d57-af93-6956c6e84763",
+			"id": "21039a9f-752e-4fba-a940-9a2749c70fa3",
 			"key": "gauth_access_token",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "0d179c38-9aa4-420b-9abe-8da0bc4a80ed",
+			"id": "b3cf69fc-9b7c-4513-9775-a69968e5ce38",
 			"key": "gauth_refresh_token",
 			"value": "",
 			"type": "string"

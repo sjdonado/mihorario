@@ -9,7 +9,7 @@ const puppeteer = require('puppeteer');
 /**
  * Open new Puppeteer browser
  */
-const openBrowser = () => puppeteer.launch({ args: ['--no-sandbox'] });
+const openBrowser = () => puppeteer.launch({ args: ['--no-sandbox', '--disable-setuid-sandbox'] });
 
 /**
  * Close Puppeteer browser
