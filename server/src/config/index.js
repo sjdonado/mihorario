@@ -14,6 +14,11 @@ const config = {
     port: process.env.REDIS_PORT,
     ttl: process.env.REDIS_TTL,
   },
+  calendar: {
+    clientId: process.env.GOOGLE_CLIENT_ID,
+    secretClient: process.env.GOOGLE_SECRET_CLIENT,
+    callback: process.env.CALLBACK,
+  },
 };
 
 module.exports = config;

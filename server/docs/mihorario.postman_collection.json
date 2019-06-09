@@ -1,0 +1,201 @@
+{
+	"info": {
+		"_postman_id": "5c5e2ed1-313f-4066-ab04-7a7c577575a0",
+		"name": "mihorario",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Users schedule",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/users/schedule",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"users",
+						"schedule"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GoogleCalendar all",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/google-calendar/all",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"google-calendar",
+						"all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Users login",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "text"
+						},
+						{
+							"key": "gauthAccessToken",
+							"value": "{{gauth_access_token}}",
+							"type": "text"
+						},
+						{
+							"key": "gauthRefreshToken",
+							"value": "{{gauth_refresh_token}}",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url}}/users/login",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"users",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Users logout",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/users/logout",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"users",
+						"logout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GoogleCalendar import",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/google-calendar/import",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"google-calendar",
+						"import"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "7b0db6ec-8972-4fb6-9e3a-b3a1ce89da89",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "987b724b-6bb3-4324-bd9c-af7b4b64fa6d",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "662b38c2-559c-44dd-bb2a-1a2d28d7bd2e",
+			"key": "url",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "51cf57ee-f601-407f-aad8-5ac6d48e026e",
+			"key": "username",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "a2fb64e3-3e2e-41dd-88bf-1da3d95f2151",
+			"key": "password",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "c6931dfb-4e51-4546-a62b-4a24f6c4ebeb",
+			"key": "gauth_access_token",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "64455313-52fd-4262-9c3f-49f60896f710",
+			"key": "gauth_refresh_token",
+			"value": "",
+			"type": "string"
+		}
+	]
+}

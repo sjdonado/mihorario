@@ -40,17 +40,56 @@ const pomeloSchedule = async (username, password) => {
   await page.waitFor(() => this.document.querySelectorAll('.datadisplaytable').length);
 
   const schedule = await page.evaluate(() => {
-    const result = [];
+    const days = [[], [], [], [], [], [], []];
     const tables = [...this.document.querySelectorAll('.datadisplaytable')];
     for (let i = 0; i < tables.length; i += 2) {
       const timesTable = [...[...tables[i + 1].children[1].children].filter((_, idx) => idx !== 0)];
-      result.push({
-        nrc: tables[i].children[1].children[1].children[1].textContent,
-        subjectName: tables[i].caption.textContent,
-        times: timesTable.map(elem => [...elem.children].map(row => row.textContent)),
+      const scheduleArray = timesTable.map(elem => [...elem.children].map(row => row.textContent));
+      scheduleArray.forEach((obj) => {
+        const hours = obj[1].match(/([\s\S]+)\s-\s([\s\S]+)/);
+        const dates = obj[4].match(/([\s\S]+)\s-\s([\s\S]+)/);
+        const data = {
+          nrc: tables[i].children[1].children[1].children[1].textContent,
+          name: tables[i].caption.textContent,
+          type: obj[0],
+          start: hours[1],
+          finish: hours[2],
+          place: obj[3],
+          startDate: dates[1],
+          finishDate: dates[2],
+          subjectType: obj[5],
+          teacher: obj[6],
+        };
+        obj[2].split('').forEach((day) => {
+          switch (day) {
+            case 'L':
+              days[0].push(data);
+              break;
+            case 'M':
+              days[1].push(data);
+              break;
+            case 'I':
+              days[2].push(data);
+              break;
+            case 'J':
+              days[3].push(data);
+              break;
+            case 'V':
+              days[4].push(data);
+              break;
+            case 'S':
+              days[5].push(data);
+              break;
+            case 'D':
+              days[6].push(data);
+              break;
+            default:
+              break;
+          }
+        });
       });
     }
-    return result;
+    return days;
   });
 
   await page.screenshot({ path: 'schedule.png' });

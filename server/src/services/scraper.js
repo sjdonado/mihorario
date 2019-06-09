@@ -1,9 +1,26 @@
+/**
+ * ScraperService
+ * @author sjdonado
+ * @since 1.0.0
+ */
+
 const puppeteer = require('puppeteer');
 
+/**
+ * Open new Puppeteer browser
+ */
 const openBrowser = () => puppeteer.launch({ args: ['--no-sandbox'] });
 
+/**
+ * Close Puppeteer browser
+ * @param {*} Puppeteer.browser
+ */
 const closeBrowser = browser => browser.close();
 
+/**
+ * Create new Puppeteer page
+ * @param {*} Puppeteer.browser
+ */
 const newPage = async (browser) => {
   const page = await browser.newPage();
   // Required config for optimize the page loading time
@@ -20,11 +37,8 @@ const newPage = async (browser) => {
 
 /**
  * Go to link
- *
- * @param {Puppeteer.Page} page
- *   Puppeteer page object
+ * @param {*} Puppeteer.page
  * @param {string} url
- *   Site url.
  */
 const goTo = async (page, url) => page.goto(url, { waitUntil: 'networkidle2' });
 

@@ -27,6 +27,7 @@
     "express-session": "^1.16.1",
     "googleapis": "^40.0.0",
     "method-override": "^3.0.0",
+    "moment": "^2.24.0",
     "nodemon": "^1.18.9",
     "puppeteer": "^1.17.0",
     "redis": "^2.8.0"

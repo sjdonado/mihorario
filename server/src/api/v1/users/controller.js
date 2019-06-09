@@ -1,11 +1,10 @@
-const { pomeloAuth, pomeloLogout, pomeloSchedule } = require('./model');
+const { pomeloSchedule } = require('./model');
 
-const schedule = async (req, res, next) => {
+const getSchedule = async (req, res, next) => {
   try {
-    const { username, password } = req.body;
-
+    const { username, password } = req.session.user;
     const data = await pomeloSchedule(username, password);
-    req.session.user = data;
+    req.session.pomelo = data;
 
     res.json({ data });
   } catch (err) {
@@ -13,12 +12,38 @@ const schedule = async (req, res, next) => {
   }
 };
 
+const login = async (req, res, next) => {
+  const {
+    username,
+    password,
+    gauthAccessToken,
+    gauthRefreshToken,
+  } = req.body;
+
+  if (username && password && gauthAccessToken && gauthRefreshToken) {
+    req.session.user = {
+      username,
+      password,
+      tokens: {
+        access_token: gauthAccessToken,
+        refresh_token: gauthRefreshToken,
+      },
+    };
+  } else {
+    next(new Error('Bad request'));
+  }
+
+  res.status(204).json();
+};
+
 const logout = async (req, res, next) => {
-  res.session.user = null;
-  res.json({ data: [] });
+  req.session.user = null;
+  req.session.pomelo = null;
+  res.status(204).json();
 };
 
 module.exports = {
+  getSchedule,
+  login,
   logout,
-  schedule,
 };

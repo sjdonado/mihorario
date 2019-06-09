@@ -7,9 +7,7 @@ const controller = require('./controller');
 //   .post(controller.create)
 //   .put(controller.update);
 
-router.get('/schedule', controller.getSchedule);
-
-router.post('/login', controller.login);
-router.post('/logout', controller.logout);
+router.get('/all', controller.all);
+router.post('/import', controller.importScheduleToCalendar);
 
 module.exports = router;
