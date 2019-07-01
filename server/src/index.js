@@ -29,10 +29,9 @@ app.use(session({
   store: new RedisStore(Object.assign(config.redis, { client: redisClient })),
 }));
 
-// app.use(cors({
-//   origin: ['http://localhost'],
-//   credentials: true,
-// }));
+app.use(cors({
+  origin: ['http://localhost:4200'],
+}));
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());

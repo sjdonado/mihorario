@@ -2,9 +2,9 @@ version: '3.1'
 
 services:
   api: 
-    build: .
+    build: ./server
     volumes:
-      - .:/usr/src/app
+      - ./server:/usr/src/app
     command: bash -c "if [ ! -d 'node_modules' ]; then yarn; fi; yarn run dev"
     ports:
       - 3000:3000

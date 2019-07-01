@@ -1,0 +1,55 @@
+mat-card-content {
+  margin: 30px 20px !important;
+}
+
+mat-card {
+  box-shadow: 0 2px 30px rgba(black, .2) !important;
+}
+
+.wrapper {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, rgb(125, 176, 235), rgba(196, 227, 253, 0) 80%, rgba(white, .5));
+  z-index: 1;
+}
+
+.wave {
+  position: absolute;
+  top: 23%;
+  right: 50%;
+  width: 26%;
+  height: 52%;
+  margin-right: -13%;
+  border-radius: 42%;
+  opacity: .4;
+  background: rgb(33, 102, 182);
+  animation: drift 8000ms infinite linear;
+  z-index: -1;
+}
+
+.wave.-three {
+  animation: drift 10000ms infinite linear;
+}
+
+.wave.-two {
+  animation: drift 12000ms infinite linear;
+  opacity: .1;
+  background: rgb(196, 227, 253);
+}
+
+.title {
+  position: absolute;
+  top: 15%;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 0.4em;
+  font-size: 24px;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
+  text-indent: 0.3em;
+  z-index: 1;
+}
+
+@keyframes drift {
+  from { transform: rotate(0deg); }
+  from { transform: rotate(360deg); }
+}

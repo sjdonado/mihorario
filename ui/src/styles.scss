@@ -1,1 +1,82 @@
-/* You can add global styles to this file, and also import other style files */
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
+
+html, body {
+  background: transparent;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.mat-form-field-appearance-outline .mat-form-field-infix {
+  padding: 1em 6px 1em 0;
+}
+
+mat-card-content{
+  overflow: auto;
+  max-height: 100%;
+}
+ 
+div.card-title{
+  font-size: 24px;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+ 
+.mat-card{
+  display: flex !important;
+  flex-direction: column;
+  max-height: 100%;
+}
+
+div.floating-buttons {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 999;
+}
+
+table.selectable-row {
+  tbody {
+    tr {
+      cursor: pointer;
+      &:hover, &.active {
+        background-color: rgb(247,247,247);
+      }
+    }
+  }
+}
+
+/* You will be forced to separate it from the mat progress bar logic */
+mat-progress-bar.white .mat-progress-bar-fill::after{
+  background-color: white;
+}
+
+mat-progress-bar.white {
+  .mat-progress-bar-buffer {
+    background-color: #585858;
+  }
+}
+
+mat-form-field.select-search-input {
+  padding: 16px 16px 0 16px;
+  width: 100%;
+}
+
+div.mat-dialog-actions {
+  place-content: center flex-end;
+}
+
+div.photo-preview {
+  text-align: center;
+  > img {
+    max-width: 200px;
+  }
+}
