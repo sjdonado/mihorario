@@ -22,6 +22,9 @@ const config = {
   token: {
     secret: process.env.SECRET,
   },
+  cryptr: {
+    secret: process.env.CRYPTR_SECRET,
+  },
 };
 
 module.exports = config;

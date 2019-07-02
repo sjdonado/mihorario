@@ -40,7 +40,7 @@ const newPage = async (browser) => {
  * @param {*} Puppeteer.page
  * @param {string} url
  */
-const goTo = async (page, url) => page.goto(url, { waitUntil: 'networkidle2', timeout: 50000 });
+const goTo = async (page, url) => page.goto(url, { waitUntil: 'networkidle2' });
 
 module.exports = {
   openBrowser,

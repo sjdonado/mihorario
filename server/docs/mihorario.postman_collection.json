@@ -21,13 +21,48 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "{{url}}/users/schedule",
+					"raw": "{{url}}/users/schedule?scheduleOption=201920",
 					"host": [
 						"{{url}}"
 					],
 					"path": [
 						"users",
 						"schedule"
+					],
+					"query": [
+						{
+							"key": "scheduleOption",
+							"value": "201920"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Users get schedule options",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "{{token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/users/schedule/options",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"users",
+						"schedule",
+						"options"
 					]
 				}
 			},
@@ -240,37 +275,37 @@
 	],
 	"variable": [
 		{
-			"id": "45a1dba6-74a0-49b8-9783-de699eac8174",
+			"id": "9ce26545-0919-48a4-9676-a88f711d16a4",
 			"key": "url",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "9f6132cb-4595-470e-a05e-6ad6347a93a5",
+			"id": "fd0c2571-0e4c-4954-bdd2-2727530b6ea6",
 			"key": "username",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "bc0315cd-0a80-4405-9f63-7deae8bb2972",
+			"id": "a934c4b4-11f3-4e7e-8279-d3bf776ca106",
 			"key": "password",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "1d36bf48-c5bf-48e3-bfa1-85de27a945fa",
+			"id": "aa059867-9664-4c9d-88b9-dd88022d14ff",
 			"key": "gauth_access_token",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "5990b588-e7c6-44f3-b359-41a6ca318c1c",
+			"id": "a7d0ad4e-f062-4b1c-884c-7ce4e65a0a36",
 			"key": "gauth_refresh_token",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "d91f0a10-09be-449c-a929-4a45a1094784",
+			"id": "2174c167-3f19-4b79-aaaf-b22717ece160",
 			"key": "token",
 			"value": "",
 			"type": "string"

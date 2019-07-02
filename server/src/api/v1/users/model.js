@@ -10,11 +10,11 @@ const pomeloLogin = 'https://pomelo.uninorte.edu.co/pls/prod/twbkwbis.P_WWWLogin
 const pomeloScheduleDetils = 'https://pomelo.uninorte.edu.co/pls/prod/bwskfshd.P_CrseSchdDetl';
 
 /**
- * Get Pomelo schedule
+ * Login to Pomelo
  * @param {String} username
  * @param {String} password
  */
-const pomeloSchedule = async (username, password) => {
+const login = async (username, password) => {
   const browser = await openBrowser();
   const page = await newPage(browser);
 
@@ -33,15 +33,39 @@ const pomeloSchedule = async (username, password) => {
   const fullName = welcomeMessage.match(/,\s([\s\S]+),/)[1];
 
   await page.screenshot({ path: 'auth.png' });
+  return { browser, page, fullName };
+};
+
+/**
+ * Get Pomelo schedule options
+ * @param {String} username
+ * @param {String} password
+ */
+const pomeloScheduleOptions = async (username, password) => {
+  const { page } = await login(username, password);
 
   await goTo(page, pomeloScheduleDetils);
-
   await page.waitFor(() => this.document.querySelector('#term_id'));
 
-  await page.evaluate(() => {
-    this.document.querySelector('#term_id').value = [...this.document.querySelector('#term_id').options].filter(elem => !elem.text.toLowerCase().includes('ver solo'))[0].value;
+  return page.evaluate(() => [...this.document.querySelector('#term_id').options].map(elem => ({ text: elem.text, value: elem.value })));
+};
+
+/**
+ * Get Pomelo schedule
+ * @param {String} username
+ * @param {String} password
+ * @param {String} scheduleOption
+ */
+const pomeloSchedule = async (username, password, scheduleOption) => {
+  const { browser, page, fullName } = await login(username, password);
+
+  await goTo(page, pomeloScheduleDetils);
+  await page.waitFor(() => this.document.querySelector('#term_id'));
+
+  await page.evaluate((option) => {
+    this.document.querySelector('#term_id').value = option;
     this.document.querySelector('body > div.pagebodydiv > form > input[type=submit]').click();
-  });
+  }, scheduleOption);
 
   await page.waitFor(() => this.document.querySelectorAll('.datadisplaytable').length > 0);
 
@@ -130,4 +154,5 @@ const pomeloSchedule = async (username, password) => {
 
 module.exports = {
   pomeloSchedule,
+  pomeloScheduleOptions,
 };
