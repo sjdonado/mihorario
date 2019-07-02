@@ -6,10 +6,16 @@
 	},
 	"item": [
 		{
-			"name": "Users schedule",
+			"name": "Users get schedule",
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
 					"raw": ""
@@ -31,7 +37,13 @@
 			"name": "GoogleCalendar all",
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
 					"raw": ""
@@ -73,16 +85,6 @@
 							"key": "password",
 							"value": "{{password}}",
 							"type": "text"
-						},
-						{
-							"key": "gauthAccessToken",
-							"value": "{{gauth_access_token}}",
-							"type": "text"
-						},
-						{
-							"key": "gauthRefreshToken",
-							"value": "{{gauth_refresh_token}}",
-							"type": "text"
 						}
 					]
 				},
@@ -100,10 +102,62 @@
 			"response": []
 		},
 		{
+			"name": "Users Google login",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/x-www-form-urlencoded"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "gauthAccessToken",
+							"value": "{{gauth_access_token}}",
+							"type": "text"
+						},
+						{
+							"key": "gauthRefreshToken",
+							"value": "{{gauth_refresh_token}}",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url}}/users/login/google",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"users",
+						"login",
+						"google"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Users logout",
 			"request": {
 				"method": "POST",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
 					"raw": ""
@@ -130,6 +184,11 @@
 						"key": "Content-Type",
 						"name": "Content-Type",
 						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
 						"type": "text"
 					}
 				],
@@ -181,32 +240,38 @@
 	],
 	"variable": [
 		{
-			"id": "5a936f0b-9b20-476e-97cc-fdaf6f90fa44",
+			"id": "45a1dba6-74a0-49b8-9783-de699eac8174",
 			"key": "url",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "56aa16fc-0e23-4ed2-a865-e3b77550f8d2",
+			"id": "9f6132cb-4595-470e-a05e-6ad6347a93a5",
 			"key": "username",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "ce5ebd3c-0ac7-4b19-a600-a72c3e6199ee",
+			"id": "bc0315cd-0a80-4405-9f63-7deae8bb2972",
 			"key": "password",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "21039a9f-752e-4fba-a940-9a2749c70fa3",
+			"id": "1d36bf48-c5bf-48e3-bfa1-85de27a945fa",
 			"key": "gauth_access_token",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "b3cf69fc-9b7c-4513-9775-a69968e5ce38",
+			"id": "5990b588-e7c6-44f3-b359-41a6ca318c1c",
 			"key": "gauth_refresh_token",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "d91f0a10-09be-449c-a929-4a45a1094784",
+			"key": "token",
 			"value": "",
 			"type": "string"
 		}

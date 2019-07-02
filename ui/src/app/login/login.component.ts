@@ -27,6 +27,7 @@ export class LoginComponent implements OnInit {
     this.authService.pomeloLogin(this.form.value).subscribe(
       (response: Response) => {
         console.log(response);
+        this.router.navigateByUrl('/home');
     }, (err) => {
       console.log('Error: ' + err);
     });

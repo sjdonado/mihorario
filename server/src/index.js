@@ -1,33 +1,10 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const session = require('express-session');
-const redis = require('redis');
-
-const RedisStore = require('connect-redis')(session);
-const config = require('./config');
-
-const redisClient = redis.createClient({
-  host: config.redis.host,
-  port: config.redis.port,
-});
 
 const api = require('./api/v1/');
 
 const app = express();
-
-redisClient.on('error', (err) => {
-  console.log('Redis error: ', err);
-});
-
-app.use(session({
-  secret: config.session.secret,
-  name: config.session.name,
-  resave: false,
-  saveUninitialized: true,
-  cookie: { secure: false },
-  store: new RedisStore(Object.assign(config.redis, { client: redisClient })),
-}));
 
 app.use(cors({
   origin: ['http://localhost:4200'],

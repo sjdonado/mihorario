@@ -19,6 +19,9 @@ const config = {
     secretClient: process.env.GOOGLE_SECRET_CLIENT,
     callback: process.env.CALLBACK,
   },
+  token: {
+    secret: process.env.SECRET,
+  },
 };
 
 module.exports = config;

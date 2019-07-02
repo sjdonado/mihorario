@@ -1,9 +1,13 @@
 const { getWeekEvents, importSchedule } = require('./model');
+const { getRecords } = require('../../../services/redis');
 
 const all = async (req, res, next) => {
   try {
-    const { tokens } = req.session.user;
-    const data = await getWeekEvents(tokens);
+    const { accessToken, refreshToken } = await getRecords(req.username);
+    const data = await getWeekEvents({
+      access_token: accessToken,
+      refresh_token: refreshToken,
+    });
     res.json({ data });
   } catch (err) {
     next(err);
@@ -13,9 +17,12 @@ const all = async (req, res, next) => {
 const importScheduleToCalendar = async (req, res, next) => {
   try {
     const { notificationTime } = req.body;
-    const { tokens } = req.session.user;
-    const { subjectsByDays } = req.session.pomelo;
-    const data = await importSchedule(tokens, subjectsByDays, notificationTime);
+    const { accessToken, refreshToken, pomeloData } = await getRecords(req.username);
+    const { subjectsByDays } = JSON.parse(pomeloData);
+    const data = await importSchedule({
+      access_token: accessToken,
+      refresh_token: refreshToken,
+    }, subjectsByDays, notificationTime);
     res.json({ data });
   } catch (err) {
     next(err);
