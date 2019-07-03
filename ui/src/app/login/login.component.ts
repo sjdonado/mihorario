@@ -11,8 +11,10 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
+
   private form: FormGroup;
   private title: string;
+  private isLoading: boolean;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -35,14 +37,18 @@ export class LoginComponent implements OnInit {
   }
 
   logIn() {
+    this.isLoading = true;
     this.authService.pomeloLogin(this.form.value).subscribe(
       (response: Response) => {
         console.log(response);
-        const snackBarRef = this.snackBar.open('Message archived');
-        snackBarRef.afterDismissed().subscribe(() => this.router.navigateByUrl('/home'));
-    }, (err) => {
-      console.log('Error: ' + err);
-    });
+        this.router.navigateByUrl('/home');
+        this.isLoading = false;
+      }, (err) => {
+        this.isLoading = false;
+        this.snackBar.open('Error al iniciar sesión, intente de nuevo', 'Cerrar', { duration: 3000 });
+        console.log('Error: ' + err);
+      },
+    );
   }
 
   get getFormGroup() {

@@ -40,35 +40,6 @@
 			"response": []
 		},
 		{
-			"name": "Users get schedule options",
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "Authorization",
-						"type": "text",
-						"value": "{{token}}"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "{{url}}/users/schedule/options",
-					"host": [
-						"{{url}}"
-					],
-					"path": [
-						"users",
-						"schedule",
-						"options"
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "GoogleCalendar all",
 			"request": {
 				"method": "GET",
@@ -275,37 +246,37 @@
 	],
 	"variable": [
 		{
-			"id": "c35f759a-589b-47d4-8440-d76f8192420d",
+			"id": "df668957-105f-47e9-b500-41b39326c7ec",
 			"key": "url",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "a228b7f6-c081-4dad-b3f6-0bb3635bba6b",
+			"id": "79eb79ab-dc59-41ef-9ae6-b36ce379914c",
 			"key": "username",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "df322074-ca89-491f-9396-5130451f99f3",
+			"id": "47e26b7a-cbc6-48f0-953c-66f60b19f6f2",
 			"key": "password",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "2be8366c-18fd-4852-a974-db8b10a3f5f7",
+			"id": "331d4bea-9ef2-46b2-aa56-ea308dc7629b",
 			"key": "gauth_access_token",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "2cde1cb7-4ed4-4039-b15a-946137736855",
+			"id": "2e001221-b203-4129-b0d5-6755189c2e5a",
 			"key": "gauth_refresh_token",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "03a951e1-e411-411d-9544-b7b30f2e8a92",
+			"id": "2129b667-edfe-4a9c-aebc-2eb661f51e7e",
 			"key": "token",
 			"value": "",
 			"type": "string"

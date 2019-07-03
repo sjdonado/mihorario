@@ -1,4 +1,5 @@
 const moment = require('moment');
+const ApiError = require('../../../lib/ApiError');
 const {
   openBrowser,
   closeBrowser,
@@ -28,12 +29,17 @@ const login = async (username, password) => {
     this.document.querySelector('body > div.pagebodydiv > form > p > input[type=submit]').click();
   }, username, password);
 
-  await page.waitFor(() => this.document.querySelector('body > div.pagebodydiv > table:nth-child(1) > tbody > tr > td:nth-child(2) > b:nth-child(1)'));
-  const welcomeMessage = await page.evaluate(() => this.document.querySelector('body > div.pagebodydiv > table:nth-child(1) > tbody > tr > td:nth-child(2) > b:nth-child(1)').textContent);
-  const fullName = welcomeMessage.match(/,\s([\s\S]+),/)[1];
+  return page.waitFor(() => this.document.querySelector('body > div.pagebodydiv > table:nth-child(1) > tbody > tr > td:nth-child(2) > b:nth-child(1)'))
+    .then(async () => {
+      const welcomeMessage = await page.evaluate(() => this.document.querySelector('body > div.pagebodydiv > table:nth-child(1) > tbody > tr > td:nth-child(2) > b:nth-child(1)').textContent);
+      const fullName = welcomeMessage.match(/,\s([\s\S]+),/)[1];
 
-  await page.screenshot({ path: 'auth.png' });
-  return { browser, page, fullName };
+      await page.screenshot({ path: 'auth.png' });
+      return { browser, page, fullName };
+    })
+    .catch(() => {
+      throw new ApiError('Invalid credentials', 400);
+    });
 };
 
 /**
@@ -41,7 +47,7 @@ const login = async (username, password) => {
  * @param {String} username
  * @param {String} password
  */
-const pomeloScheduleOptions = async (username, password) => {
+const pomeloSchedulePeriods = async (username, password) => {
   const { page, fullName } = await login(username, password);
 
   await goTo(page, pomeloScheduleDetils);
@@ -157,5 +163,5 @@ const pomeloSchedule = async (username, password, scheduleOption) => {
 
 module.exports = {
   pomeloSchedule,
-  pomeloScheduleOptions,
+  pomeloSchedulePeriods,
 };

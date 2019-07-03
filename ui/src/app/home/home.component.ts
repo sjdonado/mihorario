@@ -10,8 +10,7 @@ import { AppComponent } from '../app.component';
 })
 export class HomeComponent implements OnInit {
 
-  private isLoading: boolean;
-  private scheduleOptions: string[];
+  private schedulePeriods: string[];
   private fullName: string;
   private title: string;
 
@@ -23,21 +22,20 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.title = this.appComponent.title;
+    this.schedulePeriods = this.authService.pomeloData.options;
+    this.fullName = this.authService.pomeloData.fullName;
 
-    this.isLoading = true;
-    this.userService.getPomeloScheduleOptions().subscribe(
-      (res: any) => {
-        const { options, fullName } = res.data;
-        this.scheduleOptions = options;
-        this.fullName = fullName;
-      },
-      err => {
-        console.error('cgetPomeloScheduleOptions error', err);
-      },
-      () => {
-        this.isLoading = false;
-      }
-    );
+    // this.userService.getPomeloSchedulePeriods().subscribe(
+    //   (res: any) => {
+    //     const { options, fullName } = res.data;
+    //     this.schedulePeriods = options;
+    //     this.fullName = fullName;
+    //   },
+    //   err => {
+    //     console.error('cgetPomeloSchedulePeriods error', err);
+    //   },
+
+    // );
   }
 
   logout() {

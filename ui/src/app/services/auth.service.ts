@@ -26,6 +26,7 @@ export class AuthService {
         (res: any) => {
           console.warn('userToken', res.data.token);
           localStorage.setItem('userToken', res.data.token);
+          localStorage.setItem('pomeloData', JSON.stringify(res.data.pomelo));
         },
         err => console.error(err),
       )
@@ -39,5 +40,9 @@ export class AuthService {
 
   get token() {
     return localStorage.getItem('userToken');
+  }
+
+  get pomeloData() {
+    return JSON.parse(localStorage.getItem('pomeloData'));
   }
 }

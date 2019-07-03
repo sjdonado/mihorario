@@ -8,7 +8,6 @@ const { auth } = require('../../../services/auth');
 //   .post(controller.create)
 //   .put(controller.update);
 
-router.get('/schedule/options', auth, controller.getPomeloScheduleOptions);
 router.get('/schedule', auth, controller.getSchedule);
 
 router.post('/login', controller.login);

@@ -18,12 +18,12 @@ export class UserService {
     private httpClient: HttpClient
   ) { }
 
-  getPomeloScheduleOptions() {
-    const scheduleOptions = this.scheduleOptions();
-    if (scheduleOptions) {
-      console.warn('CACHED => scheduleOptions', scheduleOptions);
+  getPomeloSchedulePeriods() {
+    const schedulePeriods = this.schedulePeriods();
+    if (schedulePeriods) {
+      console.warn('CACHED => schedulePeriods', schedulePeriods);
       return new Observable(observer => {
-        observer.next(scheduleOptions);
+        observer.next(schedulePeriods);
         observer.complete();
       });
     }
@@ -32,16 +32,16 @@ export class UserService {
     }).pipe(
       tap(
         (res: any) => {
-          console.log('getPomeloScheduleOptions', res.data);
-          localStorage.setItem('scheduleOptions', JSON.stringify(res));
+          console.log('getPomeloSchedulePeriods', res.data);
+          localStorage.setItem('schedulePeriods', JSON.stringify(res));
         },
         err => console.error(err),
       )
     );
   }
 
-  scheduleOptions() {
-    return JSON.parse(localStorage.getItem('scheduleOptions'));
+  schedulePeriods() {
+    return JSON.parse(localStorage.getItem('schedulePeriods'));
   }
 
 }

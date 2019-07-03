@@ -6,28 +6,28 @@
       <mat-icon aria-hidden="false" aria-label="Cerrar sesión" (click)="logout()">logout</mat-icon>
     </mat-toolbar-row>
   </mat-toolbar>
-  <ng-template [ngIf]="!isLoading" [ngIfElse]="loading">
-    <span fxLayout="row" fxLayoutAlign="center center" fxFlex="30" class='title welcome'>Bienvenido, {{ fullName }}</span>
-    <div fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="5px" fxFlex="60">
-      <span fxLayout="row" fxFlex="20" class='title select-title'>Seleccionar periodo</span>
-      <mat-card fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px" fxFlex="40">
-        <mat-card-content fxLayout="column" fxLayoutAlign="center center" fxFlex="80">
-          <mat-form-field>
-            <mat-label>Periodo</mat-label>
-            <mat-select>
-              <mat-option *ngFor="let scheduleOption of scheduleOptions" [value]="scheduleOption.value">
-                {{ scheduleOption.text }}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-          <button mat-button color="primary">Continuar</button>
-        </mat-card-content>
-      </mat-card>
-    </div>
-  </ng-template>
-  <ng-template #loading>
+  <!-- <ng-template [ngIf]="!isLoading" [ngIfElse]="loading"> -->
+  <span fxLayout="row" fxLayoutAlign="center center" fxFlex="30" class='title welcome'>Bienvenido, {{ fullName }}</span>
+  <div fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="5px" fxFlex="60">
+    <span fxLayout="row" fxFlex="20" class='title select-title'>Seleccionar periodo</span>
+    <mat-card fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px" fxFlex="40">
+      <mat-card-content fxLayout="column" fxLayoutAlign="center center" fxFlex="80">
+        <mat-form-field>
+          <mat-label>Periodo</mat-label>
+          <mat-select>
+            <mat-option *ngFor="let schedulePeriod of schedulePeriods" [value]="schedulePeriod.value">
+              {{ schedulePeriod.text }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <button mat-button color="primary">Continuar</button>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <!-- </ng-template> -->
+  <!-- <ng-template #loading>
     <div fxLayout="row" fxLayoutAlign="center">
       <mat-spinner ></mat-spinner>
     </div>
-  </ng-template>
+  </ng-template> -->
 </div>

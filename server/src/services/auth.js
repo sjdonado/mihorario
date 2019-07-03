@@ -6,6 +6,7 @@
 
 const { sign, verify } = require('jsonwebtoken');
 
+const ApiError = require('../lib/ApiError');
 const config = require('../config');
 
 /**
@@ -21,14 +22,14 @@ const signToken = (payload, expiresIn = '8h') => sign(payload, config.token.secr
 const auth = (req, res, next) => {
   const token = req.headers.authorization || req.query.token || req.body.token;
 
-  if (!token) next(new Error('Unauthorized'));
+  if (!token) next(new ApiError('Unauthorized', 401));
 
   verify(token, config.token.secret, (err, decoded) => {
-    if (err) next(new Error('Unauthorized'));
+    if (err) next(new ApiError('Unauthorized', 401));
     console.log('USER TOKEN ->', decoded);
 
     const { username, iat, exp } = decoded;
-    if (exp - iat < 0) next(new Error('Token expired'));
+    if (exp - iat < 0) next(new ApiError('Token expired'));
 
     req.username = username;
     next();

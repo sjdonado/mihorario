@@ -1,4 +1,5 @@
 const { getWeekEvents, importSchedule } = require('./model');
+
 const { getRecords } = require('../../../services/redis');
 
 const all = async (req, res, next) => {
