@@ -275,37 +275,37 @@
 	],
 	"variable": [
 		{
-			"id": "9ce26545-0919-48a4-9676-a88f711d16a4",
+			"id": "c35f759a-589b-47d4-8440-d76f8192420d",
 			"key": "url",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "fd0c2571-0e4c-4954-bdd2-2727530b6ea6",
+			"id": "a228b7f6-c081-4dad-b3f6-0bb3635bba6b",
 			"key": "username",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "a934c4b4-11f3-4e7e-8279-d3bf776ca106",
+			"id": "df322074-ca89-491f-9396-5130451f99f3",
 			"key": "password",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "aa059867-9664-4c9d-88b9-dd88022d14ff",
+			"id": "2be8366c-18fd-4852-a974-db8b10a3f5f7",
 			"key": "gauth_access_token",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "a7d0ad4e-f062-4b1c-884c-7ce4e65a0a36",
+			"id": "2cde1cb7-4ed4-4039-b15a-946137736855",
 			"key": "gauth_refresh_token",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "2174c167-3f19-4b79-aaaf-b22717ece160",
+			"id": "03a951e1-e411-411d-9544-b7b30f2e8a92",
 			"key": "token",
 			"value": "",
 			"type": "string"

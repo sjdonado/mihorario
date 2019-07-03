@@ -2,17 +2,6 @@ mat-card-content {
   margin: 30px 20px !important;
 }
 
-mat-card {
-  box-shadow: 0 2px 30px rgba(black, .2) !important;
-}
-
-.wrapper {
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(to bottom, rgb(125, 176, 235), rgba(196, 227, 253, 0) 80%, rgba(white, .5));
-  z-index: 1;
-}
-
 .wave {
   position: absolute;
   top: 23%;
@@ -37,16 +26,10 @@ mat-card {
   background: rgb(196, 227, 253);
 }
 
-.title {
+.app-name {
   position: absolute;
   top: 15%;
-  color: white;
-  text-transform: uppercase;
-  letter-spacing: 0.4em;
   font-size: 24px;
-  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
-  text-indent: 0.3em;
-  z-index: 1;
 }
 
 @keyframes drift {

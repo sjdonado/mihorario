@@ -42,12 +42,13 @@ const login = async (username, password) => {
  * @param {String} password
  */
 const pomeloScheduleOptions = async (username, password) => {
-  const { page } = await login(username, password);
+  const { page, fullName } = await login(username, password);
 
   await goTo(page, pomeloScheduleDetils);
   await page.waitFor(() => this.document.querySelector('#term_id'));
 
-  return page.evaluate(() => [...this.document.querySelector('#term_id').options].map(elem => ({ text: elem.text, value: elem.value })));
+  const options = await page.evaluate(() => [...this.document.querySelector('#term_id').options].map(elem => ({ text: elem.text, value: elem.value })));
+  return { options, fullName };
 };
 
 /**
