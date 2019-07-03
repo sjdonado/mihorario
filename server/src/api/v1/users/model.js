@@ -47,7 +47,9 @@ const pomeloScheduleOptions = async (username, password) => {
   await goTo(page, pomeloScheduleDetils);
   await page.waitFor(() => this.document.querySelector('#term_id'));
 
-  const options = await page.evaluate(() => [...this.document.querySelector('#term_id').options].map(elem => ({ text: elem.text, value: elem.value })));
+  const options = await page.evaluate(() => [...this.document.querySelector('#term_id').options]
+    .filter(elem => !elem.text.toLowerCase().includes('ver solo'))
+    .map(elem => ({ text: elem.text, value: elem.value })));
   return { options, fullName };
 };
 

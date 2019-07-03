@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../services/user.service';
 import { AuthService } from '../services/auth.service';
+import { AppComponent } from '../app.component';
 
 @Component({
   selector: 'app-home',
@@ -12,13 +13,17 @@ export class HomeComponent implements OnInit {
   private isLoading: boolean;
   private scheduleOptions: string[];
   private fullName: string;
+  private title: string;
 
   constructor(
     private userService: UserService,
-    private authService: AuthService
+    private authService: AuthService,
+    private appComponent: AppComponent
   ) { }
 
   ngOnInit() {
+    this.title = this.appComponent.title;
+
     this.isLoading = true;
     this.userService.getPomeloScheduleOptions().subscribe(
       (res: any) => {

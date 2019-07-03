@@ -1,4 +1,5 @@
 @import '@angular/material/prebuilt-themes/indigo-pink.css';
+@import 'theme.scss';
 
 html, body {
   background: transparent;
@@ -103,6 +104,10 @@ mat-card {
   text-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
   text-indent: 0.3em;
   z-index: 1;
+}
+
+.mat-progress-spinner circle, .mat-spinner circle {
+  stroke: white;
 }
 
 // div.wrapper {

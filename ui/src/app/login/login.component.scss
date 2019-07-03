@@ -1,38 +1,7 @@
 mat-card-content {
-  margin: 30px 20px !important;
-}
-
-.wave {
-  position: absolute;
-  top: 23%;
-  right: 50%;
-  width: 26%;
-  height: 52%;
-  margin-right: -13%;
-  border-radius: 42%;
-  opacity: .4;
-  background: rgb(33, 102, 182);
-  animation: drift 8000ms infinite linear;
-  z-index: -1;
-}
-
-.wave.-three {
-  animation: drift 10000ms infinite linear;
-}
-
-.wave.-two {
-  animation: drift 12000ms infinite linear;
-  opacity: .1;
-  background: rgb(196, 227, 253);
+  margin: 40px 20px !important;
 }
 
 .app-name {
-  position: absolute;
-  top: 15%;
   font-size: 24px;
-}
-
-@keyframes drift {
-  from { transform: rotate(0deg); }
-  from { transform: rotate(360deg); }
 }

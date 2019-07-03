@@ -8,3 +8,22 @@ mat-toolbar {
     color: white;
   }
 }
+
+mat-form-field {
+  width: 250px;
+}
+
+.toolbar-spacer {
+  width: 90%;
+}
+
+.welcome {
+  font-size: 20px;
+  text-align: center;
+}
+
+.select-title {
+  font-size: 16px;
+  // color: rgb(80, 80, 80);
+  // text-shadow: none;
+}

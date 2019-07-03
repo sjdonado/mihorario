@@ -1,30 +1,33 @@
 <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="5px" class="wrapper">
-  <mat-toolbar fxLayout="row">
+  <mat-toolbar fxLayout="row" fxFlex="10">
     <mat-toolbar-row>
-      <span class='title'>Mi horario</span>
-      <span class="example-spacer"></span>
-      <!-- <span class='title'>{{ fullName }}</div> -->
+      <span class='title'>{{ title }}</span>
+      <span class="toolbar-spacer"></span>
       <mat-icon aria-hidden="false" aria-label="Cerrar sesión" (click)="logout()">logout</mat-icon>
     </mat-toolbar-row>
   </mat-toolbar>
-  <mat-card>
-    <ng-template [ngIf]="!isLoading" [ngIfElse]="loading">
-      <div class="card-title">
-        Options
-      </div>
-      <mat-card-content fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px">
-        <ul>
-          <li *ngFor="let scheduleOption of scheduleOptions; let i = index">
-            {{ i }} {{ scheduleOption.text }} {{ scheduleOption.value }}
-          </li>
-        </ul>
-        <!-- <button mat-button color="primary">Cerrar sesión</button> -->
-      </mat-card-content>
-    </ng-template>
-    <ng-template #loading>
-      <div fxLayout="row" fxLayoutAlign="center">
-        <mat-spinner ></mat-spinner>
-      </div>
-    </ng-template>
-  </mat-card>
+  <ng-template [ngIf]="!isLoading" [ngIfElse]="loading">
+    <span fxLayout="row" fxLayoutAlign="center center" fxFlex="30" class='title welcome'>Bienvenido, {{ fullName }}</span>
+    <div fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="5px" fxFlex="60">
+      <span fxLayout="row" fxFlex="20" class='title select-title'>Seleccionar periodo</span>
+      <mat-card fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px" fxFlex="40">
+        <mat-card-content fxLayout="column" fxLayoutAlign="center center" fxFlex="80">
+          <mat-form-field>
+            <mat-label>Periodo</mat-label>
+            <mat-select>
+              <mat-option *ngFor="let scheduleOption of scheduleOptions" [value]="scheduleOption.value">
+                {{ scheduleOption.text }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <button mat-button color="primary">Continuar</button>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </ng-template>
+  <ng-template #loading>
+    <div fxLayout="row" fxLayoutAlign="center">
+      <mat-spinner ></mat-spinner>
+    </div>
+  </ng-template>
 </div>
