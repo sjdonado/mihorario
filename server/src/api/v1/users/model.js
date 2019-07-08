@@ -29,17 +29,17 @@ const login = async (username, password) => {
     this.document.querySelector('body > div.pagebodydiv > form > p > input[type=submit]').click();
   }, username, password);
 
-  return page.waitFor(() => this.document.querySelector('body > div.pagebodydiv > table:nth-child(1) > tbody > tr > td:nth-child(2) > b:nth-child(1)'))
-    .then(async () => {
-      const welcomeMessage = await page.evaluate(() => this.document.querySelector('body > div.pagebodydiv > table:nth-child(1) > tbody > tr > td:nth-child(2) > b:nth-child(1)').textContent);
-      const fullName = welcomeMessage.match(/,\s([\s\S]+),/)[1];
+  return page.waitFor(() => this.document.querySelector('body > div.pagebodydiv > table:nth-child(1) > tbody > tr > td:nth-child(2) > b:nth-child(1)'), {
+    timeout: 1000,
+  }).then(async () => {
+    const welcomeMessage = await page.evaluate(() => this.document.querySelector('body > div.pagebodydiv > table:nth-child(1) > tbody > tr > td:nth-child(2) > b:nth-child(1)').textContent);
+    const fullName = welcomeMessage.match(/,\s([\s\S]+),/)[1];
 
-      await page.screenshot({ path: 'auth.png' });
-      return { browser, page, fullName };
-    })
-    .catch(() => {
-      throw new ApiError('Invalid credentials', 400);
-    });
+    await page.screenshot({ path: 'auth.png' });
+    return { browser, page, fullName };
+  }).catch(() => {
+    throw new ApiError('Invalid credentials', 400);
+  });
 };
 
 /**
