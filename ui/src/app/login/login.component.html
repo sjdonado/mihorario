@@ -6,7 +6,7 @@
     <mat-card>
       <mat-progress-bar *ngIf=isLoading mode="indeterminate"></mat-progress-bar>
       <mat-card-content>
-        <form [formGroup]="getFormGroup" fxLayout="column" fxLayoutAlign="start" (ngSubmit)="logIn()" fxLayoutGap="5px">
+        <form fxLayout="column" fxLayoutAlign="start" fxLayoutGap="5px" [formGroup]="getFormGroup" (ngSubmit)="logIn()">
           <mat-form-field appearance="outline" >
             <mat-label>Usuario uninorte</mat-label>
             <mat-icon matSuffix>perm_identity</mat-icon>

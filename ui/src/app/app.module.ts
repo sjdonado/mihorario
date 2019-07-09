@@ -25,12 +25,16 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
+import { PeriodSelectorComponent } from './components/period-selector/period-selector.component';
+import { ScheduleComponent } from './components/schedule/schedule.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    HomeComponent
+    HomeComponent,
+    PeriodSelectorComponent,
+    ScheduleComponent
   ],
   imports: [
     BrowserModule,

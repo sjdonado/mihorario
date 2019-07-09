@@ -1,0 +1,21 @@
+<div fxLayout="column" fxLayoutAlign="center center" fxFlex>
+  <span fxLayout="row" fxLayoutAlign="center center" fxFlex="30" class='title welcome'>Bienvenido, {{ fullName }}</span>
+  <div fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="5px" fxFlex="60">
+    <span fxLayout="row" fxFlex="20" class='title select-title'>Seleccionar periodo</span>
+    <mat-card fxLayout="column" fxFlex="40">
+      <mat-card-content fxLayout="column">
+        <form fxLayout="column" [formGroup]="getFormGroup" (ngSubmit)="getSchedule()">
+          <mat-form-field>
+            <mat-label>Periodo académico</mat-label>
+            <mat-select formControlName="schedulePeriod">
+              <mat-option *ngFor="let schedulePeriod of schedulePeriods" [value]="schedulePeriod.value">
+                {{ schedulePeriod.text }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <button mat-button color="primary">Continuar</button>
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
