@@ -66,7 +66,7 @@ const pomeloSchedulePeriods = async (username, password) => {
  * @param {String} scheduleOption
  */
 const pomeloSchedule = async (username, password, scheduleOption) => {
-  const { browser, page, fullName } = await login(username, password);
+  const { browser, page } = await login(username, password);
 
   await goTo(page, pomeloScheduleDetils);
   await page.waitFor(() => this.document.querySelector('#term_id'));
@@ -132,9 +132,9 @@ const pomeloSchedule = async (username, password, scheduleOption) => {
     return result;
   });
 
-  const schedule = [];
-  subjectsByDays.forEach((day) => {
-    const scheduleDay = {};
+  const schedule = Array.from(Array(14), () => new Array(7));
+
+  subjectsByDays.forEach((day, index) => {
     day.forEach((row) => {
       const startSubjectDate = moment(row.start, 'hh:mm A');
       const finishSubjectDate = moment(row.finish, 'hh:mm A');
@@ -143,22 +143,22 @@ const pomeloSchedule = async (username, password, scheduleOption) => {
       const finishSubjectInt = parseInt(finishSubjectDate.hours(), 10);
 
       while (finishSubjectInt - startSubjectInt >= 1) {
-        scheduleDay[`${startSubjectInt}:${startSubjectDate.minutes()}`] = Object.assign({}, row, {
+        schedule[startSubjectInt - 6][index] = Object.assign({}, row, {
+          shortName: row.name.split(' - ')[0],
           start: `${startSubjectInt}:${startSubjectDate.minutes()}`,
           finish: `${startSubjectInt + 1}:${finishSubjectDate.minutes()}`,
-          startDate: moment(row.startDate, 'MMM DD, YYYY', 'es').format('DD/MM/YYYY'),
-          finishDate: moment(row.finishDate, 'MMM DD, YYYY', 'es').format('DD/MM/YYYY'),
+          startDate: moment(row.startDate, 'MMM DD, YYYY', 'es'),
+          finishDate: moment(row.finishDate, 'MMM DD, YYYY', 'es'),
         });
         startSubjectInt += 1;
       }
     });
-    schedule.push(scheduleDay);
   });
 
   await page.screenshot({ path: 'schedule.png' });
   await closeBrowser(browser);
 
-  return { fullName, schedule, subjectsByDays };
+  return { schedule, subjectsByDays };
 };
 
 module.exports = {
