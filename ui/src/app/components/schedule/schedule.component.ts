@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Subject } from '../../models/subject.model';
 
 @Component({
@@ -10,12 +10,18 @@ export class ScheduleComponent implements OnInit {
 
   @Input() fullName: string;
   @Input() schedule: Subject[][];
+  @Output() periodSelector = new EventEmitter<any>();
+
   private hours: string[];
   private days: string[];
 
   constructor() { }
 
   ngOnInit() {
-    this.days = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
+    this.days = ['LUNES', 'MARTES', 'MIÉRCOLES', 'JUEVES', 'VIERNES', 'SÁBADO', 'DOMINGO'];
+  }
+
+  periodSelectorEvent() {
+    this.periodSelector.emit(null);
   }
 }

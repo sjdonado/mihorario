@@ -1,6 +1,4 @@
 mat-toolbar {
-  position: absolute;
-  top: 0;
   background-color: transparent;
 
   mat-icon {
@@ -9,6 +7,13 @@ mat-toolbar {
   }
 }
 
-.toolbar-spacer {
-  width: 90%;
+.toolbar {
+  &-spacer {
+    width: 90%;
+  }
+}
+
+.option {
+  font-size: 16px;
+  padding-right: 20px;
 }

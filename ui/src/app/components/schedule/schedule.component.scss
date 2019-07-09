@@ -1,20 +1,22 @@
-$table-header: #1976D2;
-$table-header-border: #1565C0;
-$table-border: #d9d9d9;
+$table-header: rgb(64, 133, 202);
+$table-border: rgba(0,0,0,.87);
 $row-bg: #f4f2f1;
 
-div {
-  box-sizing: border-box;
+.wrapper {
+  background: transparent;
 }
 
-mat-card {
-  height: 90%;
-  padding: 0px;
+.option {
+  cursor: pointer;
+  mat-icon {
+    margin-left: 5px;
+  }
 }
 
 .table-container {
-  // border: 1px solid rgba(0, 0, 0, 0.87);
-  font-size: 14px;
+  font-size: 12px;
+  border-radius: 4px;
+  box-shadow: 0 2px 30px rgba(black, .3);
 }
 
 .flag-icon {
@@ -27,29 +29,41 @@ mat-card {
   border-left: solid 1px $table-border;
   transition: 0.5s;
   &:first-of-type {
-    border-top: solid 1px $table-header-border;
-    border-left: solid 1px $table-header-border;
+    border-top: solid 1px $table-border;
+    border-left: solid 1px $table-border;
   }
   &:first-of-type .flex-row {
-    background: $table-header;
+    background: transparent;
     color: white;
-    border-color: $table-header-border;
+    border-color: $table-border;
   }
   &.row:nth-child(odd) .flex-row {
     background: $row-bg;
   }
-  &:hover {
-    background: #F5F5F5;
-    transition: 500ms;
-  }
+  // &:hover {
+  //   background: #F5F5F5;
+  //   transition: 500ms;
+  // }
 }
 
 .flex-row {
-  width: calc(100% / 8);
+  width: calc(107.1% / 8);
+  margin: auto;
   text-align: center;
-  padding: 0.5em 0.5em;
+  vertical-align: middle;
+  background: white;
   border-right: solid 1px $table-border;
   border-bottom: solid 1px $table-border;
+  p {
+    cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+.hour {
+  width: calc(50% / 8);
 }
 
 .rowspan {
@@ -61,7 +75,7 @@ mat-card {
 
 .column {
   display: flex;
-  flex-flow: column wrap;
+  flex-flow: column;
   width: 75%;
   padding: 0;
   .flex-row {
@@ -71,10 +85,10 @@ mat-card {
     padding: 0;
     border: 0;
     border-bottom: solid 1px $table-border;
-    &:hover {
-      background: #F5F5F5;
-      transition: 500ms;
-    }
+    // &:hover {
+    //   background: #F5F5F5;
+    //   transition: 500ms;
+    // }
   }
 }
 
@@ -83,10 +97,10 @@ mat-card {
   text-align: center;
   padding: 0.5em 0.5em;
   border-right: solid 1px $table-border;
-  //flex: 1 1 33.3%;
-  &:last-child {
-    // border-right: 0;
-  }
+  // flex: 1 1 33.3%;
+  // &:last-child {
+  //   border-right: 0;
+  // }
 }
 
 @media all and (max-width: 767px) {
@@ -103,9 +117,9 @@ mat-card {
 
 @media all and (max-width: 430px) {
   .flex-table {
-    .flex-row {
-      border-bottom: 0;
-    }
+    // .flex-row {
+    //   border-bottom: 0;
+    // }
     .flex-row:last-of-type {
       border-bottom: solid 1px $table-border;
     }

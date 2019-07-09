@@ -1,18 +1,19 @@
-<div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="5px" class="wrapper">
-  <mat-toolbar fxLayout="row" fxFlex="10">
-    <mat-toolbar-row>
-      <span class='title'>{{ title }}</span>
+<div fxLayout="column" fxLayoutGap="10px" class="wrapper">
+  <mat-toolbar fxFlex="10">
+    <mat-toolbar-row fxFlex>
+      <span class='title' fxFlex>{{ title }}</span>
       <span class="toolbar-spacer"></span>
+      <span class='option' fxFlex><p>{{ toolbarFullName }}</p></span>
       <mat-icon aria-hidden="false" aria-label="Cerrar sesión" (click)="logout()">logout</mat-icon>
     </mat-toolbar-row>
   </mat-toolbar>
   <ng-template [ngIf]="!isLoading" [ngIfElse]="loading">
-    <app-period-selector *ngIf="!schedule" fxLayoutAlign="center center" [fullName]="fullName"
-      [schedulePeriods]="schedulePeriods" (optionSelected)="getSchedule($event)" fxLayout="column" fxFlex></app-period-selector>
-    <app-schedule *ngIf="schedule" [fullName]="fullName" [schedule]="schedule" fxFlex></app-schedule>
+    <app-period-selector *ngIf="!schedule" [fullName]="fullName" [schedulePeriods]="schedulePeriods"
+      (optionSelected)="getSchedule($event)" fxFlex></app-period-selector>
+    <app-schedule *ngIf="schedule" [fullName]="fullName" [schedule]="schedule" (periodSelector)="periodSelector()" fxFlex></app-schedule>
   </ng-template>
   <ng-template #loading>
-    <div fxLayout="row" fxLayoutAlign="center">
+    <div fxLayoutAlign="center center" fxFlex>
       <mat-spinner ></mat-spinner>
     </div>
   </ng-template>

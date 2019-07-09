@@ -19,7 +19,7 @@ export class UserService {
   ) { }
 
   getSchedule(scheduleOption: string) {
-    const schedule = this.schedule();
+    const schedule = this.schedule;
     if (schedule) {
       console.warn('CACHED => schedule', schedule);
       return new Observable(observer => {
@@ -32,7 +32,7 @@ export class UserService {
     }).pipe(
       tap(
         (res: any) => {
-          console.log('getSchedule', res.data);
+          console.log('getSchedule', res);
           localStorage.setItem('schedule', JSON.stringify(res));
         },
         err => console.error(err),
@@ -40,7 +40,7 @@ export class UserService {
     );
   }
 
-  schedule() {
+  get schedule() {
     return JSON.parse(localStorage.getItem('schedule'));
   }
 
