@@ -1,20 +1,35 @@
-<div fxLayout="column" fxLayoutGap="10px" class="wrapper">
+<div fxLayout="column" class="wrapper">
   <mat-toolbar fxFlex="10">
-    <mat-toolbar-row fxFlex>
-      <span class='title' fxFlex>{{ title }}</span>
+    <mat-toolbar-row ngClass.xs="small">
+      <button class="menu-btn" mat-icon-button (click)="sidenav.toggle()" fxShow="true" fxHide.gt-sm>
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span class="title" ngClass.lt-md="small" fxFlex>{{ title }}</span>
       <span class="toolbar-spacer"></span>
-      <span class='option' fxFlex><p>{{ toolbarFullName }}</p></span>
-      <mat-icon aria-hidden="false" aria-label="Cerrar sesión" (click)="logout()">logout</mat-icon>
+      <div fxShow="true" fxHide.lt-md>
+        <span class="option" fxLayout="row" fxLayoutAlign="center center"><p>{{ toolbarFullName }}</p><mat-icon aria-hidden="false" aria-label="Cerrar sesión" (click)="logout()">logout</mat-icon></span>
+      </div>
     </mat-toolbar-row>
   </mat-toolbar>
-  <ng-template [ngIf]="!isLoading" [ngIfElse]="loading">
-    <app-period-selector *ngIf="!schedule" [fullName]="fullName" [schedulePeriods]="schedulePeriods"
-      (optionSelected)="getSchedule($event)" fxFlex></app-period-selector>
-    <app-schedule *ngIf="schedule" [fullName]="fullName" [schedule]="schedule" (periodSelector)="periodSelector()" fxFlex></app-schedule>
-  </ng-template>
-  <ng-template #loading>
-    <div fxLayoutAlign="center center" fxFlex>
-      <mat-spinner ></mat-spinner>
-    </div>
-  </ng-template>
+  
+  <mat-sidenav-container fxFlex>
+    <mat-sidenav #sidenav>
+      <mat-nav-list>
+        <span><p>{{ toolbarFullName }}</p></span>
+        <span fxLayout="row" fxLayoutAlign="center center" (click)="logout()"><p>Cerrar sesión</p><mat-icon aria-hidden="false" aria-label="Cerrar sesión">logout</mat-icon></span>
+      </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content fxFlex>
+      <ng-template [ngIf]="!isLoading" [ngIfElse]="loading">
+        <app-period-selector *ngIf="!schedule" [fullName]="fullName" [schedulePeriods]="schedulePeriods"
+          (optionSelected)="getSchedule($event)" fxFlex></app-period-selector>
+        <app-schedule *ngIf="schedule" [fullName]="fullName" [schedule]="schedule" (periodSelector)="periodSelector()" fxFlexFill></app-schedule>
+      </ng-template>
+      <ng-template #loading>
+        <div fxLayoutAlign="center center" fxFlex>
+          <mat-spinner ></mat-spinner>
+        </div>
+      </ng-template>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
 </div>

@@ -1,22 +1,38 @@
 $table-header: rgb(64, 133, 202);
 $table-border: rgba(0,0,0,.87);
+$text-color: $table-border;
 $row-bg: #f4f2f1;
 
 .wrapper {
+  display: block;
+  margin: auto;
+  width: 95%;
+  height: 95%;
   background: transparent;
+  mat-card-header {
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+  span {
+    color: $text-color;
+  }
+}
+
+.card-header {
+  margin-bottom: 10px;
 }
 
 .option {
   cursor: pointer;
   mat-icon {
-    margin-left: 5px;
+    margin-left: 2px;
   }
 }
 
 .table-container {
+  display: block;
+  margin: auto;
   font-size: 12px;
-  border-radius: 4px;
-  box-shadow: 0 2px 30px rgba(black, .3);
 }
 
 .flag-icon {
@@ -34,7 +50,7 @@ $row-bg: #f4f2f1;
   }
   &:first-of-type .flex-row {
     background: transparent;
-    color: white;
+    color: $text-color;
     border-color: $table-border;
   }
   &.row:nth-child(odd) .flex-row {
@@ -47,7 +63,7 @@ $row-bg: #f4f2f1;
 }
 
 .flex-row {
-  width: calc(107.1% / 8);
+  width: calc(100% / 7);
   margin: auto;
   text-align: center;
   vertical-align: middle;
@@ -62,9 +78,15 @@ $row-bg: #f4f2f1;
   }
 }
 
-.hour {
-  width: calc(50% / 8);
+.subject {
+  font-size: 0.73em;
+  letter-spacing: 0.1em;
+  padding: 0.6em;
 }
+
+// .hour {
+//   width: calc(50% / 8);
+// }
 
 .rowspan {
   display: flex;
@@ -75,7 +97,7 @@ $row-bg: #f4f2f1;
 
 .column {
   display: flex;
-  flex-flow: column;
+  flex-flow: column wrap;
   width: 75%;
   padding: 0;
   .flex-row {
@@ -106,9 +128,15 @@ $row-bg: #f4f2f1;
 @media all and (max-width: 767px) {
   .flex-row {
     width: calc(100% / 3); //1px = border right
-   &.first {
-     width: 100%;
-   }
+    border-bottom: solid 1px $table-border;
+    &.first {
+      width: 100%;
+      // border-top: solid 1px $table-border;
+    }
+    // &:last-child {
+    //   // border-left: solid 1px $table-border;
+    //   border-bottom: 0;
+    // }
   }
   .column {
     width: 100%;

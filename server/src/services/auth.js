@@ -22,10 +22,17 @@ const signToken = (payload, expiresIn = '8h') => sign(payload, config.token.secr
 const auth = (req, res, next) => {
   const token = req.headers.authorization || req.query.token || req.body.token;
 
-  if (!token) next(new ApiError('Unauthorized', 401));
+  if (!token) {
+    next(new ApiError('Unauthorized', 401));
+    return;
+  }
 
   verify(token, config.token.secret, (err, decoded) => {
-    if (err) next(new ApiError('Unauthorized', 401));
+    if (err) {
+      next(new ApiError('Unauthorized', 401));
+      return;
+    }
+
     console.log('USER TOKEN ->', decoded);
 
     const { username, iat, exp } = decoded;

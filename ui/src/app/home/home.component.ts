@@ -55,6 +55,7 @@ export class HomeComponent implements OnInit {
 
   periodSelector() {
     this.schedule = null;
+    this.toolbarFullName = null;
   }
 
   logout() {
