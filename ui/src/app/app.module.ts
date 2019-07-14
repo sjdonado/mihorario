@@ -20,6 +20,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatMenuModule } from '@angular/material/menu';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -27,6 +28,9 @@ import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import { PeriodSelectorComponent } from './components/period-selector/period-selector.component';
 import { ScheduleComponent } from './components/schedule/schedule.component';
+import { ConfirmationDialogComponent } from './components/dialogs/confirmation-dialog/confirmation-dialog.component';
+import { GoogleImportComponent } from './components/google-import/google-import.component';
+import { SubjectDetailsDialogComponent } from './components/dialogs/subject-details-dialog/subject-details-dialog.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +38,10 @@ import { ScheduleComponent } from './components/schedule/schedule.component';
     LoginComponent,
     HomeComponent,
     PeriodSelectorComponent,
-    ScheduleComponent
+    ScheduleComponent,
+    ConfirmationDialogComponent,
+    GoogleImportComponent,
+    SubjectDetailsDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -58,9 +65,14 @@ import { ScheduleComponent } from './components/schedule/schedule.component';
     MatTableModule,
     MatSelectModule,
     MatDialogModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatMenuModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [
+    ConfirmationDialogComponent,
+    SubjectDetailsDialogComponent
+  ]
 })
 export class AppModule { }

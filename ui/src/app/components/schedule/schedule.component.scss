@@ -1,7 +1,6 @@
-$table-header: rgb(64, 133, 202);
 $table-border: rgba(0,0,0,.87);
 $text-color: $table-border;
-$row-bg: #f4f2f1;
+$row-bg: #f8f8f8;
 
 .wrapper {
   display: block;
@@ -9,16 +8,13 @@ $row-bg: #f4f2f1;
   width: 95%;
   height: 95%;
   background: transparent;
-  mat-card-header {
-    font-size: 14px;
-    margin-bottom: 10px;
-  }
   span {
     color: $text-color;
   }
 }
 
 .card-header {
+  font-size: 12px;
   margin-bottom: 10px;
 }
 
@@ -29,10 +25,15 @@ $row-bg: #f4f2f1;
   }
 }
 
+button {
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
 .table-container {
   display: block;
   margin: auto;
-  font-size: 12px;
+  font-size: 0.76em;
 }
 
 .flag-icon {
@@ -63,7 +64,7 @@ $row-bg: #f4f2f1;
 }
 
 .flex-row {
-  width: calc(100% / 7);
+  width: calc(106.62% / 7);
   margin: auto;
   text-align: center;
   vertical-align: middle;
@@ -78,15 +79,14 @@ $row-bg: #f4f2f1;
   }
 }
 
-.subject {
-  font-size: 0.73em;
-  letter-spacing: 0.1em;
-  padding: 0.6em;
+.hour {
+  font-weight: bold;
+  width: calc(60% / 7);
 }
 
-// .hour {
-//   width: calc(50% / 8);
-// }
+.header {
+  font-weight: bold;
+}
 
 .rowspan {
   display: flex;

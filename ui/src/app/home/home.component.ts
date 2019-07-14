@@ -1,9 +1,13 @@
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { UserService } from '../services/user.service';
 import { AuthService } from '../services/auth.service';
 import { AppComponent } from '../app.component';
 import { Subject } from '../models/subject.model';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { ConfirmationDialogComponent } from '../components/dialogs/confirmation-dialog/confirmation-dialog.component';
+
+
 
 @Component({
   selector: 'app-home',
@@ -23,7 +27,8 @@ export class HomeComponent implements OnInit {
     private userService: UserService,
     private authService: AuthService,
     private appComponent: AppComponent,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    public dialog: MatDialog,
   ) { }
 
   ngOnInit() {
@@ -53,12 +58,21 @@ export class HomeComponent implements OnInit {
     );
   }
 
+  openLogoutDialog(): void {
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: '300px',
+      data: { title: 'Cerrar sesión', message: '¿Estás seguro?' }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.authService.logout();
+      }
+    });
+  }
+
   periodSelector() {
     this.schedule = null;
     this.toolbarFullName = null;
-  }
-
-  logout() {
-    this.authService.logout();
   }
 }

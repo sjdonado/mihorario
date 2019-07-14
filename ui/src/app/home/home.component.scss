@@ -39,6 +39,7 @@ mat-toolbar-row.small {
 }
 
 mat-nav-list span p {
+  cursor: pointer;
   text-transform: uppercase;
   letter-spacing: 0.1em;
   padding: 5px 10px;
