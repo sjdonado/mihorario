@@ -35,6 +35,8 @@ import { ScheduleComponent } from './components/schedule/schedule.component';
 import { ConfirmationDialogComponent } from './components/dialogs/confirmation-dialog/confirmation-dialog.component';
 import { ExportCalendarComponent } from './components/export-calendar/export-calendar.component';
 import { SubjectDetailsDialogComponent } from './components/dialogs/subject-details-dialog/subject-details-dialog.component';
+import { SelectSubjectsComponent } from './components/export-calendar/components/select-subjects/select-subjects.component';
+import { CalendarOptionsComponent } from './components/export-calendar/components/calendar-options/calendar-options.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +48,8 @@ import { SubjectDetailsDialogComponent } from './components/dialogs/subject-deta
     ConfirmationDialogComponent,
     ExportCalendarComponent,
     SubjectDetailsDialogComponent,
+    SelectSubjectsComponent,
+    CalendarOptionsComponent,
   ],
   imports: [
     BrowserModule,

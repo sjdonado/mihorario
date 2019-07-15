@@ -6,6 +6,8 @@ import { LoginComponent } from './login/login.component';
 import { ScheduleComponent } from './components/schedule/schedule.component';
 import { PeriodSelectorComponent } from './components/period-selector/period-selector.component';
 import { ExportCalendarComponent } from './components/export-calendar/export-calendar.component';
+import { CalendarOptionsComponent } from './components/export-calendar/components/calendar-options/calendar-options.component';
+import { SelectSubjectsComponent } from './components/export-calendar/components/select-subjects/select-subjects.component';
 
 const routes: Routes = [
   // { path: '**', redirectTo: '' },
@@ -16,15 +18,35 @@ const routes: Routes = [
     children: [
       {
         path: '',
+        redirectTo: 'schedule',
+        pathMatch: 'full'
+      },
+      {
+        path: 'schedule',
         component: ScheduleComponent
       },
       {
         path: 'period',
-        component: PeriodSelectorComponent
+        component: PeriodSelectorComponent,
       },
       {
         path: 'export',
-        component: ExportCalendarComponent
+        component: ExportCalendarComponent,
+        children: [
+          {
+            path: '',
+            redirectTo: 'options',
+            pathMatch: 'full'
+          },
+          {
+            path: 'options',
+            component: CalendarOptionsComponent
+          },
+          {
+            path: 'select',
+            component: SelectSubjectsComponent
+          },
+        ]
       },
     ]
   },

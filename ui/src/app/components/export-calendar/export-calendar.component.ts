@@ -8,8 +8,6 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class ExportCalendarComponent implements OnInit {
 
-  @Output() goToSchedule = new EventEmitter<number>();
-
   constructor(
     private authService: AuthService,
   ) { }
@@ -17,15 +15,4 @@ export class ExportCalendarComponent implements OnInit {
   ngOnInit() {
 
   }
-
-  googleOauth() {
-    this.authService.googleLogin()
-      .then(res => {
-        console.log('res', res);
-        // if (res) {
-
-        // }
-      });
-  }
-
 }

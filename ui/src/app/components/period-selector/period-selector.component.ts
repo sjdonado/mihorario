@@ -15,7 +15,7 @@ export class PeriodSelectorComponent implements OnInit {
 
   public form: FormGroup;
   private isLoading: boolean;
-  private fullName: string;
+  private name: string;
   private schedulePeriods: string[];
 
   constructor(
@@ -28,7 +28,7 @@ export class PeriodSelectorComponent implements OnInit {
 
   ngOnInit() {
     this.schedulePeriods = this.authService.pomeloData.options;
-    this.fullName = this.authService.pomeloData.fullName;
+    this.name = this.authService.pomeloData.fullName.split(' ')[0];
     this.form = this.formBuilder.group({
       schedulePeriod: [, Validators.required],
     });

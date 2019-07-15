@@ -1,7 +1,9 @@
 <div fxLayout="column" fxLayoutGap="10px" fxFlexFill>
-  <span fxLayoutAlign="center center" fxFlex="40" class='title welcome'>Bienvenido, {{ fullName }}</span>
+  <div fxLayout="column" fxLayoutAlign="center center" fxFlex="40">
+    <span class='title welcome'>Hola, {{ name }}</span>
+    <span class='title select-title'>Selecciona un periodo</span>
+  </div>
   <div fxLayout="column" fxLayoutAlign="center center" fxFlex="30">
-    <span fxFlex="20" class='title select-title'>Seleccionar periodo</span>
     <mat-card>
       <mat-card-content>
         <form [formGroup]="getFormGroup" (ngSubmit)="getSchedule()" fxLayout="column">
