@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Subject } from '../../models/subject.model';
 import { SubjectDetailsDialogComponent } from '../dialogs/subject-details-dialog/subject-details-dialog.component';
 import * as Color from 'color';
+import { UserService } from 'src/app/services/user.service';
 
 interface ScheduleOption {
   title: string;
@@ -25,7 +26,8 @@ export class ScheduleComponent implements OnInit {
   private scheduleOptions: ScheduleOption[];
 
   constructor(
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private userService: UserService
   ) {}
 
   ngOnInit() {
@@ -79,6 +81,7 @@ export class ScheduleComponent implements OnInit {
             }
           });
         });
+        this.userService.setSchedule(this.schedule);
       }
     });
   }

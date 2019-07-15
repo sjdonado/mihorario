@@ -8,7 +8,6 @@ import { Subject } from '../models/subject.model';
 import { ConfirmationDialogComponent } from '../components/dialogs/confirmation-dialog/confirmation-dialog.component';
 
 
-
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -37,7 +36,7 @@ export class HomeComponent implements OnInit {
     this.fullName = this.authService.pomeloData.fullName;
     if (this.userService.schedule) {
       this.toolbarFullName = this.fullName;
-      this.schedule = this.userService.schedule.data.schedule;
+      this.schedule = this.userService.schedule;
     }
   }
 
@@ -47,7 +46,7 @@ export class HomeComponent implements OnInit {
     this.userService.getSchedule(scheduleOption).subscribe(
       (response: any) => {
         console.log(response);
-        this.schedule = response.data.schedule;
+        this.schedule = this.userService.schedule;
         this.toolbarFullName = this.fullName;
         this.isLoading = false;
       }, (err) => {

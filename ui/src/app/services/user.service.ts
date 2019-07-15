@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { tap } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, observable } from 'rxjs';
+import { Subject } from '../models/subject.model';
 
 @Injectable({
   providedIn: 'root'
@@ -33,7 +34,7 @@ export class UserService {
       tap(
         (res: any) => {
           console.log('getSchedule', res);
-          localStorage.setItem('schedule', JSON.stringify(res));
+          this.setSchedule(res.data.schedule);
         },
         err => console.error(err),
       )
@@ -44,4 +45,7 @@ export class UserService {
     return JSON.parse(localStorage.getItem('schedule'));
   }
 
+  setSchedule(schedule: Subject[][]) {
+    localStorage.setItem('schedule', JSON.stringify(schedule));
+  }
 }
