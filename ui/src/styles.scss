@@ -14,6 +14,9 @@ body {
 
 * {
   box-sizing: border-box;
+  &:focus {
+    outline: 0;
+  }
 }
 
 .mat-form-field-appearance-outline .mat-form-field-infix {
@@ -120,34 +123,6 @@ p {
   stroke: white;
 }
 
-// div.wrapper {
-//   display: flex;
-//   flex-direction: column;
-//   position: absolute;
-//   top: 0;
-//   bottom: 0;
-//   left: 0;
-//   right: 0;
+// app-period-selector {
 //   height: 100%;
-//   mat-drawer-container {
-//     mat-drawer{
-//       width: 250px;
-//       div.user-info {
-//         padding: 20px;
-//       }
-//       mat-divider{
-//         margin: 0 20px 20px 20px;
-//       }
-//       mat-nav-list{
-//         padding-top: 0;
-//       }
-//     }
-//     height: 100%;;
-//     div.sidenav-content {
-//       display: flex;
-//       height: 100%;
-//       padding: 2em;
-//       overflow-y: auto; 
-//     }
-//   }
 // }

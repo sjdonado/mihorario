@@ -26,7 +26,8 @@
       </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content fxFlex>
-      <ng-template [ngIf]="!isLoading" [ngIfElse]="loading">
+      <router-outlet></router-outlet>
+      <!-- <ng-template [ngIf]="!isLoading" [ngIfElse]="loading">
         <app-period-selector *ngIf="!schedule" [fullName]="fullName" [schedulePeriods]="schedulePeriods"
           (optionSelected)="getSchedule($event)" fxFlex></app-period-selector>
         <app-schedule *ngIf="schedule" [fullName]="fullName" [schedule]="schedule"
@@ -36,7 +37,7 @@
         <div fxLayoutAlign="center center" fxFlex>
           <mat-spinner ></mat-spinner>
         </div>
-      </ng-template>
+      </ng-template> -->
     </mat-sidenav-content>
   </mat-sidenav-container>
 </div>

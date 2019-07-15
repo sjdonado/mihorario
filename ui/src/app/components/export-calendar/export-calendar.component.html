@@ -1,0 +1,19 @@
+<div fxLayout="column" fxLayoutAlign="center center" fxFlexFill>
+  <span fxFlex="20" class='title options'>Opciones</span>
+  <div fxFlex="60">
+    <mat-card >
+      <span fxLayout="row" class='go-back-button' fxLayoutAlign="start center" routerLink="/">
+        <mat-icon fxLayoutAlign="center center">arrow_back</mat-icon><p>Volver</p>
+      </span>
+      <mat-card-content>
+        <button mat-button fxLayout="row" fxLayoutAlign="center center" (click)="googleOauth()">
+          <p>Connectar con google</p>
+          <div class="logo-wrapper" fxLayoutAlign="center center" fxFlex>
+            <div class="logo"></div>
+          </div>
+        </button>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+  

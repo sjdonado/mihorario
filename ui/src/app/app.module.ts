@@ -33,7 +33,7 @@ import { HomeComponent } from './home/home.component';
 import { PeriodSelectorComponent } from './components/period-selector/period-selector.component';
 import { ScheduleComponent } from './components/schedule/schedule.component';
 import { ConfirmationDialogComponent } from './components/dialogs/confirmation-dialog/confirmation-dialog.component';
-import { GoogleImportComponent } from './components/google-import/google-import.component';
+import { ExportCalendarComponent } from './components/export-calendar/export-calendar.component';
 import { SubjectDetailsDialogComponent } from './components/dialogs/subject-details-dialog/subject-details-dialog.component';
 
 @NgModule({
@@ -44,7 +44,7 @@ import { SubjectDetailsDialogComponent } from './components/dialogs/subject-deta
     PeriodSelectorComponent,
     ScheduleComponent,
     ConfirmationDialogComponent,
-    GoogleImportComponent,
+    ExportCalendarComponent,
     SubjectDetailsDialogComponent,
   ],
   imports: [

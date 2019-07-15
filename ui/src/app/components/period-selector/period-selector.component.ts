@@ -1,5 +1,10 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { UserService } from '../../services/user.service';
+import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
+
 
 @Component({
   selector: 'app-period-selector',
@@ -9,22 +14,40 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class PeriodSelectorComponent implements OnInit {
 
   public form: FormGroup;
-  @Input() fullName: string;
-  @Input() schedulePeriods: string[];
-  @Output() optionSelected = new EventEmitter<string>();
+  private isLoading: boolean;
+  private fullName: string;
+  private schedulePeriods: string[];
 
   constructor(
     private formBuilder: FormBuilder,
+    private snackBar: MatSnackBar,
+    private authService: AuthService,
+    private userService: UserService,
+    private router: Router,
   ) { }
 
   ngOnInit() {
+    this.schedulePeriods = this.authService.pomeloData.options;
+    this.fullName = this.authService.pomeloData.fullName;
     this.form = this.formBuilder.group({
       schedulePeriod: [, Validators.required],
     });
   }
 
-  getSchedule() {
-    this.optionSelected.emit(this.form.value.schedulePeriod);
+  getSchedule(scheduleOption: string) {
+    console.log('scheduleOption', scheduleOption);
+    this.isLoading = true;
+    this.userService.getSchedule(scheduleOption).subscribe(
+      (response: any) => {
+        console.log(response);
+        this.isLoading = false;
+        this.router.navigate(['/']);
+      }, (err) => {
+        this.isLoading = false;
+        this.snackBar.open('Error al obtener tu horario, intente de nuevo', 'Cerrar', { duration: 3000 });
+        console.log('Error: ' + err);
+      }
+    );
   }
 
   get getFormGroup() {

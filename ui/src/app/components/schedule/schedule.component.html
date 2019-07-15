@@ -6,14 +6,14 @@
           <p>Opciones</p><mat-icon matSuffix>arrow_drop_down</mat-icon>
         </span>
         <mat-menu #menu="matMenu" fxLayout="row" fxFlex>
-          <button mat-menu-item *ngFor="let scheduleOption of scheduleOptions; let i = index" (click)="scheduleOptionClick(i)">
+          <button mat-menu-item *ngFor="let scheduleOption of scheduleOptions; let i = index" routerLink="{{ scheduleOption.link }}">
             {{ scheduleOption.title }}
           </button>
         </mat-menu>
       </div>
       <div fxHide.lt-sm fxFlex>
-        <span *ngFor="let scheduleOption of scheduleOptions; let i = index" class="option" (click)="scheduleOptionClick(i)" fxLayout="row"
-          fxLayoutAlign="center center" fxFlex>
+        <span *ngFor="let scheduleOption of scheduleOptions; let i = index" class="option" fxLayout="row" fxLayoutAlign="center center"
+          routerLink="{{ scheduleOption.link }}" fxFlex>
           <p>{{ scheduleOption.title }}</p><mat-icon matSuffix>{{ scheduleOption.icon }}</mat-icon>
         </span>
       </div>

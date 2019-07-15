@@ -9,6 +9,7 @@ import { AuthService } from 'src/app/services/auth.service';
 interface ScheduleOption {
   title: string;
   icon: string;
+  link: string;
 }
 
 @Component({
@@ -18,13 +19,11 @@ interface ScheduleOption {
 })
 export class ScheduleComponent implements OnInit {
 
-  @Input() fullName: string;
-  @Input() schedule: Subject[][];
-  @Output() periodSelector = new EventEmitter<any>();
-
   private hours: string[];
   private days: string[];
   private scheduleOptions: ScheduleOption[];
+  private fullName: string;
+  private schedule: Subject[][];
 
   constructor(
     public dialog: MatDialog,
@@ -37,31 +36,23 @@ export class ScheduleComponent implements OnInit {
     this.scheduleOptions = [
       {
         title: 'Seleccionar periodo',
-        icon: 'calendar_view_day'
+        icon: 'calendar_view_day',
+        link: '/period'
       },
       {
-        title: 'Conectar con Google',
-        icon: 'calendar_today'
+        title: 'Exportar',
+        icon: 'calendar_today',
+        link: '/export'
       },
       {
         title: 'Descargar',
-        icon: 'arrow_downward'
+        icon: 'arrow_downward',
+        link: '/'
       }
     ];
     console.log(this.scheduleOptions);
-  }
-
-  scheduleOptionClick(option: number) {
-    switch (option) {
-      case 0:
-        this.periodSelector.emit(null);
-        break;
-      case 1:
-        this.authService.googleLogin();
-        break;
-      default:
-        break;
-    }
+    this.schedule = this.userService.schedule;
+    this.fullName = this.authService.pomeloData.fullName;
   }
 
   openSubjectDetailsDialog(subject: Subject): void {

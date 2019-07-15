@@ -38,14 +38,10 @@ export class AuthService {
   }
 
   googleLogin() {
-    this.oAuthLogin(new auth.GoogleAuthProvider());
-  }
-
-  private oAuthLogin(provider: auth.AuthProvider) {
-    this.afAuth.auth.signInWithPopup(provider)
+    return this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider())
       .then((res) => {
-        console.log(res.credential['accessToken'], res.user['refreshToken']);
         this.setGoogleOauthTokens(res.credential['accessToken'], res.user['refreshToken']);
+        return this.googleOauthTokens;
       })
       .catch(err => console.log(err));
   }
