@@ -4,6 +4,7 @@ import { Subject } from '../../models/subject.model';
 import { SubjectDetailsDialogComponent } from '../dialogs/subject-details-dialog/subject-details-dialog.component';
 import * as Color from 'color';
 import { UserService } from 'src/app/services/user.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 interface ScheduleOption {
   title: string;
@@ -27,6 +28,7 @@ export class ScheduleComponent implements OnInit {
 
   constructor(
     public dialog: MatDialog,
+    private authService: AuthService,
     private userService: UserService
   ) {}
 
@@ -54,6 +56,9 @@ export class ScheduleComponent implements OnInit {
       case 0:
         this.periodSelector.emit(null);
         break;
+      case 1:
+        this.authService.googleLogin();
+        break;
       default:
         break;
     }
@@ -65,7 +70,6 @@ export class ScheduleComponent implements OnInit {
     }
     const dialogRef = this.dialog.open(SubjectDetailsDialogComponent, {
       width: `${window.innerWidth / 2.2 > 320 ? window.innerWidth / 2.2 : 300 }px`,
-      // height: `${window.innerHeight / 1.6 }px`,
       data: subject
     });
 

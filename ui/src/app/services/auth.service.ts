@@ -2,20 +2,24 @@ import { Injectable } from '@angular/core';
 import { tap } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { auth } from 'firebase/app';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  private API_URL = 'http://localhost:3000/api/v1/users/login';
+  private API_URL = `${environment.apiUrl}/users/login`;
   private BASE_HEADER = new HttpHeaders({
     'Content-Type': 'application/json'
   });
 
   constructor(
     private httpClient: HttpClient,
-    private router: Router
+    private router: Router,
+    private afAuth: AngularFireAuth
   ) { }
 
   pomeloLogin(userCredentials: any) {
@@ -33,6 +37,19 @@ export class AuthService {
     );
   }
 
+  googleLogin() {
+    this.oAuthLogin(new auth.GoogleAuthProvider());
+  }
+
+  private oAuthLogin(provider: auth.AuthProvider) {
+    this.afAuth.auth.signInWithPopup(provider)
+      .then((res) => {
+        console.log(res.credential['accessToken'], res.user['refreshToken']);
+        this.setGoogleOauthTokens(res.credential['accessToken'], res.user['refreshToken']);
+      })
+      .catch(err => console.log(err));
+  }
+
   logout() {
     localStorage.clear();
     this.router.navigateByUrl('/login');
@@ -44,5 +61,13 @@ export class AuthService {
 
   get pomeloData() {
     return JSON.parse(localStorage.getItem('pomeloData'));
+  }
+
+  setGoogleOauthTokens(accessToken: string, refreshToken: string) {
+    localStorage.setItem('googleOauthTokens', JSON.stringify({ accessToken, refreshToken }));
+  }
+
+  get googleOauthTokens() {
+    return JSON.parse(localStorage.getItem('googleOauthTokens'));
   }
 }

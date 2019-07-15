@@ -3,13 +3,14 @@ import { tap } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, observable } from 'rxjs';
 import { Subject } from '../models/subject.model';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  private API_URL = 'http://localhost:3000/api/v1/users';
+  private API_URL = `${environment.apiUrl}/users`;
   private BASE_HEADER = new HttpHeaders({
     'Content-Type': 'application/json',
     authorization: localStorage.getItem('userToken'),

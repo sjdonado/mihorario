@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
+import { environment } from '../environments/environment';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -22,6 +23,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatMenuModule } from '@angular/material/menu';
 import { ColorTwitterModule } from 'ngx-color/twitter';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireAuthModule } from '@angular/fire/auth';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -68,7 +71,9 @@ import { SubjectDetailsDialogComponent } from './components/dialogs/subject-deta
     MatDialogModule,
     MatProgressBarModule,
     MatMenuModule,
-    ColorTwitterModule
+    ColorTwitterModule,
+    AngularFireModule.initializeApp(environment.firebase, 'MiHorarioUN'),
+    AngularFireAuthModule
   ],
   providers: [],
   bootstrap: [AppComponent],
