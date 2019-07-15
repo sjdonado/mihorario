@@ -1,0 +1,22 @@
+<h1 mat-dialog-title>{{ data.name }}</h1>
+<div mat-dialog-content>
+  <span fxLayout="row" fxLayoutAlign="start center">
+    <mat-icon matSuffix>label</mat-icon><p>NRC: {{ data.nrc }}</p>
+  </span>
+  <span fxLayout="row" fxLayoutAlign="start center">
+    <mat-icon matSuffix>access_time</mat-icon><p>{{ data.start }} - {{ data.finish }} | {{ data.startParsed }} - {{ data.finishParsed }}</p>
+  </span>
+  <span fxLayout="row" fxLayoutAlign="start center">
+    <mat-icon matSuffix>place</mat-icon><p>{{ data.place }}</p>
+  </span>
+  <span fxLayout="row" fxLayoutAlign="start center">
+    <mat-icon matSuffix>person</mat-icon><p>{{ data.teacher }}</p>
+  </span>
+  <span fxLayout="row" fxLayoutAlign="start center">
+    <mat-icon matSuffix>info</mat-icon><p>{{ data.type }} | {{ data.subjectType }}</p>
+  </span>
+</div>
+<div mat-dialog-actions>
+  <button mat-button mat-dialog-close>Cerrar</button>
+  <button mat-button color="primary" [mat-dialog-close]="true">Guardar</button>
+</div>

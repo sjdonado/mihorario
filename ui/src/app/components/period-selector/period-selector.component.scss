@@ -10,3 +10,11 @@ mat-form-field {
 .select-title {
   font-size: 16px;
 }
+
+mat-select, mat-option, mat-label, button {
+  letter-spacing: 0.1em;
+}
+
+button {
+  text-transform: uppercase;
+}
