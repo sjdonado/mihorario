@@ -21,6 +21,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatMenuModule } from '@angular/material/menu';
+import { ColorTwitterModule } from 'ngx-color/twitter';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -66,7 +67,8 @@ import { SubjectDetailsDialogComponent } from './components/dialogs/subject-deta
     MatSelectModule,
     MatDialogModule,
     MatProgressBarModule,
-    MatMenuModule
+    MatMenuModule,
+    ColorTwitterModule
   ],
   providers: [],
   bootstrap: [AppComponent],

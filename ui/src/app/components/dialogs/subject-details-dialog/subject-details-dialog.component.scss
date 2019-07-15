@@ -12,3 +12,23 @@ button.close {
   background-color: transparent;
   border-radius: 50%;
 }
+
+.color-picker {
+  cursor: pointer;
+  width: 58px;
+  height: 42px;
+  background: whitesmoke;
+  border-radius: 4px;
+  padding: 2.5px 0px 2.5px 5px;
+
+  span {
+    display: block;
+    border-radius: 4px;
+    width: 80%;
+    height: 80%;
+  }
+
+  mat-icon {
+    color: grey;
+  }
+}

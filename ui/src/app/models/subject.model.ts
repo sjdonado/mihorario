@@ -10,4 +10,6 @@ export interface Subject {
   subjectType: string;
   teacher: string;
   type: string;
+  color?: string;
+  textColor?: string;
 }

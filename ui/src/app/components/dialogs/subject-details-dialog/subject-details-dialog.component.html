@@ -1,5 +1,13 @@
 <h1 mat-dialog-title>{{ data.name }}</h1>
 <div mat-dialog-content>
+  <div fxLayout="row" fxLayoutAlign="start center">
+    <div class="color-picker" (click)="toggleColorTwitter()" fxLayout="row" fxLayoutAlign="center center">
+      <span [ngStyle]="{'background': subjectColor}"></span>
+      <mat-icon matSuffix>arrow_drop_down</mat-icon>
+    </div>
+  </div>
+  <color-twitter *ngIf="isVisibleColorTwitter" [color]="subjectColor" [colors]="colors" width="100%" 
+    (onChangeComplete)="colorPicker($event)"></color-twitter>
   <span fxLayout="row" fxLayoutAlign="start center">
     <mat-icon matSuffix>label</mat-icon><p>NRC: {{ data.nrc }}</p>
   </span>
@@ -18,5 +26,5 @@
 </div>
 <div mat-dialog-actions>
   <button mat-button mat-dialog-close>Cerrar</button>
-  <button mat-button color="primary" [mat-dialog-close]="true">Guardar</button>
+  <button mat-button color="primary" [mat-dialog-close]="subjectDetailsData">Guardar</button>
 </div>

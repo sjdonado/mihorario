@@ -26,7 +26,7 @@
         </div>
         <div class="flex-table row" role="rowgroup" *ngFor="let hour of schedule; let i = index">
           <div class="flex-row first hour" role="cell"><p>{{ i + 6 }}:30-{{ i + 7 }}:29</p></div>
-          <div class="flex-row" role="cell" *ngFor="let subject of hour" (click)="openSubjectDetailsDialog(subject)"><p>{{ subject ? subject.shortName : '&#8203;' }}</p></div>
+          <div class="flex-row" role="cell" *ngFor="let subject of hour" (click)="openSubjectDetailsDialog(subject)" [ngStyle]="{'background': subject && subject.color ? subject.color : 'transparent'}"><p [ngStyle]="{'color': subject && subject.textColor ? subject.textColor : 'black'}">{{ subject ? subject.shortName : '&#8203;' }}</p></div>
         </div>
       </div>
     </mat-card-content>

@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Subject } from '../../models/subject.model';
 import { SubjectDetailsDialogComponent } from '../dialogs/subject-details-dialog/subject-details-dialog.component';
+import * as Color from 'color';
 
 interface ScheduleOption {
   title: string;
@@ -25,7 +26,7 @@ export class ScheduleComponent implements OnInit {
 
   constructor(
     public dialog: MatDialog
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.days = ['LUNES', 'MARTES', 'MIÉRCOLES', 'JUEVES', 'VIERNES', 'SÁBADO', 'DOMINGO'];
@@ -66,8 +67,19 @@ export class ScheduleComponent implements OnInit {
       data: subject
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('result', result);
+    dialogRef.afterClosed().subscribe(subjectDetailsData => {
+      console.log('result', subjectDetailsData);
+      if (subjectDetailsData && subjectDetailsData.color) {
+        const textColor = Color(subjectDetailsData.color).isLight() ? 'black' : 'white';
+        this.schedule.forEach(hour => {
+          hour.forEach(child => {
+            if (child && subject && child.nrc === subject.nrc) {
+              child.color = subjectDetailsData.color;
+              child.textColor = textColor;
+            }
+          });
+        });
+      }
     });
   }
 }
