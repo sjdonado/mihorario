@@ -9,7 +9,7 @@ export class GoogleOauthGuard implements CanActivate {
   constructor(
     private router: Router,
     private authService: AuthService
-  ) {}
+  ) { }
 
   canActivate() {
     if (this.authService.googleOauthTokens) {

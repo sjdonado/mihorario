@@ -41,7 +41,7 @@ export class PeriodSelectorComponent implements OnInit {
       (response: any) => {
         console.log(response);
         this.isLoading = false;
-        this.router.navigate(['/']);
+        this.router.navigateByUrl('/');
       }, (err) => {
         this.isLoading = false;
         this.snackBar.open('Error al obtener tu horario, intente de nuevo', 'Cerrar', { duration: 3000 });

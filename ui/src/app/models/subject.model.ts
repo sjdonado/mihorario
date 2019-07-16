@@ -12,4 +12,5 @@ export interface Subject {
   type: string;
   color?: string;
   textColor?: string;
+  notificationTime?: number;
 }

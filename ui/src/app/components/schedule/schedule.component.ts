@@ -24,12 +24,13 @@ export class ScheduleComponent implements OnInit {
   private scheduleOptions: ScheduleOption[];
   private fullName: string;
   private schedule: Subject[][];
+  private subjectsByDays: Subject[][];
 
   constructor(
     public dialog: MatDialog,
     private authService: AuthService,
     private userService: UserService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.days = ['LUNES', 'MARTES', 'MIÉRCOLES', 'JUEVES', 'VIERNES', 'SÁBADO', 'DOMINGO'];
@@ -52,6 +53,9 @@ export class ScheduleComponent implements OnInit {
     ];
     console.log(this.scheduleOptions);
     this.schedule = this.userService.schedule;
+    console.log('schedule', this.schedule);
+    this.subjectsByDays = this.userService.subjectsByDays;
+    console.log('subjectsByDays', this.subjectsByDays);
     this.fullName = this.authService.pomeloData.fullName;
   }
 
@@ -66,18 +70,33 @@ export class ScheduleComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(subjectDetailsData => {
       console.log('result', subjectDetailsData);
-      if (subjectDetailsData && subjectDetailsData.color) {
-        const textColor = Color(subjectDetailsData.color).isLight() ? 'black' : 'white';
-        this.schedule.forEach(hour => {
-          hour.forEach(child => {
-            if (child && subject && child.nrc === subject.nrc) {
-              child.color = subjectDetailsData.color;
-              child.textColor = textColor;
-            }
-          });
-        });
-        this.userService.setSchedule(this.schedule);
+      const { color, notificationTime } = subjectDetailsData;
+      if (color && notificationTime ) {
+        const textColor = Color(color).isLight() ? 'black' : 'white';
+        this.setSubjectByDaysProperties(subject, color, textColor, notificationTime);
+        this.userService.setSubjectsByDays(this.subjectsByDays);
       }
     });
+  }
+
+  getSubjectByDays(subject: Subject) {
+    return this.subjectsByDays.map(days => days.find(elem => elem.nrc === subject.nrc)).filter(elem => elem);
+  }
+
+  setSubjectByDaysProperties(subject: Subject, color: string, textColor: string, notificationTime: number) {
+    this.getSubjectByDays(subject).forEach(subjectByDay => {
+      subjectByDay.color = color;
+      subjectByDay.textColor = textColor;
+      subjectByDay.notificationTime = notificationTime;
+    });
+  }
+
+  getSubjectStyle(subject: Subject) {
+    const detafultStyle = { color: 'transparent', textColor: 'black' };
+    if (!subject) {
+      return detafultStyle;
+    }
+    const { color, textColor } = this.getSubjectByDays(subject)[0];
+    return { color: color || detafultStyle.color, textColor: textColor || detafultStyle.textColor };
   }
 }

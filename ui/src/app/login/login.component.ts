@@ -26,9 +26,8 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.title = this.appComponent.title;
-
     if (this.authService.token) {
-      this.router.navigate(['/']);
+      this.router.navigateByUrl('/');
     }
     this.form = this.formBuilder.group({
       username: [, Validators.required],
@@ -41,7 +40,7 @@ export class LoginComponent implements OnInit {
     this.authService.pomeloLogin(this.form.value).subscribe(
       (response: Response) => {
         console.log(response);
-        this.router.navigate(['/']);
+        this.router.navigateByUrl('/');
         this.isLoading = false;
       }, (err) => {
         this.isLoading = false;

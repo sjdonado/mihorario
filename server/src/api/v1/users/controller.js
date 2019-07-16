@@ -12,7 +12,6 @@ const getSchedule = async (req, res, next) => {
 
     const { password } = await getRecords(req.username);
     const data = await pomeloSchedule(req.username, decryptPassword(password), scheduleOption);
-    await setRecord(req.username, 'pomeloData', JSON.stringify(data));
 
     res.json({ data });
   } catch (err) {

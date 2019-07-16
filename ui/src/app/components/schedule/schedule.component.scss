@@ -1,6 +1,6 @@
 $table-border: rgb(221, 221, 221);
 $text-color: #333;
-$row-bg: #f8f8f8;
+$row-bg: #f6f6f6;
 
 .wrapper {
   display: block;
@@ -76,6 +76,14 @@ button {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+  }
+}
+
+.flex-text {
+  cursor: pointer;
+  padding: 0 2px;
+  &-left {
+    border-right: 1px solid $table-border;
   }
 }
 

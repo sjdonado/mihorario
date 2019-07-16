@@ -22,8 +22,8 @@ export class HomeComponent implements OnInit {
     private userService: UserService,
     private authService: AuthService,
     private appComponent: AppComponent,
-    public dialog: MatDialog,
-  ) {}
+    public dialog: MatDialog
+  ) { }
 
   ngOnInit() {
     this.title = this.appComponent.title;

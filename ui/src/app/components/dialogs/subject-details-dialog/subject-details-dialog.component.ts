@@ -45,6 +45,7 @@ export class SubjectDetailsDialogComponent {
   get subjectDetailsData(): SubjectDetailsData {
     return {
       color: this.subjectColor,
+      notificationTime: 10,
     };
   }
 }

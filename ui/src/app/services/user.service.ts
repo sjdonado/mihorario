@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { tap } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, observable } from 'rxjs';
 import { Subject } from '../models/subject.model';
 import { environment } from 'src/environments/environment';
 
@@ -21,14 +20,6 @@ export class UserService {
   ) { }
 
   getSchedule(scheduleOption: string) {
-    const schedule = this.schedule;
-    if (schedule) {
-      console.warn('CACHED => schedule', schedule);
-      return new Observable(observer => {
-        observer.next(schedule);
-        observer.complete();
-      });
-    }
     return this.httpClient.get(`${this.API_URL}/schedule?scheduleOption=${scheduleOption}`, {
       headers: this.BASE_HEADER,
     }).pipe(
@@ -36,6 +27,7 @@ export class UserService {
         (res: any) => {
           console.log('getSchedule', res);
           this.setSchedule(res.data.schedule);
+          this.setSubjectsByDays(res.data.subjectsByDays);
         },
         err => console.error(err),
       )
@@ -48,5 +40,13 @@ export class UserService {
 
   setSchedule(schedule: Subject[][]) {
     localStorage.setItem('schedule', JSON.stringify(schedule));
+  }
+
+  get subjectsByDays() {
+    return JSON.parse(localStorage.getItem('subjectsByDays'));
+  }
+
+  setSubjectsByDays(subjectsByDays: Subject[][]) {
+    localStorage.setItem('subjectsByDays', JSON.stringify(subjectsByDays));
   }
 }

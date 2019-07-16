@@ -15,14 +15,19 @@ export class CalendarOptionsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+
   }
 
   googleOauth() {
+    if (this.authService.googleOauthTokens) {
+      this.router.navigateByUrl('/export/select');
+      return;
+    }
     this.authService.googleLogin()
       .then(res => {
         console.log('res', res);
         if (res) {
-          this.router.navigate(['/export/select']);
+          this.router.navigateByUrl('/export/select');
         }
       });
   }
