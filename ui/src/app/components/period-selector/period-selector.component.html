@@ -1,23 +1,30 @@
 <div fxLayout="column" fxLayoutGap="10px" fxFlexFill>
-  <div fxLayout="column" fxLayoutAlign="center center" fxFlex="40">
-    <span class='title welcome'>Hola, {{ name }}</span>
-    <span class='title select-title'>Selecciona un periodo</span>
-  </div>
-  <div fxLayout="column" fxLayoutAlign="center center" fxFlex="30">
-    <mat-card>
-      <mat-card-content>
-        <form [formGroup]="getFormGroup" (ngSubmit)="getSchedule()" fxLayout="column">
-          <mat-form-field>
-            <mat-label>Periodo académico</mat-label>
-            <mat-select formControlName="schedulePeriod">
-              <mat-option *ngFor="let schedulePeriod of schedulePeriods" [value]="schedulePeriod.value">
-                {{ schedulePeriod.text }}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-          <button mat-button color="primary">Continuar</button>
-        </form>
-      </mat-card-content>
-    </mat-card>
-  </div>
+  <ng-template [ngIf]="!isLoading" [ngIfElse]="loading">
+    <div fxLayout="column" fxLayoutAlign="center center" fxFlex="40">
+      <span class='title welcome'>Hola, {{ name }}</span>
+      <span class='title select-title'>Selecciona un periodo</span>
+    </div>
+    <div fxLayout="column" fxLayoutAlign="center center" fxFlex="30">
+      <mat-card>
+        <mat-card-content>
+          <form [formGroup]="getFormGroup" (ngSubmit)="getSchedule()" fxLayout="column">
+            <mat-form-field>
+              <mat-label>Periodo académico</mat-label>
+              <mat-select formControlName="schedulePeriod">
+                <mat-option *ngFor="let schedulePeriod of schedulePeriods" [value]="schedulePeriod.value">
+                  {{ schedulePeriod.text }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <button mat-button color="primary">Continuar</button>
+          </form>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </ng-template>
+  <ng-template #loading>
+    <div fxLayoutAlign="center center" fxFlex>
+      <mat-spinner ></mat-spinner>
+    </div>
+  </ng-template>
 </div>

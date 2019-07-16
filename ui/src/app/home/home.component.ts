@@ -5,7 +5,6 @@ import { AuthService } from '../services/auth.service';
 import { AppComponent } from '../app.component';
 import { Subject } from '../models/subject.model';
 import { ConfirmationDialogComponent } from '../components/dialogs/confirmation-dialog/confirmation-dialog.component';
-import { Router } from '@angular/router';
 
 
 @Component({
@@ -23,18 +22,13 @@ export class HomeComponent implements OnInit {
     private userService: UserService,
     private authService: AuthService,
     private appComponent: AppComponent,
-    private router: Router,
     public dialog: MatDialog,
   ) {}
 
   ngOnInit() {
     this.title = this.appComponent.title;
     this.fullName = this.authService.pomeloData.fullName;
-    if (this.userService.schedule) {
-      this.schedule = this.userService.schedule;
-    } else {
-      this.router.navigate(['/period']);
-    }
+    this.schedule = this.userService.schedule;
   }
 
   openLogoutDialog(): void {

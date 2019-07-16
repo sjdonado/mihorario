@@ -35,9 +35,9 @@ export class PeriodSelectorComponent implements OnInit {
   }
 
   getSchedule(scheduleOption: string) {
-    console.log('scheduleOption', scheduleOption);
+    console.log('scheduleOption', this.form.value.schedulePeriod);
     this.isLoading = true;
-    this.userService.getSchedule(scheduleOption).subscribe(
+    this.userService.getSchedule(this.form.value.schedulePeriod).subscribe(
       (response: any) => {
         console.log(response);
         this.isLoading = false;

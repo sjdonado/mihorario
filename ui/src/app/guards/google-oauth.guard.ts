@@ -5,16 +5,16 @@ import { AuthService } from '../services/auth.service';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthGuard implements CanActivate {
+export class GoogleOauthGuard implements CanActivate {
   constructor(
     private router: Router,
     private authService: AuthService
   ) {}
 
   canActivate() {
-    if (this.authService.token) {
+    if (this.authService.googleOauthTokens) {
       return true;
     }
-    this.router.navigateByUrl('/login');
+    this.router.navigateByUrl('/export/options');
   }
 }
