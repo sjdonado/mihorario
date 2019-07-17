@@ -123,6 +123,13 @@ p {
   stroke: white;
 }
 
-// app-period-selector {
-//   height: 100%;
-// }
+.go-back-button {
+  cursor: pointer;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+button {
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+}

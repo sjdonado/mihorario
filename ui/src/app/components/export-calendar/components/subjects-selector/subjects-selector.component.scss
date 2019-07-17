@@ -1,0 +1,48 @@
+$border-color: rgb(221, 221, 221);
+
+.subjects-wrapper {
+  height: 330px;
+  overflow-y: auto;
+}
+
+.subject {
+  padding-left: 15px;
+  padding-right: 10px;
+}
+
+div {
+  p {
+    margin: 0;
+  }
+}
+
+mat-checkbox {
+  margin: 10px 0;
+  padding-bottom: 10px;
+  border-bottom: 1px solid $border-color;
+}
+
+.more-btn {
+  cursor: pointer;
+}
+
+mat-icon {
+  margin-right: 2.5px;
+}
+
+.subject-color-wrapper {
+  margin-left: 20px;
+}
+
+.subject-color {
+  margin-left: 5px;
+  width: 28px;
+  height: 28px;
+  border: 1px solid $border-color;
+}
+
+.select-all {
+  text-transform: uppercase;
+  margin: 10px;
+  margin-left: 15px;
+}

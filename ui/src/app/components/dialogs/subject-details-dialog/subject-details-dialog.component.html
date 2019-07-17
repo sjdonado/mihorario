@@ -1,6 +1,6 @@
-<h1 mat-dialog-title>{{ data.name }}</h1>
+<h1 mat-dialog-title>{{ subject.name }}</h1>
 <div mat-dialog-content>
-  <div fxLayout="row" fxLayoutAlign="start center">
+  <div *ngIf="data.editor" fxLayout="row" fxLayoutAlign="start center">
     <div class="color-picker" (click)="toggleColorTwitter()" fxLayout="row" fxLayoutAlign="center center">
       <span [ngStyle]="{'background': subjectColor}"></span>
       <mat-icon matSuffix>arrow_drop_down</mat-icon>
@@ -9,22 +9,22 @@
   <color-twitter *ngIf="isVisibleColorTwitter" [color]="subjectColor" [colors]="colors" width="100%" 
     (onChangeComplete)="colorPicker($event)"></color-twitter>
   <span fxLayout="row" fxLayoutAlign="start center">
-    <mat-icon matSuffix>label</mat-icon><p>NRC: {{ data.nrc }}</p>
+    <mat-icon matSuffix>label</mat-icon><p>NRC: {{ subject.nrc }}</p>
   </span>
   <span fxLayout="row" fxLayoutAlign="start center">
-    <mat-icon matSuffix>access_time</mat-icon><p>{{ data.start }} - {{ data.finish }} | {{ data.startParsed }} - {{ data.finishParsed }}</p>
+    <mat-icon matSuffix>access_time</mat-icon><p>{{ subject.start }} - {{ subject.finish }} | {{ subject.startParsed }} - {{ subject.finishParsed }}</p>
   </span>
   <span fxLayout="row" fxLayoutAlign="start center">
-    <mat-icon matSuffix>place</mat-icon><p>{{ data.place }}</p>
+    <mat-icon matSuffix>place</mat-icon><p>{{ subject.place }}</p>
   </span>
   <span fxLayout="row" fxLayoutAlign="start center">
-    <mat-icon matSuffix>person</mat-icon><p>{{ data.teacher }}</p>
+    <mat-icon matSuffix>person</mat-icon><p>{{ subject.teacher }}</p>
   </span>
   <span fxLayout="row" fxLayoutAlign="start center">
-    <mat-icon matSuffix>info</mat-icon><p>{{ data.type }} | {{ data.subjectType }}</p>
+    <mat-icon matSuffix>info</mat-icon><p>{{ subject.type }} | {{ subject.subjectType }}</p>
   </span>
 </div>
 <div mat-dialog-actions>
   <button mat-button mat-dialog-close>Cerrar</button>
-  <button mat-button color="primary" [mat-dialog-close]="subjectDetailsData">Guardar</button>
+  <button *ngIf="data.editor" mat-button color="primary" [mat-dialog-close]="subjectDetailsData">Guardar</button>
 </div>

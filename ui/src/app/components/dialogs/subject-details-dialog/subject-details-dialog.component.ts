@@ -10,6 +10,8 @@ import * as moment from 'moment';
   styleUrls: ['./subject-details-dialog.component.scss']
 })
 export class SubjectDetailsDialogComponent {
+
+  private subject: Subject;
   private subjectColor: string;
   private colors = [
     '#F44336', '#E91E63', '#9C27B0', '#673AB7', '#3F51B5', '#2196F3', '#03A9F4',
@@ -20,13 +22,13 @@ export class SubjectDetailsDialogComponent {
 
   constructor(
     public dialogRef: MatDialogRef<SubjectDetailsDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) private data: Subject
+    @Inject(MAT_DIALOG_DATA) private data: any
   ) {
-    this.data = Object.assign(data, {
+    this.subject = Object.assign(this.data.subject, {
       startParsed: moment(data.start, 'HH:mm').format('hh:mm A'),
       finishParsed: moment(data.finish, 'HH:mm').format('hh:mm A')
     });
-    this.subjectColor = this.data.color ? this.data.color : '#FFFFFF';
+    this.subjectColor = this.subject.color;
   }
 
   colorPicker(event: any) {

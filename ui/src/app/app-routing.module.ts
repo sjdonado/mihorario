@@ -9,7 +9,7 @@ import { ScheduleComponent } from './components/schedule/schedule.component';
 import { PeriodSelectorComponent } from './components/period-selector/period-selector.component';
 import { ExportCalendarComponent } from './components/export-calendar/export-calendar.component';
 import { CalendarOptionsComponent } from './components/export-calendar/components/calendar-options/calendar-options.component';
-import { SelectSubjectsComponent } from './components/export-calendar/components/select-subjects/select-subjects.component';
+import { SubjectsSelectorComponent } from './components/export-calendar/components/subjects-selector/subjects-selector.component';
 
 const routes: Routes = [
   // { path: '**', redirectTo: '' },
@@ -47,7 +47,7 @@ const routes: Routes = [
           },
           {
             path: 'select',
-            component: SelectSubjectsComponent,
+            component: SubjectsSelectorComponent,
             canActivate: [GoogleOauthGuard]
           },
         ]

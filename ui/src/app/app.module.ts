@@ -22,6 +22,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { ColorTwitterModule } from 'ngx-color/twitter';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
@@ -35,7 +36,7 @@ import { ScheduleComponent } from './components/schedule/schedule.component';
 import { ConfirmationDialogComponent } from './components/dialogs/confirmation-dialog/confirmation-dialog.component';
 import { ExportCalendarComponent } from './components/export-calendar/export-calendar.component';
 import { SubjectDetailsDialogComponent } from './components/dialogs/subject-details-dialog/subject-details-dialog.component';
-import { SelectSubjectsComponent } from './components/export-calendar/components/select-subjects/select-subjects.component';
+import { SubjectsSelectorComponent } from './components/export-calendar/components/subjects-selector/subjects-selector.component';
 import { CalendarOptionsComponent } from './components/export-calendar/components/calendar-options/calendar-options.component';
 
 @NgModule({
@@ -48,7 +49,7 @@ import { CalendarOptionsComponent } from './components/export-calendar/component
     ConfirmationDialogComponent,
     ExportCalendarComponent,
     SubjectDetailsDialogComponent,
-    SelectSubjectsComponent,
+    SubjectsSelectorComponent,
     CalendarOptionsComponent,
   ],
   imports: [
@@ -75,11 +76,11 @@ import { CalendarOptionsComponent } from './components/export-calendar/component
     MatDialogModule,
     MatProgressBarModule,
     MatMenuModule,
+    MatCheckboxModule,
     ColorTwitterModule,
     AngularFireModule.initializeApp(environment.firebase, 'MiHorarioUN'),
     AngularFireAuthModule
   ],
-  providers: [],
   bootstrap: [AppComponent],
   entryComponents: [
     ConfirmationDialogComponent,
