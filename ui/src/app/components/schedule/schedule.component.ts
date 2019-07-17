@@ -1,8 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import * as Color from 'color';
 import { MatDialog } from '@angular/material/dialog';
 import { Subject } from '../../models/subject.model';
 import { SubjectDetailsDialogComponent } from '../dialogs/subject-details-dialog/subject-details-dialog.component';
-import * as Color from 'color';
 import { UserService } from 'src/app/services/user.service';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -27,7 +27,7 @@ export class ScheduleComponent implements OnInit {
   private subjectsByDays: Subject[][];
 
   constructor(
-    public dialog: MatDialog,
+    private dialog: MatDialog,
     private authService: AuthService,
     private userService: UserService
   ) { }
@@ -42,7 +42,7 @@ export class ScheduleComponent implements OnInit {
       },
       {
         title: 'Exportar',
-        icon: 'calendar_today',
+        icon: 'import_export',
         link: '/export'
       },
       {
@@ -52,7 +52,7 @@ export class ScheduleComponent implements OnInit {
       }
     ];
     console.log(this.scheduleOptions);
-    this.schedule = this.userService.schedule;
+    this.schedule = this.userService.scheduleByHours;
     console.log('schedule', this.schedule);
     this.subjectsByDays = this.userService.subjectsByDays;
     console.log('subjectsByDays', this.subjectsByDays);
@@ -65,7 +65,7 @@ export class ScheduleComponent implements OnInit {
     }
     const dialogRef = this.dialog.open(SubjectDetailsDialogComponent, {
       width: `${window.innerWidth / 2.2 > 320 ? window.innerWidth / 2.2 : 300 }px`,
-      data: subject
+      data: { editor: true, subject }
     });
 
     dialogRef.afterClosed().subscribe(subjectDetailsData => {
@@ -92,11 +92,10 @@ export class ScheduleComponent implements OnInit {
   }
 
   getSubjectStyle(subject: Subject) {
-    const detafultStyle = { color: 'transparent', textColor: 'black' };
     if (!subject) {
-      return detafultStyle;
+      return { color: '#FFFFFF', textColor: 'black' };
     }
     const { color, textColor } = this.getSubjectByDays(subject)[0];
-    return { color: color || detafultStyle.color, textColor: textColor || detafultStyle.textColor };
+    return { color, textColor };
   }
 }

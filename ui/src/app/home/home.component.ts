@@ -28,7 +28,7 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.title = this.appComponent.title;
     this.fullName = this.authService.pomeloData.fullName;
-    this.schedule = this.userService.schedule;
+    this.schedule = this.userService.scheduleByHours;
   }
 
   openLogoutDialog(): void {

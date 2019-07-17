@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
 
@@ -12,6 +12,7 @@ export class CalendarOptionsComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private router: Router,
+    private ngZone: NgZone,
   ) { }
 
   ngOnInit() {
@@ -24,10 +25,11 @@ export class CalendarOptionsComponent implements OnInit {
       return;
     }
     this.authService.googleLogin()
-      .then(res => {
-        console.log('res', res);
+      .subscribe(res => {
         if (res) {
-          this.router.navigateByUrl('/export/select');
+          this.ngZone.run(() => {
+            this.router.navigateByUrl('/export/select');
+          });
         }
       });
   }

@@ -25,20 +25,31 @@ export class UserService {
     }).pipe(
       tap(
         (res: any) => {
+          const defaultSubjectStyle = {
+            color: '#FFFFFF',
+            textColor: 'black',
+            notificationTime: 10,
+          };
           console.log('getSchedule', res);
-          this.setSchedule(res.data.schedule);
-          this.setSubjectsByDays(res.data.subjectsByDays);
+          this.setScheduleByHours(res.data.scheduleByHours.map((hours: Subject[]) => hours.map(subject => {
+            if (!subject) {
+              return subject;
+            }
+            return Object.assign(subject, defaultSubjectStyle);
+          })));
+          this.setSubjectsByDays(res.data.subjectsByDays
+            .map((hours: Subject[]) => hours.map(subject => Object.assign(subject, defaultSubjectStyle))));
         },
         err => console.error(err),
       )
     );
   }
 
-  get schedule() {
+  get scheduleByHours() {
     return JSON.parse(localStorage.getItem('schedule'));
   }
 
-  setSchedule(schedule: Subject[][]) {
+  setScheduleByHours(schedule: Subject[][]) {
     localStorage.setItem('schedule', JSON.stringify(schedule));
   }
 

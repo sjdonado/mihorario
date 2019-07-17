@@ -12,10 +12,6 @@ mat-form-field {
   font-size: 16px;
 }
 
-mat-select, mat-option, mat-label, button {
+mat-select, mat-option, mat-label {
   letter-spacing: 0.1em;
-}
-
-button {
-  text-transform: uppercase;
 }

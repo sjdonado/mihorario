@@ -29,9 +29,8 @@ const getWeekEvents = (tokens) => {
  * @param {Object} tokens.access_token
  * @param {Object} tokens.refresh_token
  * @param {*} schedule
- * @param {Int} notificationTime
  */
-const importSchedule = async (tokens, subjectsByDays, notificationTime = 20) => {
+const importSchedule = async (tokens, subjectsByDays) => {
   const calendarService = new CalendarService(tokens);
   const events = [];
   /**
@@ -83,7 +82,7 @@ const importSchedule = async (tokens, subjectsByDays, notificationTime = 20) => 
           overrides: [
             {
               method: 'popup',
-              minutes: notificationTime,
+              minutes: subject.notificationTime,
             },
           ],
         },

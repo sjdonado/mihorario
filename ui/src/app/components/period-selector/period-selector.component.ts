@@ -5,7 +5,6 @@ import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 
-
 @Component({
   selector: 'app-period-selector',
   templateUrl: './period-selector.component.html',
@@ -17,6 +16,7 @@ export class PeriodSelectorComponent implements OnInit {
   private isLoading: boolean;
   private name: string;
   private schedulePeriods: string[];
+  private showGoBackButton: boolean;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -24,7 +24,9 @@ export class PeriodSelectorComponent implements OnInit {
     private authService: AuthService,
     private userService: UserService,
     private router: Router,
-  ) { }
+  ) {
+    this.showGoBackButton = this.userService.scheduleByHours !== null;
+  }
 
   ngOnInit() {
     this.schedulePeriods = this.authService.pomeloData.options;

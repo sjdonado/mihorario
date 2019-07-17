@@ -1,12 +1,19 @@
 <div fxLayout="column" fxLayoutGap="10px" fxFlexFill>
   <ng-template [ngIf]="!isLoading" [ngIfElse]="loading">
     <div fxLayout="column" fxLayoutAlign="center center" fxFlex="40">
-      <span class='title welcome'>Hola, {{ name }}</span>
-      <span class='title select-title'>Selecciona un periodo</span>
+      <span class="title welcome" fxLayoutAlign="center center">
+        <p>Hola, {{ name }}</p>
+      </span>
+      <span class="title select-title" fxLayoutAlign="center center">
+        <p>Selecciona un periodo</p>
+      </span>
     </div>
     <div fxLayout="column" fxLayoutAlign="center center" fxFlex="30">
       <mat-card>
         <mat-card-content>
+          <span *ngIf="showGoBackButton" class="go-back-button" fxLayoutAlign="start center" routerLink="..">
+            <mat-icon fxLayoutAlign="center center">arrow_back</mat-icon>
+          </span>
           <form [formGroup]="getFormGroup" (ngSubmit)="getSchedule()" fxLayout="column">
             <mat-form-field>
               <mat-label>Periodo académico</mat-label>

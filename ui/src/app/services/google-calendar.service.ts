@@ -20,8 +20,8 @@ export class GoogleCalendarService {
     private httpClient: HttpClient
   ) { }
 
-  importSchedule(subjectsByDays: Subject[][]) {
-    return this.httpClient.post(`${this.API_URL}/import`, {
+  importSchedule(data: any) {
+    return this.httpClient.post(`${this.API_URL}/import`, data, {
       headers: this.BASE_HEADER,
     }).pipe(
       tap(

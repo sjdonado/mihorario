@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { auth } from 'firebase/app';
 import { environment } from 'src/environments/environment';
+import { from } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -32,18 +33,22 @@ export class AuthService {
           localStorage.setItem('userToken', res.data.token);
           localStorage.setItem('pomeloData', JSON.stringify(res.data.pomelo));
         },
-        err => console.error(err),
+        err => console.error(err)
       )
     );
   }
 
   googleLogin() {
-    return this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider())
-      .then((res) => {
-        this.setGoogleOauthTokens(res.credential['accessToken'], res.user['refreshToken']);
-        return this.googleOauthTokens;
-      })
-      .catch(err => console.log(err));
+    const provider = new auth.GoogleAuthProvider();
+    provider.addScope('https://www.googleapis.com/auth/calendar.events');
+    return from(this.afAuth.auth.signInWithPopup(provider))
+      .pipe(tap(
+        res => {
+          this.setGoogleOauthTokens(res.credential['accessToken'], res.user['refreshToken']);
+          return this.googleOauthTokens;
+        },
+        err => console.error(err)
+      ));
   }
 
   logout() {

@@ -90,6 +90,7 @@ const pomeloSchedule = async (username, password, scheduleOption) => {
         const data = {
           nrc: tables[i].children[1].children[1].children[1].textContent,
           name: tables[i].caption.textContent,
+          shortName: tables[i].caption.textContent.split(' - ')[0],
           type: obj[0],
           start: hours[1],
           finish: hours[2],
@@ -132,7 +133,7 @@ const pomeloSchedule = async (username, password, scheduleOption) => {
     return result;
   });
 
-  const schedule = Array.from(Array(14), () => new Array(6));
+  const scheduleByHours = Array.from(Array(14), () => new Array(6));
 
   subjectsByDays.forEach((day, index) => {
     day.forEach((row) => {
@@ -143,8 +144,7 @@ const pomeloSchedule = async (username, password, scheduleOption) => {
       const finishSubjectInt = parseInt(finishSubjectDate.hours(), 10);
 
       while (finishSubjectInt - startSubjectInt >= 1) {
-        schedule[startSubjectInt - 6][index] = Object.assign({}, row, {
-          shortName: row.name.split(' - ')[0],
+        scheduleByHours[startSubjectInt - 6][index] = Object.assign({}, row, {
           start: `${startSubjectInt}:${startSubjectDate.minutes()}`,
           finish: `${startSubjectInt + 1}:${finishSubjectDate.minutes()}`,
           startDate: moment(row.startDate, 'MMM DD, YYYY', 'es'),
@@ -155,10 +155,10 @@ const pomeloSchedule = async (username, password, scheduleOption) => {
     });
   });
 
-  await page.screenshot({ path: 'schedule.png' });
+  await page.screenshot({ path: 'scheduleByHours.png' });
   await closeBrowser(browser);
 
-  return { schedule, subjectsByDays };
+  return { scheduleByHours, subjectsByDays };
 };
 
 module.exports = {
