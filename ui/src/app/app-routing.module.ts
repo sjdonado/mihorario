@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { HomeComponent } from './home/home.component';
+import { HomeComponent } from './pages/home/home.component';
 import { AuthGuard } from './guards/auth.guard';
 import { ScheduleGuard } from './guards/schedule.guard';
 import { GoogleOauthGuard } from './guards/google-oauth.guard';
-import { LoginComponent } from './login/login.component';
+import { LoginComponent } from './pages/login/login.component';
 import { ScheduleComponent } from './components/schedule/schedule.component';
 import { PeriodSelectorComponent } from './components/period-selector/period-selector.component';
 import { ExportCalendarComponent } from './components/export-calendar/export-calendar.component';

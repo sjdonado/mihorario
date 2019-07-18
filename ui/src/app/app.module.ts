@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { environment } from '../environments/environment';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -29,8 +29,8 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LoginComponent } from './login/login.component';
-import { HomeComponent } from './home/home.component';
+import { LoginComponent } from './pages/login/login.component';
+import { HomeComponent } from './pages/home/home.component';
 import { PeriodSelectorComponent } from './components/period-selector/period-selector.component';
 import { ScheduleComponent } from './components/schedule/schedule.component';
 import { ConfirmationDialogComponent } from './components/dialogs/confirmation-dialog/confirmation-dialog.component';
@@ -38,6 +38,7 @@ import { ExportCalendarComponent } from './components/export-calendar/export-cal
 import { SubjectDetailsDialogComponent } from './components/dialogs/subject-details-dialog/subject-details-dialog.component';
 import { SubjectsSelectorComponent } from './components/export-calendar/components/subjects-selector/subjects-selector.component';
 import { CalendarOptionsComponent } from './components/export-calendar/components/calendar-options/calendar-options.component';
+import { AuthInterceptor } from './interceptors/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -80,6 +81,13 @@ import { CalendarOptionsComponent } from './components/export-calendar/component
     ColorTwitterModule,
     AngularFireModule.initializeApp(environment.firebase, 'MiHorarioUN'),
     AngularFireAuthModule
+  ],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    },
   ],
   bootstrap: [AppComponent],
   entryComponents: [
