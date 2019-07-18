@@ -9,6 +9,8 @@ import { Router } from '@angular/router';
 })
 export class CalendarOptionsComponent implements OnInit {
 
+  private googleOauthInfo: any;
+
   constructor(
     private authService: AuthService,
     private router: Router,
@@ -16,11 +18,11 @@ export class CalendarOptionsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-
+    this.googleOauthInfo = this.authService.googleOauthInfo;
   }
 
   googleOauth() {
-    if (this.authService.googleOauthTokens) {
+    if (this.authService.googleOauthInfo) {
       this.router.navigateByUrl('/export/select');
       return;
     }
@@ -32,6 +34,11 @@ export class CalendarOptionsComponent implements OnInit {
           });
         }
       });
+  }
+
+  googleSignOut() {
+    this.authService.removeGoogleOauthInfo();
+    this.googleOauth();
   }
 
 }

@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
+import { NotificationService } from 'src/app/services/notification.service';
 
 @Component({
   selector: 'app-period-selector',
@@ -20,10 +20,10 @@ export class PeriodSelectorComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private snackBar: MatSnackBar,
     private authService: AuthService,
     private userService: UserService,
     private router: Router,
+    private notificationService: NotificationService
   ) {
     this.showGoBackButton = this.userService.scheduleByHours !== null;
   }
@@ -46,7 +46,7 @@ export class PeriodSelectorComponent implements OnInit {
         this.router.navigateByUrl('/');
       }, (err) => {
         this.isLoading = false;
-        this.snackBar.open('Error al obtener tu horario, intente de nuevo', 'Cerrar', { duration: 3000 });
+        this.notificationService.show('Error al obtener tu horario, intente de nuevo.');
         console.log('Error: ' + err);
       }
     );

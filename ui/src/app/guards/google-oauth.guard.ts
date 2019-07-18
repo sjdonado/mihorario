@@ -12,7 +12,7 @@ export class GoogleOauthGuard implements CanActivate {
   ) { }
 
   canActivate() {
-    if (this.authService.googleOauthTokens) {
+    if (this.authService.googleOauthInfo) {
       return true;
     }
     this.router.navigateByUrl('/export/options');

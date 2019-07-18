@@ -1,0 +1,46 @@
+mat-toolbar {
+  background-color: transparent;
+
+  mat-icon {
+    cursor: pointer;
+    color: white;
+  }
+}
+
+mat-sidenav-container, mat-sidenav-content  {
+  background: transparent;
+}
+
+.toolbar {
+  &-spacer {
+    width: 90%;
+  }
+}
+
+.option {
+  font-size: 16px;
+  padding-right: 20px;
+  mat-icon {
+    margin-left: 5px;
+  }
+}
+
+.title {
+  padding-left: 10px;
+}
+
+.small {
+  padding-left: 0;
+  font-size: 20px;
+}
+
+mat-toolbar-row.small {
+  padding: 5px;
+}
+
+mat-nav-list span p {
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 5px 10px;
+}

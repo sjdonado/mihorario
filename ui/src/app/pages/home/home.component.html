@@ -1,0 +1,32 @@
+<div fxLayout="column" class="wrapper">
+  <mat-toolbar fxFlex="10">
+    <mat-toolbar-row ngClass.xs="small">
+      <button class="menu-btn" mat-icon-button (click)="sidenav.toggle()" fxShow="true" fxHide.gt-sm>
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span class="title" ngClass.lt-md="small" fxFlex>{{ title }}</span>
+      <span class="toolbar-spacer"></span>
+      <div fxShow="true" fxHide.lt-md>
+        <span class="option" fxLayout="row" fxLayoutAlign="center center">
+          <p>{{ fullName }}</p>
+          <mat-icon aria-hidden="false" aria-label="Cerrar sesión" (click)="openLogoutDialog()">logout</mat-icon>
+        </span>
+      </div>
+    </mat-toolbar-row>
+  </mat-toolbar>
+  
+  <mat-sidenav-container fxFlex>
+    <mat-sidenav #sidenav>
+      <mat-nav-list>
+        <span><p>{{ fullName }}</p></span>
+        <span fxLayout="row" fxLayoutAlign="center center" (click)="openLogoutDialog()">
+          <p>Cerrar sesión</p>
+          <mat-icon aria-hidden="false" aria-label="Cerrar sesión">logout</mat-icon>
+        </span>
+      </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content fxFlex>
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

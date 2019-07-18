@@ -40,12 +40,12 @@ export class AuthService {
 
   googleLogin() {
     const provider = new auth.GoogleAuthProvider();
-    provider.addScope('https://www.googleapis.com/auth/calendar.events');
+    provider.addScope('https://www.googleapis.com/auth/admin.directory.resource.calendar');
     return from(this.afAuth.auth.signInWithPopup(provider))
       .pipe(tap(
         res => {
-          this.setGoogleOauthTokens(res.credential['accessToken'], res.user['refreshToken']);
-          return this.googleOauthTokens;
+          this.setGoogleOauthInfo(res.credential['accessToken'], res.user['refreshToken'], res.user.email);
+          return this.googleOauthInfo;
         },
         err => console.error(err)
       ));
@@ -64,11 +64,15 @@ export class AuthService {
     return JSON.parse(localStorage.getItem('pomeloData'));
   }
 
-  setGoogleOauthTokens(accessToken: string, refreshToken: string) {
-    localStorage.setItem('googleOauthTokens', JSON.stringify({ accessToken, refreshToken }));
+  setGoogleOauthInfo(authToken: string, refreshToken: string, email: string) {
+    localStorage.setItem('googleOauthInfo', JSON.stringify({ authToken, refreshToken, email }));
   }
 
-  get googleOauthTokens() {
-    return JSON.parse(localStorage.getItem('googleOauthTokens'));
+  get googleOauthInfo() {
+    return JSON.parse(localStorage.getItem('googleOauthInfo'));
+  }
+
+  removeGoogleOauthInfo() {
+    localStorage.removeItem('googleOauthInfo');
   }
 }
