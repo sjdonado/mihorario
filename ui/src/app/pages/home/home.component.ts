@@ -39,7 +39,7 @@ export class HomeComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.authService.logout();
+        this.userService.logout().subscribe();
       }
     });
   }

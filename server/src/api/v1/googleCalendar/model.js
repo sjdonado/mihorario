@@ -10,7 +10,7 @@ const CalendarService = require('../../../services/calendar');
  * @param {String} key
  */
 const getRangeOfDates = (start, end, key, arr = [start.startOf(key)]) => {
-  if (start.isAfter(end)) throw new ApiError('Start must precede end');
+  if (start.isAfter(end)) throw new ApiError(`Start must precede end => ${start}-${end}`);
   const next = moment(start).add(1, key).startOf(key);
   if (next.isAfter(end, key)) return arr;
   return getRangeOfDates(next, end, key, arr.concat(next));
@@ -31,6 +31,7 @@ const getWeekEvents = (tokens) => {
  * @param {*} schedule
  */
 const importSchedule = async (tokens, subjectsByDays) => {
+  console.log('importSchedule TOKENS', tokens);
   const calendarService = new CalendarService(tokens);
   const events = [];
   /**
@@ -49,7 +50,7 @@ const importSchedule = async (tokens, subjectsByDays) => {
       const finishDate = moment(`${subject.finishDate}`, 'MMM DD, YYYY', 'es');
 
       const firstWeekDay = moment(subject.startDate, 'MMM DD, YYYY', 'es').startOf('week');
-      const invalidDays = getRangeOfDates(firstWeekDay.clone(), startDate.clone().subtract(1, 'days'), 'days');
+      const invalidDays = startDate.weekday() === 0 ? [] : getRangeOfDates(firstWeekDay.clone(), startDate.clone().subtract(1, 'days'), 'days');
 
       // First classes day doesn't start on first week day offset
       if (invalidDays.some(date => date.format('YYYYMMDD') === firstWeekDay.clone().add(dayNumber, 'days').format('YYYYMMDD'))) firstWeekDay.add(1, 'weeks');
@@ -65,7 +66,7 @@ const importSchedule = async (tokens, subjectsByDays) => {
       }
 
       // eslint-disable-next-line no-await-in-loop
-      events.push(await calendarService.createEvent({
+      const calendarEvent = await calendarService.createEvent({
         location: subject.place,
         summary: subject.name,
         description: subject.teacher,
@@ -87,7 +88,10 @@ const importSchedule = async (tokens, subjectsByDays) => {
           ],
         },
         recurrence,
-      }));
+      });
+
+      console.log('calendarEvent', calendarEvent);
+      events.push(calendarEvent);
     }
   }
   return events;

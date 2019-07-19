@@ -18,10 +18,11 @@ const all = async (req, res, next) => {
 const importScheduleToCalendar = async (req, res, next) => {
   try {
     const { selectedSubjects } = req.body;
-    const { accessToken, refreshToken, pomeloData } = await getRecords(req.username);
-    const { subjectsByDays } = JSON.parse(pomeloData);
+    const { accessToken, refreshToken, schedule } = await getRecords(req.username);
+    const { subjectsByDays } = JSON.parse(schedule);
     const subjects = subjectsByDays.map(day => day.map((subject) => {
       const selectedSubject = selectedSubjects.find(elem => elem.nrc === subject.nrc);
+      if (!selectedSubject) return null;
       const { color, notificationTime } = selectedSubject;
       return Object.assign(subject, { color, notificationTime });
     }).filter(elem => elem));

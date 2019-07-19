@@ -1,8 +1,18 @@
 import { Injectable } from '@angular/core';
-import { tap } from 'rxjs/operators';
+import { tap, map } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Subject } from '../models/subject.model';
+import { auth } from 'firebase/app';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
+import { from } from 'rxjs';
+
+interface GoogleOauthInfo {
+  accessToken: string;
+  refreshToken: string;
+  email: string;
+}
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +26,9 @@ export class UserService {
   });
 
   constructor(
-    private httpClient: HttpClient
+    private httpClient: HttpClient,
+    private afAuth: AngularFireAuth,
+    private router: Router
   ) { }
 
   getSchedule(scheduleOption: string) {
@@ -45,6 +57,50 @@ export class UserService {
     );
   }
 
+  googleLogin(googleOauthInfo: GoogleOauthInfo) {
+    return this.httpClient.post(`${this.API_URL}/login/google`, googleOauthInfo, {
+      headers: this.BASE_HEADER,
+    }).pipe(map(
+      (res: any) => {
+        console.warn('googleOauthInfo', googleOauthInfo);
+        this.setGoogleOauthInfo(googleOauthInfo);
+        return this.googleOauthInfo;
+      },
+      err => console.error(err)
+    ));
+  }
+
+  googleOauthLogin() {
+    const provider = new auth.GoogleAuthProvider();
+    provider.addScope('https://www.googleapis.com/auth/calendar');
+    return from(this.afAuth.auth.signInWithPopup(provider))
+      .pipe(map(
+        res => {
+          console.log('googleOauthLogin', res);
+          const googleOauthInfo = {
+            accessToken: res.credential['accessToken'],
+            refreshToken: res.user.refreshToken,
+            email: res.user.email
+          };
+          return this.googleLogin(googleOauthInfo);
+        },
+        err => console.error(err)
+      ));
+  }
+
+  logout() {
+    return this.httpClient.post(`${this.API_URL}/logout`, null, {
+      headers: this.BASE_HEADER,
+    })
+      .pipe(tap(
+        (res: any) => {
+          localStorage.clear();
+          this.router.navigateByUrl('/login');
+        },
+        err => console.error(err)
+      ));
+  }
+
   get scheduleByHours() {
     return JSON.parse(localStorage.getItem('schedule'));
   }
@@ -59,5 +115,17 @@ export class UserService {
 
   setSubjectsByDays(subjectsByDays: Subject[][]) {
     localStorage.setItem('subjectsByDays', JSON.stringify(subjectsByDays));
+  }
+
+  setGoogleOauthInfo(googleOauthInfo: GoogleOauthInfo) {
+    localStorage.setItem('googleOauthInfo', JSON.stringify(googleOauthInfo));
+  }
+
+  get googleOauthInfo() {
+    return JSON.parse(localStorage.getItem('googleOauthInfo'));
+  }
+
+  removeGoogleOauthInfo() {
+    localStorage.removeItem('googleOauthInfo');
   }
 }

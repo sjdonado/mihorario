@@ -9,13 +9,17 @@ import { tap } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { NotificationService } from '../services/notification.service';
+import { UserService } from '../services/user.service';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
+
   constructor(
     private router: Router,
     private notificationService: NotificationService,
+    private userService: UserService,
   ) { }
+
   intercept(req: HttpRequest<any>, next: HttpHandler):
     Observable<HttpEvent<any>> {
     return next.handle(req)
@@ -37,7 +41,6 @@ export class AuthInterceptor implements HttpInterceptor {
 
   private invalidAuthLocalData() {
     this.notificationService.show('Tiempo límite de sesión web ha expirado, ingrese nuevamente.');
-    localStorage.clear();
-    this.router.navigateByUrl('/login');
+    this.userService.logout().subscribe();
   }
 }

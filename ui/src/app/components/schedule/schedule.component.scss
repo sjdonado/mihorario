@@ -49,13 +49,9 @@ $row-bg: #f6f6f6;
     color: $text-color;
     border-color: $table-border;
   }
-  &.row:nth-child(odd) .flex-row {
+  &.row:nth-child(even) .flex-row {
     background: $row-bg;
   }
-  // &:hover {
-  //   background: #F5F5F5;
-  //   transition: 500ms;
-  // }
 }
 
 .flex-row {

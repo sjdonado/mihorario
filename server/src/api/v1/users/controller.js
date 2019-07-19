@@ -43,14 +43,14 @@ const login = async (req, res, next) => {
 const googleLogin = async (req, res, next) => {
   try {
     const {
-      gauthAccessToken,
-      gauthRefreshToken,
+      accessToken,
+      refreshToken,
     } = req.body;
 
-    if (!gauthAccessToken || !gauthRefreshToken) next(new ApiError('Bad request', 400));
+    if (!accessToken || !refreshToken) next(new ApiError('Bad request', 400));
 
-    await setRecord(req.username, 'accessToken', gauthAccessToken);
-    await setRecord(req.username, 'refreshToken', gauthRefreshToken);
+    await setRecord(req.username, 'accessToken', accessToken);
+    await setRecord(req.username, 'refreshToken', refreshToken);
     res.status(204).json();
   } catch (err) {
     next(err);
@@ -59,8 +59,7 @@ const googleLogin = async (req, res, next) => {
 
 const logout = async (req, res, next) => {
   try {
-    await removeRecords(req.username);
-    res.status(204).json();
+    res.json({ data: await removeRecords(req.username) });
   } catch (err) {
     next(err);
   }

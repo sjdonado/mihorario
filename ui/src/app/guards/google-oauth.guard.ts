@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
-import { AuthService } from '../services/auth.service';
+import { UserService } from '../services/user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -8,11 +8,11 @@ import { AuthService } from '../services/auth.service';
 export class GoogleOauthGuard implements CanActivate {
   constructor(
     private router: Router,
-    private authService: AuthService
+    private userService: UserService
   ) { }
 
   canActivate() {
-    if (this.authService.googleOauthInfo) {
+    if (this.userService.googleOauthInfo) {
       return true;
     }
     this.router.navigateByUrl('/export/options');

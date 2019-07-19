@@ -9,6 +9,7 @@ const {
 
 const pomeloLogin = 'https://pomelo.uninorte.edu.co/pls/prod/twbkwbis.P_WWWLogin';
 const pomeloScheduleDetils = 'https://pomelo.uninorte.edu.co/pls/prod/bwskfshd.P_CrseSchdDetl';
+const pomeloLogout = 'https://pomelo.uninorte.edu.co/pls/prod/twbkwbis.P_Logout';
 
 /**
  * Login to Pomelo
@@ -29,18 +30,25 @@ const login = async (username, password) => {
     this.document.querySelector('body > div.pagebodydiv > form > p > input[type=submit]').click();
   }, username, password);
 
-  return page.waitFor(() => this.document.querySelector('body > div.pagebodydiv > table:nth-child(1) > tbody > tr > td:nth-child(2) > b:nth-child(1)'), {
+  return page.waitForSelector('body > div.pagebodydiv > table:nth-child(1) > tbody > tr > td:nth-child(2) > b:nth-child(1)', {
+    visible: true,
     timeout: 1000,
   }).then(async () => {
     const welcomeMessage = await page.evaluate(() => this.document.querySelector('body > div.pagebodydiv > table:nth-child(1) > tbody > tr > td:nth-child(2) > b:nth-child(1)').textContent);
     const fullName = welcomeMessage.match(/,\s([\s\S]+),/)[1];
 
-    await page.screenshot({ path: 'auth.png' });
+    // await page.screenshot({ path: 'auth.png' });
     return { browser, page, fullName };
   }).catch(() => {
     throw new ApiError('Invalid credentials', 400);
   });
 };
+
+/**
+ * Logout to Pomelo
+ * @param {Object} page
+ */
+const logout = page => goTo(page, pomeloLogout);
 
 /**
  * Get Pomelo schedule options
@@ -51,7 +59,7 @@ const pomeloSchedulePeriods = async (username, password) => {
   const { page, fullName } = await login(username, password);
 
   await goTo(page, pomeloScheduleDetils);
-  await page.waitFor(() => this.document.querySelector('#term_id'));
+  await page.waitForSelector('#term_id', { visible: true });
 
   const options = await page.evaluate(() => [...this.document.querySelector('#term_id').options]
     .filter(elem => !elem.text.toLowerCase().includes('ver solo'))
@@ -69,14 +77,15 @@ const pomeloSchedule = async (username, password, scheduleOption) => {
   const { browser, page } = await login(username, password);
 
   await goTo(page, pomeloScheduleDetils);
-  await page.waitFor(() => this.document.querySelector('#term_id'));
+  await page.waitForSelector('#term_id', { visible: true });
 
   await page.evaluate((option) => {
     this.document.querySelector('#term_id').value = option;
     this.document.querySelector('body > div.pagebodydiv > form > input[type=submit]').click();
   }, scheduleOption);
 
-  await page.waitFor(() => this.document.querySelectorAll('.datadisplaytable').length > 0);
+  await page.waitForSelector('.datadisplaytable', { visible: true });
+  await page.waitFor(() => [...this.document.querySelectorAll('.datadisplaytable')].length > 0);
 
   const subjectsByDays = await page.evaluate(() => {
     const result = [[], [], [], [], [], [], []];
@@ -100,6 +109,7 @@ const pomeloSchedule = async (username, password, scheduleOption) => {
           subjectType: obj[5],
           teacher: obj[6],
         };
+        // Add to results by day index
         obj[2].split('').forEach((day) => {
           switch (day) {
             case 'L':
@@ -145,8 +155,8 @@ const pomeloSchedule = async (username, password, scheduleOption) => {
 
       while (finishSubjectInt - startSubjectInt >= 1) {
         scheduleByHours[startSubjectInt - 6][index] = Object.assign({}, row, {
-          start: `${startSubjectInt}:${startSubjectDate.minutes()}`,
-          finish: `${startSubjectInt + 1}:${finishSubjectDate.minutes()}`,
+          startParsedTime: `${startSubjectInt}:${startSubjectDate.minutes()}`,
+          finishParsedTime: `${startSubjectInt + 1}:${finishSubjectDate.minutes()}`,
           startDate: moment(row.startDate, 'MMM DD, YYYY', 'es'),
           finishDate: moment(row.finishDate, 'MMM DD, YYYY', 'es'),
         });
@@ -155,7 +165,8 @@ const pomeloSchedule = async (username, password, scheduleOption) => {
     });
   });
 
-  await page.screenshot({ path: 'scheduleByHours.png' });
+  // await page.screenshot({ path: 'scheduleByHours.png' });
+  await logout(page);
   await closeBrowser(browser);
 
   return { scheduleByHours, subjectsByDays };

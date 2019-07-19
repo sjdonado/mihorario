@@ -65,7 +65,7 @@ export class ScheduleComponent implements OnInit {
     }
     const dialogRef = this.dialog.open(SubjectDetailsDialogComponent, {
       width: `${window.innerWidth / 2.2 > 320 ? window.innerWidth / 2.2 : 300 }px`,
-      data: { editor: true, subject }
+      data: { editor: true, subject: Object.assign(subject, this.getSubjectStyle(subject)) }
     });
 
     dialogRef.afterClosed().subscribe(subjectDetailsData => {

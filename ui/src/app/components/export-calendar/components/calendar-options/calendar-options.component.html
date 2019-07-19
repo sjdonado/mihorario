@@ -1,20 +1,22 @@
-<div fxLayout="column">
-  <span class="go-back-button" fxLayoutAlign="start center" routerLink="/">
-    <mat-icon fxLayoutAlign="center center">arrow_back</mat-icon>
-  </span>
-  <ng-template [ngIf]="googleOauthInfo" [ngIfElse]="signIn">
-    <button *ngIf="googleOauthInfo" mat-button fxLayout="row" fxLayoutAlign="center center" (click)="googleOauth()">
-      <p>Continuar como {{ googleOauthInfo.email }}</p>
-    </button>
-    <button mat-button fxLayout="row" fxLayoutAlign="center center" (click)="googleSignOut()">
-      <p>Connectar con otra cuenta</p>
-      <div class="logo-wrapper" fxLayoutAlign="center center" fxFlex><div class="logo"></div></div>
-    </button>
-  </ng-template>
-  <ng-template #signIn>
-    <button mat-button fxLayout="row" fxLayoutAlign="center center" (click)="googleOauth()">
-      <p>Connectar con google</p>
-      <div class="logo-wrapper" fxLayoutAlign="center center" fxFlex><div class="logo"></div></div>
-    </button>
-  </ng-template>
-</div>
+<mat-card>
+  <mat-card-content fxLayout="column">
+      <span class="go-back-button" fxLayoutAlign="start center" routerLink="/">
+        <mat-icon fxLayoutAlign="center center">arrow_back</mat-icon>
+      </span>
+      <ng-template [ngIf]="googleOauthInfo" [ngIfElse]="signIn">
+        <button *ngIf="googleOauthInfo" mat-button fxLayout="row" fxLayoutAlign="center center" (click)="googleOauth()">
+          <p>Continuar como {{ googleOauthInfo.email }}</p>
+        </button>
+        <button mat-button fxLayout="row" fxLayoutAlign="center center" (click)="googleSignOut()">
+          <p>Connectar con otra cuenta</p>
+          <div class="logo-wrapper" fxLayoutAlign="center center" fxFlex><div class="logo"></div></div>
+        </button>
+      </ng-template>
+      <ng-template #signIn>
+        <button mat-button fxLayout="row" fxLayoutAlign="center center" (click)="googleOauth()">
+          <p>Connectar con google</p>
+          <div class="logo-wrapper" fxLayoutAlign="center center" fxFlex><div class="logo"></div></div>
+        </button>
+      </ng-template>
+  </mat-card-content>
+</mat-card>

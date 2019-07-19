@@ -24,11 +24,9 @@ export class SubjectDetailsDialogComponent {
     public dialogRef: MatDialogRef<SubjectDetailsDialogComponent>,
     @Inject(MAT_DIALOG_DATA) private data: any
   ) {
-    this.subject = Object.assign(this.data.subject, {
-      startParsed: moment(data.start, 'HH:mm').format('hh:mm A'),
-      finishParsed: moment(data.finish, 'HH:mm').format('hh:mm A')
-    });
-    this.subjectColor = this.subject.color;
+    this.subject = this.data.subject;
+    console.log('subject', this.subject);
+    this.subjectColor = this.data.subject.color;
   }
 
   colorPicker(event: any) {
