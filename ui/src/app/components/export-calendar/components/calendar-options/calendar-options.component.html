@@ -1,24 +1,33 @@
-<mat-card>
-  <mat-card-content fxLayout="column">
-    <span class="go-back-button" fxLayoutAlign="start center" routerLink="/">
-      <mat-icon fxLayoutAlign="center center">arrow_back</mat-icon>
+<div fxLayout="column" fxFlexFill>
+  <div fxLayout="column" fxLayoutAlign="center center" fxFlex="30">
+    <span class="title header">
+      <p>Exporta tu horario al calendario de Google</p>
     </span>
-    <div fxLayout="column" fxLayoutAlign="center center">
-      <ng-template [ngIf]="googleOauthInfo" [ngIfElse]="signIn">
-        <div *ngIf="googleOauthInfo" class="button" fxLayout="row" fxLayoutAlign="center center" (click)="googleOauth()">
-          <p>Continuar como {{ googleOauthInfo.email }}</p>
+  </div>
+  <div fxLayout="column" fxLayoutAlign="center center" fxFlex="50">
+    <mat-card>
+      <mat-card-content fxLayout="column">
+        <span class="go-back-button" fxLayoutAlign="start center" routerLink="/">
+          <mat-icon fxLayoutAlign="center center">arrow_back</mat-icon>
+        </span>
+        <div fxLayout="column" fxLayoutAlign="center center">
+          <ng-template [ngIf]="googleOauthInfo" [ngIfElse]="signIn">
+            <div *ngIf="googleOauthInfo" class="button" fxLayout="row" fxLayoutAlign="center center" (click)="googleOauth()">
+              <p>Continuar como {{ googleOauthInfo.email }}</p>
+            </div>
+            <div class="button" fxLayout="row" fxLayoutAlign="center center" (click)="googleSignOut()">
+              <p>Iniciar sesión con otra cuenta</p>
+              <div class="logo-wrapper" fxLayoutAlign="start center" fxFlex><div class="logo"></div></div>
+            </div>
+          </ng-template>
+          <ng-template #signIn>
+            <div class="button" fxLayout="row" fxLayoutAlign="center center" (click)="googleOauth()">
+              <p>Iniciar sesión</p>
+              <div class="logo-wrapper" fxLayoutAlign="start center" fxFlex><div class="logo"></div></div>
+            </div>
+          </ng-template>
         </div>
-        <div class="button" fxLayout="row" fxLayoutAlign="center center" (click)="googleSignOut()">
-          <p>Connectar con otra cuenta</p>
-          <div class="logo-wrapper" fxLayoutAlign="start center" fxFlex><div class="logo"></div></div>
-        </div>
-      </ng-template>
-      <ng-template #signIn>
-        <div class="button" fxLayout="row" fxLayoutAlign="center center" (click)="googleOauth()">
-          <p>Connectar con google</p>
-          <div class="logo-wrapper" fxLayoutAlign="start center" fxFlex><div class="logo"></div></div>
-        </div>
-      </ng-template>
-    </div>
-  </mat-card-content>
-</mat-card>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

@@ -1,46 +1,48 @@
-<ng-template [ngIf]="!isLoading" [ngIfElse]="loading">
-  <mat-card>
-    <mat-card-content fxLayout="column">
-      <div fxLayout="row">
-        <span class="go-back-button" routerLink="..">
-          <mat-icon fxLayoutAlign="center center">arrow_back</mat-icon>
-        </span>
-      </div>
-      <mat-checkbox class="select-all" [(ngModel)]="selectAll" (change)="onSelectAllChange()"><p>Seleccionar todos</p></mat-checkbox>
-      <form [formGroup]="getFormGroup" (ngSubmit)="sendSubjects()" fxLayout="column">
-        <div class="subjects-wrapper" formArrayName="selectedSubjects">
-          <div class="subject" *ngFor="let subject of subjects; index as i" [formGroupName]="i" fxLayout="row">
-            <mat-checkbox formControlName="checked" fxLayout="row" fxFlex>
-              <div>
-                <p>{{ subject.shortName }}</p>
-                <div fxLayout="row">
-                  <div fxLayout="row" fxLayoutAlign="start center">
-                    <mat-icon>notifications</mat-icon>
-                    <p>{{ subject.notificationTime }} minutos</p>
-                  </div>
-                  <div class="subject-color-wrapper" fxLayout="row" fxLayoutAlign="start center">
-                    <mat-icon>format_color_fill</mat-icon>
-                    <span class="subject-color" [ngStyle]="{'background': subject.color }"></span>
-                  </div>
-                  <div class="subject-sync-wrapper" fxLayout="row" fxLayoutAlign="center center">
-                    <mat-icon class="checked" *ngIf="subject.googleSync">check_circle</mat-icon>
-                    <mat-icon class="error" color="red" *ngIf="!subject.googleSync">error</mat-icon>
+<div fxLayout="column" fxLayoutAlign="center center" fxFlexFill>
+  <ng-template [ngIf]="!isLoading" [ngIfElse]="loading">
+    <mat-card>
+      <mat-card-content fxLayout="column">
+        <div fxLayout="row">
+          <span class="go-back-button" routerLink="..">
+            <mat-icon fxLayoutAlign="center center">arrow_back</mat-icon>
+          </span>
+        </div>
+        <mat-checkbox class="select-all" [(ngModel)]="selectAll" (change)="onSelectAllChange()"><p>Seleccionar todo</p></mat-checkbox>
+        <form [formGroup]="getFormGroup" (ngSubmit)="sendSubjects()" fxLayout="column">
+          <div class="subjects-wrapper" formArrayName="selectedSubjects">
+            <div class="subject" *ngFor="let subject of subjects; index as i" [formGroupName]="i" fxLayout="row">
+              <mat-checkbox formControlName="checked" fxLayout="row" fxFlex>
+                <div>
+                  <p>{{ subject.shortName }}</p>
+                  <div fxLayout="row">
+                    <div fxLayout="row" fxLayoutAlign="start center">
+                      <mat-icon>notifications</mat-icon>
+                      <p>{{ subject.notificationTime }} minutos</p>
+                    </div>
+                    <div class="subject-color-wrapper" fxLayout="row" fxLayoutAlign="start center">
+                      <mat-icon>format_color_fill</mat-icon>
+                      <span class="subject-color" [ngStyle]="{'background': subject.color }"></span>
+                    </div>
+                    <div class="subject-sync-wrapper" fxLayout="row" fxLayoutAlign="center center">
+                      <mat-icon class="checked" *ngIf="subject.googleSync">check_circle</mat-icon>
+                      <mat-icon class="error" color="red" *ngIf="!subject.googleSync">error</mat-icon>
+                    </div>
                   </div>
                 </div>
+              </mat-checkbox>
+              <div class="more-btn" fxLayoutAlign="end center" fxFlex="5" (click)="openSubjectDetailsDialog(subject)">
+                <mat-icon>more_vert</mat-icon>
               </div>
-            </mat-checkbox>
-            <div class="more-btn" fxLayoutAlign="end center" fxFlex="5" (click)="openSubjectDetailsDialog(subject)">
-              <mat-icon>more_vert</mat-icon>
             </div>
           </div>
-        </div>
-        <button mat-button color="primary">Continuar</button>
-      </form>
-    </mat-card-content>
-  </mat-card>
-</ng-template>  
-<ng-template #loading>
-  <div fxLayoutAlign="center center" fxFlex>
-    <mat-spinner></mat-spinner>
-  </div>  
-</ng-template>  
+          <button mat-button color="primary">Continuar</button>
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </ng-template>  
+  <ng-template #loading>
+    <div fxLayoutAlign="center center" fxFlex>
+      <mat-spinner></mat-spinner>
+    </div>  
+  </ng-template>
+</div>

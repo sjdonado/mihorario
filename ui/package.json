@@ -25,6 +25,7 @@
     "@angular/router": "~8.0.0",
     "color": "^3.1.2",
     "firebase": "^6.3.0",
+    "html2canvas": "^1.0.0-rc.3",
     "moment": "^2.24.0",
     "ngx-color": "^3.0.3",
     "rxjs": "~6.4.0",

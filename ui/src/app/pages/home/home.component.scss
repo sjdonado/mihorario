@@ -44,3 +44,29 @@ mat-nav-list span p {
   letter-spacing: 0.1em;
   padding: 5px 10px;
 }
+
+.credits {
+  position: absolute;
+  top: 95.5%;
+  right: 0;
+  z-index: 1;
+  margin-right: 10px;
+  font-size: 10px;
+  text-align: right;
+  color: #333;
+  a:link {
+    color: #222;
+    text-decoration: none;
+  }
+  a:visited {
+    color: #222;
+    text-decoration: none;
+  }
+  a:hover {
+    color: #222;
+    text-decoration: underline;
+  }
+  a:active {
+    color: #222;
+  }
+}

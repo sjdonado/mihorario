@@ -11,14 +11,16 @@ import { Subject } from '../models/subject.model';
 export class GoogleCalendarService {
 
   private API_URL = `${environment.apiUrl}/google-calendar`;
-  private BASE_HEADER = new HttpHeaders({
-    'Content-Type': 'application/json',
-    authorization: localStorage.getItem('userToken'),
-  });
+  private BASE_HEADER: HttpHeaders;
 
   constructor(
     private httpClient: HttpClient
-  ) { }
+  ) {
+    this.BASE_HEADER = new HttpHeaders({
+      'Content-Type': 'application/json',
+      authorization: localStorage.getItem('userToken'),
+    });
+  }
 
   importSchedule(data: any) {
     return this.httpClient.post(`${this.API_URL}/import`, data, {

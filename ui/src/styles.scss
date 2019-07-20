@@ -117,7 +117,13 @@ p {
   text-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
   text-indent: 0.3em;
   z-index: 1;
+  &.header {
+    font-size: 20px;
+    text-align: center;
+    margin-bottom: 40px;
+  }
 }
+
 
 .mat-progress-spinner circle, .mat-spinner circle {
   stroke: white;

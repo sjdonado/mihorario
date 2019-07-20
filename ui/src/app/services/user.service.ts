@@ -4,7 +4,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Subject } from '../models/subject.model';
 import { auth } from 'firebase/app';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { from } from 'rxjs';
 
@@ -20,16 +19,18 @@ interface GoogleOauthInfo {
 export class UserService {
 
   private API_URL = `${environment.apiUrl}/users`;
-  private BASE_HEADER = new HttpHeaders({
-    'Content-Type': 'application/json',
-    authorization: localStorage.getItem('userToken'),
-  });
+  private BASE_HEADER: HttpHeaders;
 
   constructor(
     private httpClient: HttpClient,
-    private afAuth: AngularFireAuth,
-    private router: Router
-  ) { }
+    private afAuth: AngularFireAuth
+  ) {
+    console.log('UserService -> userToken', localStorage.getItem('userToken'));
+    this.BASE_HEADER = new HttpHeaders({
+      'Content-Type': 'application/json',
+      authorization: localStorage.getItem('userToken'),
+    });
+  }
 
   getSchedule(scheduleOption: string) {
     return this.httpClient.get(`${this.API_URL}/schedule?scheduleOption=${scheduleOption}`, {
@@ -92,11 +93,7 @@ export class UserService {
   logout() {
     return this.httpClient.post(`${this.API_URL}/logout`, null, {
       headers: this.BASE_HEADER,
-    })
-      .subscribe(res => {
-        localStorage.clear();
-        this.router.navigate(['/login']);
-      });
+    });
   }
 
   get scheduleByHours() {

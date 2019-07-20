@@ -5,11 +5,13 @@ import { Subject } from '../../models/subject.model';
 import { SubjectDetailsDialogComponent } from '../dialogs/subject-details-dialog/subject-details-dialog.component';
 import { UserService } from 'src/app/services/user.service';
 import { AuthService } from 'src/app/services/auth.service';
+import html2canvas from 'html2canvas';
 
 interface ScheduleOption {
   title: string;
   icon: string;
-  link: string;
+  link?: string;
+  click?: string;
 }
 
 @Component({
@@ -21,7 +23,8 @@ export class ScheduleComponent implements OnInit {
 
   private hours: string[];
   private days: string[];
-  private scheduleOptions: ScheduleOption[];
+  private linksOptions: ScheduleOption[];
+  private clicksOptions: ScheduleOption[];
   private fullName: string;
   private schedule: Subject[][];
   private subjectsByDays: Subject[][];
@@ -33,8 +36,11 @@ export class ScheduleComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.schedule = this.userService.scheduleByHours;
+    this.subjectsByDays = this.userService.subjectsByDays;
+    this.fullName = this.authService.pomeloData.fullName;
     this.days = ['LUNES', 'MARTES', 'MIÉRCOLES', 'JUEVES', 'VIERNES', 'SÁBADO', 'DOMINGO'];
-    this.scheduleOptions = [
+    this.linksOptions = [
       {
         title: 'Seleccionar periodo',
         icon: 'calendar_view_day',
@@ -45,18 +51,16 @@ export class ScheduleComponent implements OnInit {
         icon: 'import_export',
         link: '/export'
       },
+    ];
+    this.clicksOptions = [
       {
         title: 'Descargar',
         icon: 'arrow_downward',
-        link: '/'
+        click: 'downloadSchedule'
       }
     ];
-    console.log(this.scheduleOptions);
-    this.schedule = this.userService.scheduleByHours;
     console.log('schedule', this.schedule);
-    this.subjectsByDays = this.userService.subjectsByDays;
     console.log('subjectsByDays', this.subjectsByDays);
-    this.fullName = this.authService.pomeloData.fullName;
   }
 
   openSubjectDetailsDialog(subject: Subject): void {
@@ -97,5 +101,22 @@ export class ScheduleComponent implements OnInit {
     }
     const { color, textColor } = this.getSubjectByDays(subject)[0];
     return { color, textColor };
+  }
+
+  downloadSchedule() {
+    console.log('downloadSchedule');
+    html2canvas(document.querySelector('#scheduleDiv')).then(canvas => {
+      canvas.toBlob((blob => {
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        document.body.appendChild(a);
+        a.setAttribute('style', 'display: none');
+        a.href = url;
+        a.download = 'mihorarioUN';
+        a.click();
+        window.URL.revokeObjectURL(url);
+        a.remove();
+      }), 'image/jpeg');
+    });
   }
 }

@@ -6,20 +6,27 @@
           <p>Opciones</p><mat-icon matSuffix>arrow_drop_down</mat-icon>
         </span>
         <mat-menu #menu="matMenu" fxLayout="row" fxFlex>
-          <button mat-menu-item *ngFor="let scheduleOption of scheduleOptions; let i = index" routerLink="{{ scheduleOption.link }}">
-            {{ scheduleOption.title }}
+          <button mat-menu-item *ngFor="let linkOption of linksOptions" routerLink="{{ linkOption.link }}">
+            {{ linkOption.title }}
+          </button>
+          <button mat-menu-item *ngFor="let clickOption of clicksOptions" (click)="this[clickOption.click]()">
+            {{ clickOption.title }}
           </button>
         </mat-menu>
       </div>
       <div fxHide.lt-sm fxFlex>
-        <span *ngFor="let scheduleOption of scheduleOptions; let i = index" class="option" fxLayout="row" fxLayoutAlign="center center"
-          routerLink="{{ scheduleOption.link }}" fxFlex>
-          <p>{{ scheduleOption.title }}</p><mat-icon matSuffix>{{ scheduleOption.icon }}</mat-icon>
+        <span *ngFor="let linkOption of linksOptions" class="option" fxLayout="row" fxLayoutAlign="center center"
+          routerLink="{{ linkOption.link }}" fxFlex>
+          <p>{{ linkOption.title }}</p><mat-icon matSuffix>{{ linkOption.icon }}</mat-icon>
+        </span>
+        <span *ngFor="let clickOption of clicksOptions" class="option" fxLayout="row" fxLayoutAlign="center center"
+          (click)="this[clickOption.click]()" fxFlex>
+          <p>{{ clickOption.title }}</p><mat-icon matSuffix>{{ clickOption.icon }}</mat-icon>
         </span>
       </div>
     </div>
     <mat-card-content fxFlex>
-      <div class="table-container" role="table" aria-label="Horario">
+      <div id="scheduleDiv" class="table-container" role="table" aria-label="Horario">
         <div class="flex-table header" role="rowgroup">
           <div class="flex-row first hour" role="columnheader"><p>HORA</p></div>
           <div class="flex-row" role="columnheader" *ngFor="let day of [].constructor(6); let i = index">
