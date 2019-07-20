@@ -46,7 +46,7 @@ export class LoginComponent implements OnInit {
         this.isLoading = false;
       }, (err) => {
         this.isLoading = false;
-        this.notificationService.show('Error al iniciar sesión, intente de nuevo.');
+        this.notificationService.add('Error al iniciar sesión, intente de nuevo.');
         console.log('Error: ' + err);
       },
     );

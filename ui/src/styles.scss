@@ -133,3 +133,18 @@ button {
   text-transform: uppercase;
   letter-spacing: 0.2em;
 }
+
+div.button {
+  cursor: pointer;
+  line-height: 36px;
+  padding: 0 16px;
+  border-radius: 4px;
+  p {
+    text-transform: uppercase;
+    text-align: center;
+    font-weight: 500;
+  }
+  &:hover {
+    background: #fafafa;
+  }
+}

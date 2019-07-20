@@ -31,7 +31,6 @@ const getWeekEvents = (tokens) => {
  * @param {*} schedule
  */
 const importSchedule = async (tokens, subjectsByDays) => {
-  console.log('importSchedule TOKENS', tokens);
   const calendarService = new CalendarService(tokens);
   const events = [];
   /**
@@ -90,8 +89,7 @@ const importSchedule = async (tokens, subjectsByDays) => {
         recurrence,
       });
 
-      console.log('calendarEvent', calendarEvent);
-      events.push(calendarEvent);
+      events.push(Object.assign(calendarEvent, { data: { subject } }));
     }
   }
   return events;

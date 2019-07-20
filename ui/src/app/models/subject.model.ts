@@ -1,5 +1,5 @@
 export interface Subject {
-  nrc: number;
+  nrc: string;
   name: string;
   shortName: string;
   place: string;
@@ -13,4 +13,5 @@ export interface Subject {
   color?: string;
   textColor?: string;
   notificationTime?: number;
+  googleSync?: boolean;
 }

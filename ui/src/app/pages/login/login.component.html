@@ -7,7 +7,7 @@
       <mat-progress-bar *ngIf=isLoading mode="indeterminate"></mat-progress-bar>
       <mat-card-content>
         <form fxLayout="column" fxLayoutAlign="start" fxLayoutGap="5px" [formGroup]="getFormGroup" (ngSubmit)="logIn()">
-          <mat-form-field appearance="outline" >
+          <mat-form-field appearance="outline">
             <mat-label>Usuario uninorte</mat-label>
             <mat-icon matSuffix>perm_identity</mat-icon>
             <input matInput placeholder="miusuario" formControlName="username">
@@ -15,7 +15,7 @@
               El usuario es <strong>requerido</strong>
             </mat-error>
           </mat-form-field>
-          <mat-form-field appearance="outline" >
+          <mat-form-field appearance="outline">
             <mat-label>Contraseña</mat-label>
             <input matInput type="password" formControlName="password">
             <mat-icon matSuffix>lock</mat-icon>

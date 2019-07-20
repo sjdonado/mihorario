@@ -32,7 +32,7 @@ export class AuthInterceptor implements HttpInterceptor {
             console.log('I', err);
             const message = err.error.error && err.error.error.message ?
               err.error.error.message : this.notificationService.GENERAL_ERROR_MESSAGE;
-            this.notificationService.show(message);
+            this.notificationService.add(message);
           }
         }
       )
@@ -40,7 +40,8 @@ export class AuthInterceptor implements HttpInterceptor {
   }
 
   private invalidAuthLocalData() {
-    this.notificationService.show('Tiempo límite de sesión web ha expirado, ingrese nuevamente.');
-    this.userService.logout().subscribe();
+    this.notificationService.add('Tiempo límite de sesión web ha expirado, ingrese nuevamente.');
+    localStorage.clear();
+    this.router.navigate(['/login']);
   }
 }

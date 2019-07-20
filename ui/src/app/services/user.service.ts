@@ -72,7 +72,8 @@ export class UserService {
 
   googleOauthLogin() {
     const provider = new auth.GoogleAuthProvider();
-    provider.addScope('https://www.googleapis.com/auth/calendar');
+    // provider.addScope('https://www.googleapis.com/auth/calendar');
+    provider.addScope('https://www.googleapis.com/auth/calendar.events');
     return from(this.afAuth.auth.signInWithPopup(provider))
       .pipe(map(
         res => {
@@ -92,13 +93,10 @@ export class UserService {
     return this.httpClient.post(`${this.API_URL}/logout`, null, {
       headers: this.BASE_HEADER,
     })
-      .pipe(tap(
-        (res: any) => {
-          localStorage.clear();
-          this.router.navigateByUrl('/login');
-        },
-        err => console.error(err)
-      ));
+      .subscribe(res => {
+        localStorage.clear();
+        this.router.navigate(['/login']);
+      });
   }
 
   get scheduleByHours() {

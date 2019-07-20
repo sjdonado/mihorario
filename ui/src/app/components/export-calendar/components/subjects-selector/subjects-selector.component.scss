@@ -13,6 +13,10 @@ $border-color: rgb(221, 221, 221);
 div {
   p {
     margin: 0;
+    max-width: 250px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }
 
@@ -45,4 +49,14 @@ mat-icon {
   text-transform: uppercase;
   margin: 10px;
   margin-left: 15px;
+}
+
+.subject-sync-wrapper {
+  margin-left: 10px;
+  mat-icon.checked {
+    color: green;
+  }
+  mat-icon.error {
+    color: red;
+  }
 }

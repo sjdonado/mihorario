@@ -31,6 +31,8 @@ const login = async (req, res, next) => {
 
     const pomelo = await pomeloSchedulePeriods(username, password);
 
+    if (await getRecords(username)) await removeRecords(username);
+
     await setRecord(username, 'password', encryptPassword(password));
     const token = signToken({ username });
 

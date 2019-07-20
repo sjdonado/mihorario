@@ -16,10 +16,6 @@ const oauth2Client = new google.auth.OAuth2(
 
 class CalendarService {
   constructor(tokens) {
-    // oauth2Client.verifyIdToken({
-    //   idToken,
-    //   audience: calendar.clientId,
-    // }).then(login => )
     oauth2Client.setCredentials(tokens);
     this.googleCalendar = google.calendar({
       version: 'v3',
