@@ -1,7 +1,12 @@
 const ApiError = require('../../../lib/ApiError');
 const { pomeloSchedule, pomeloSchedulePeriods } = require('./model');
 
-const { setRecord, getRecords, removeRecords } = require('../../../services/redis');
+const {
+  setRecord,
+  getRecords,
+  removeUserRecords,
+  existsUserRecords,
+} = require('../../../services/redis');
 const { encryptPassword, decryptPassword } = require('../../../services/cryptr');
 const { signToken } = require('../../../services/auth');
 
@@ -31,9 +36,9 @@ const login = async (req, res, next) => {
 
     const pomelo = await pomeloSchedulePeriods(username, password);
 
-    if (await getRecords(username)) await removeRecords(username);
-
+    if (await existsUserRecords(username)) await removeUserRecords(username);
     await setRecord(username, 'password', encryptPassword(password));
+
     const token = signToken({ username });
 
     res.json({ data: { token, pomelo } });
@@ -61,7 +66,8 @@ const googleLogin = async (req, res, next) => {
 
 const logout = async (req, res, next) => {
   try {
-    res.json({ data: await removeRecords(req.username) });
+    const data = await removeUserRecords(req.username);
+    res.json({ data });
   } catch (err) {
     next(err);
   }
