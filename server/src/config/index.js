@@ -4,6 +4,7 @@ const config = {
   server: {
     port: process.env.PORT,
     hostname: process.env.HOSTNAME,
+    clientName: process.env.CLIENT_NAME,
   },
   session: {
     secret: process.env.SECRET,

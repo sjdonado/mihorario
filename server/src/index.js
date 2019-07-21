@@ -3,11 +3,12 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 
 const api = require('./api/v1/');
+const { server } = require('./config');
 
 const app = express();
 
 app.use(cors({
-  origin: ['http://localhost:4200'],
+  origin: [server.clientName],
 }));
 
 app.use(bodyParser.urlencoded({ extended: true }));
