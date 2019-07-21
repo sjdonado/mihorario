@@ -1,0 +1,33 @@
+version: '3.1'
+
+services:
+  api: 
+    build: .
+    volumes:
+      - ./server:/usr/src/app
+    command: bash -c "if [ ! -d 'node_modules' ]; then yarn; fi; yarn run dev"
+    ports:
+      - 3000:3000
+    environment:
+      HOSTNAME: 0.0.0.0
+      PORT: 80
+      CLIENT_NAME: http://localhost:4200
+      GOOGLE_SECRET_CLIENT: CgWGUp9zeNqdwSvdKnkAonvr
+      GOOGLE_CLIENT_ID: 119902822900-pv2v7cssdnq4vpobtn0moirt0g95ipnc.apps.googleusercontent.com
+      CALLBACK: https://mihorarioun.web.app
+      SECRET: 7B8394A601BF326D4B963E42177BABD5FABA2A021D19A1F9009B6355342ACEB1F24CB1C6C56EAF061AEDF367326BB89E0EDFF892F8A5EECF0D14FFCA590B7E0D
+      CRYPTR_SECRET: D97D9E5DC1B398DB16C497D7A1080844AEC3A36BD8EEE4A8783FA0A8CDA1D758
+      REDIS_URL: redis://redis:6379
+    depends_on:
+      - redis
+  redis:
+    image: redis
+    entrypoint: redis-server --appendonly yes
+    volumes:
+      - redis-data:/data
+    ports:
+      - 6379:6379
+    restart: always
+
+volumes:
+  redis-data:
