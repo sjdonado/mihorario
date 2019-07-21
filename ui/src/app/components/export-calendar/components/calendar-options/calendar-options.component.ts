@@ -10,7 +10,7 @@ import { observable } from 'rxjs';
 })
 export class CalendarOptionsComponent implements OnInit {
 
-  private googleOauthEmail: string;
+  public googleOauthEmail: string;
 
   constructor(
     private userService: UserService,

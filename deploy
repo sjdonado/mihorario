@@ -1,0 +1,5 @@
+#!/bin/bash
+
+git subtree push --prefix server heroku master
+ng build --prod --output-path public
+firebase deploy

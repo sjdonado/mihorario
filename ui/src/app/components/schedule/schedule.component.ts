@@ -23,8 +23,8 @@ export class ScheduleComponent implements OnInit {
 
   private hours: string[];
   private days: string[];
-  private linksOptions: ScheduleOption[];
-  private clicksOptions: ScheduleOption[];
+  public linksOptions: ScheduleOption[];
+  public clicksOptions: ScheduleOption[];
   private fullName: string;
   private schedule: Subject[][];
   private subjectsByDays: Subject[][];

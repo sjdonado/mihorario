@@ -17,7 +17,7 @@ export class SubjectsSelectorComponent implements OnInit, OnDestroy {
   private subjects: Subject[];
   private form: FormGroup;
   private selectAll = false;
-  private isLoading: boolean;
+  public isLoading: boolean;
 
   constructor(
     private dialog: MatDialog,

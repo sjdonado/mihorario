@@ -19,15 +19,15 @@ export class SubjectDetailsDialogComponent {
 
   private eventColors: string[];
   private notificationTimeOptions: EventNotificationTime[];
-  private subject: Subject;
+  public subject: Subject;
   private subjectEventColor: EventColor;
   private subjectNotificationTime: number;
-  private isVisibleColorPicker = false;
+  public isVisibleColorPicker = false;
 
   constructor(
     private googleCalendarService: GoogleCalendarService,
     public dialogRef: MatDialogRef<SubjectDetailsDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) private data: any
+    @Inject(MAT_DIALOG_DATA) public data: any
   ) {
     this.eventColors = this.googleCalendarService.eventColors.map(eventColor => eventColor.background);
     this.notificationTimeOptions = [];

@@ -16,8 +16,8 @@ import { Router } from '@angular/router';
 })
 export class HomeComponent implements OnInit {
 
-  private fullName: string;
-  private title: string;
+  public fullName: string;
+  public title: string;
   private schedule: Subject[][];
 
   constructor(

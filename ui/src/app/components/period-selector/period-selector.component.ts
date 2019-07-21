@@ -13,7 +13,7 @@ import { NotificationService } from 'src/app/services/notification.service';
 export class PeriodSelectorComponent implements OnInit {
 
   public form: FormGroup;
-  private isLoading: boolean;
+  public isLoading: boolean;
   private name: string;
   private schedulePeriods: string[];
   private showGoBackButton: boolean;

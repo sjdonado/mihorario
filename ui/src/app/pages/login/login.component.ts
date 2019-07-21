@@ -13,8 +13,8 @@ import { NotificationService } from 'src/app/services/notification.service';
 export class LoginComponent implements OnInit {
 
   private form: FormGroup;
-  private title: string;
-  private isLoading: boolean;
+  public title: string;
+  public isLoading: boolean;
 
   constructor(
     private formBuilder: FormBuilder,
