@@ -47,17 +47,17 @@
         </div>
         <div class="flex-table row" role="rowgroup" *ngFor="let hour of [].constructor(14); let i = index">
           <div class="flex-row first hour" role="cell"><p>{{ i + 6 }}:30-{{ i + 7 }}:29</p></div>
-          <div class="flex-row" role="cell" *ngFor="let subject of [].constructor(6); let j = index" (click)="openSubjectDetailsDialog(schedule[i][j])" [ngStyle]="{'background':  getSubjectStyle(schedule[i][j]).color }">
+          <div class="flex-row" role="cell" *ngFor="let subject of [].constructor(6); let j = index" (click)="openSubjectDetailsDialog(schedule[i][j])" [ngStyle]="{'background':  getSubjectStyle(schedule[i][j]).color.background }">
             <ng-template [ngIf]="j < 5" [ngIfElse]="saturdaySunday">
-              <p [ngStyle]="{'color': getSubjectStyle(schedule[i][j]).textColor }">{{ schedule[i][j] ? schedule[i][j].shortName : '&#8203;' }}</p>
+              <p [ngStyle]="{'color': getSubjectStyle(schedule[i][j]).color.foreground }">{{ schedule[i][j] ? schedule[i][j].shortName : '&#8203;' }}</p>
             </ng-template>
             <ng-template #saturdaySunday>
               <div fxLayout="row">
-                <div class="flex-text-left" [ngStyle]="{ 'background': getSubjectStyle(schedule[i][j]).color }" fxFlex="50">
-                  <p [ngStyle]="{'color': getSubjectStyle(schedule[i][j]).textColor }"  (click)="openSubjectDetailsDialog(schedule[i][j])" >{{ schedule[i][j] ? schedule[i][j].shortName : '&#8203;' }}</p>
+                <div class="flex-text-left" [ngStyle]="{ 'background': getSubjectStyle(schedule[i][j]).color.background }" fxFlex="50">
+                  <p [ngStyle]="{'color': getSubjectStyle(schedule[i][j]).color.foreground }"  (click)="openSubjectDetailsDialog(schedule[i][j])" >{{ schedule[i][j] ? schedule[i][j].shortName : '&#8203;' }}</p>
                 </div>
-                <div class="flex-text" [ngStyle]="{ 'background': getSubjectStyle(schedule[i][6]).color }" fxFlex="50">
-                  <p [ngStyle]="{'color': getSubjectStyle(schedule[i][6]).textColor }" (click)="openSubjectDetailsDialog(schedule[i][6])">{{ schedule[i][6] ?  schedule[i][6].shortName : '&#8203;' }}</p>
+                <div class="flex-text" [ngStyle]="{ 'background': getSubjectStyle(schedule[i][6]).color.background }" fxFlex="50">
+                  <p [ngStyle]="{'color': getSubjectStyle(schedule[i][6]).color.foreground }" (click)="openSubjectDetailsDialog(schedule[i][6])">{{ schedule[i][6] ?  schedule[i][6].shortName : '&#8203;' }}</p>
                 </div>
               </div>
             </ng-template>

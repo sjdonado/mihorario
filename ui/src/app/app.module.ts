@@ -23,7 +23,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { ColorTwitterModule } from 'ngx-color/twitter';
+import { ColorGithubModule } from 'ngx-color/github';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 
@@ -78,7 +78,7 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
     MatProgressBarModule,
     MatMenuModule,
     MatCheckboxModule,
-    ColorTwitterModule,
+    ColorGithubModule,
     AngularFireModule.initializeApp(environment.firebase, 'MiHorarioUN'),
     AngularFireAuthModule
   ],

@@ -1,4 +1,6 @@
+import { EventColor } from './event-color.model';
+
 export interface SubjectDetailsData {
-  color: string;
+  color: EventColor;
   notificationTime: number;
 }

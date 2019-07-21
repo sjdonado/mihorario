@@ -6,6 +6,7 @@ import { auth } from 'firebase/app';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { environment } from 'src/environments/environment';
 import { from } from 'rxjs';
+import { GoogleCalendarService } from './google-calendar.service';
 
 interface GoogleOauthInfo {
   accessToken: string;
@@ -23,7 +24,8 @@ export class UserService {
 
   constructor(
     private httpClient: HttpClient,
-    private afAuth: AngularFireAuth
+    private afAuth: AngularFireAuth,
+    private googleCalendarService: GoogleCalendarService,
   ) {
     console.log('UserService -> userToken', localStorage.getItem('userToken'));
     this.BASE_HEADER = new HttpHeaders({
@@ -39,8 +41,7 @@ export class UserService {
       tap(
         (res: any) => {
           const defaultSubjectStyle = {
-            color: '#FFFFFF',
-            textColor: 'black',
+            color: this.googleCalendarService.eventColors[0],
             notificationTime: 10,
           };
           console.log('getSchedule', res);

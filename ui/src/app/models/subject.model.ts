@@ -1,3 +1,5 @@
+import { EventColor } from './event-color.model';
+
 export interface Subject {
   nrc: string;
   name: string;
@@ -10,8 +12,7 @@ export interface Subject {
   subjectType: string;
   teacher: string;
   type: string;
-  color?: string;
-  textColor?: string;
+  color?: EventColor;
   notificationTime?: number;
   googleSync?: boolean;
 }

@@ -24,7 +24,7 @@ const importScheduleToCalendar = async (req, res, next) => {
       const selectedSubject = selectedSubjects.find(elem => elem.nrc === subject.nrc);
       if (!selectedSubject) return null;
       const { color, notificationTime } = selectedSubject;
-      return Object.assign(subject, { color, notificationTime });
+      return Object.assign(subject, { colorId: color.id, notificationTime });
     }).filter(elem => elem));
     const data = await importSchedule({
       access_token: accessToken,

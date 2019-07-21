@@ -2,7 +2,13 @@ import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Subject } from 'src/app/models/subject.model';
 import { SubjectDetailsData } from 'src/app/models/subject-details-data.model';
-import * as moment from 'moment';
+import { GoogleCalendarService } from 'src/app/services/google-calendar.service';
+import { EventColor } from 'src/app/models/event-color.model';
+
+export interface EventNotificationTime {
+  text: string;
+  value: number;
+}
 
 @Component({
   selector: 'app-subject-details-dialog',
@@ -11,22 +17,30 @@ import * as moment from 'moment';
 })
 export class SubjectDetailsDialogComponent {
 
+  private eventColors: string[];
+  private notificationTimeOptions: EventNotificationTime[];
   private subject: Subject;
-  private subjectColor: string;
-  private colors = [
-    '#F44336', '#E91E63', '#9C27B0', '#673AB7', '#3F51B5', '#2196F3', '#03A9F4',
-    '#00BCD4', '#009688', '#4CAF50', '#8BC34A', '#CDDC39', '#FFEB3B', '#FFC107',
-    '#FF9800', '#FF5722', '#795548', '#9E9E9E', '#607D8B', '#FFFFFF'
-  ];
-  private isVisibleColorTwitter = false;
+  private subjectEventColor: EventColor;
+  private subjectNotificationTime: number;
+  private isVisibleColorPicker = false;
 
   constructor(
+    private googleCalendarService: GoogleCalendarService,
     public dialogRef: MatDialogRef<SubjectDetailsDialogComponent>,
     @Inject(MAT_DIALOG_DATA) private data: any
   ) {
+    this.eventColors = this.googleCalendarService.eventColors.map(eventColor => eventColor.background);
+    this.notificationTimeOptions = [];
+    for (let i = 5; i <= 60; i += 5) {
+      this.notificationTimeOptions.push({
+        text: `${i} minutos antes`,
+        value: i,
+      });
+    }
     this.subject = this.data.subject;
-    console.log('subject', this.subject);
-    this.subjectColor = this.data.subject.color;
+    this.subjectEventColor = this.data.subject.color;
+    this.subjectNotificationTime = this.data.subject.notificationTime;
+    console.log('subject', this.data.subject, 'subjectEventColor', this.subjectEventColor);
   }
 
   colorPicker(event: any) {
@@ -34,18 +48,18 @@ export class SubjectDetailsDialogComponent {
     if (event.$event.key && event.$event.key !== 'Enter') {
       return;
     }
-    this.subjectColor = event.color.hex;
-    this.isVisibleColorTwitter = !this.isVisibleColorTwitter;
+    this.subjectEventColor = this.googleCalendarService.eventColors.find(eventColor => eventColor.background === event.color.hex);
+    this.toggleColorPicker();
   }
 
-  toggleColorTwitter() {
-    this.isVisibleColorTwitter = !this.isVisibleColorTwitter;
+  toggleColorPicker() {
+    this.isVisibleColorPicker = !this.isVisibleColorPicker;
   }
 
   get subjectDetailsData(): SubjectDetailsData {
     return {
-      color: this.subjectColor,
-      notificationTime: 10,
+      color: this.subjectEventColor,
+      notificationTime: this.subjectNotificationTime,
     };
   }
 }

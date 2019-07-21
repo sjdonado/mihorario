@@ -64,8 +64,7 @@ const importSchedule = async (tokens, subjectsByDays) => {
         // `EXDATE;TZID=America/Bogota:${date.format('YYYYMMDD')}`
       }
 
-      // eslint-disable-next-line no-await-in-loop
-      const calendarEvent = await calendarService.createEvent({
+      const calendarEventData = {
         location: subject.place,
         summary: subject.name,
         description: subject.teacher,
@@ -87,8 +86,12 @@ const importSchedule = async (tokens, subjectsByDays) => {
           ],
         },
         recurrence,
-      });
+      };
 
+      if (subject.colorId !== 0) Object.assign(calendarEventData, { colorId: subject.colorId });
+
+      // eslint-disable-next-line no-await-in-loop
+      const calendarEvent = await calendarService.createEvent(calendarEventData);
       events.push(Object.assign(calendarEvent, { data: { subject } }));
     }
   }

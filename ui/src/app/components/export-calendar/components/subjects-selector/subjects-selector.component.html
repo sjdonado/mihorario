@@ -21,7 +21,7 @@
                     </div>
                     <div class="subject-color-wrapper" fxLayout="row" fxLayoutAlign="start center">
                       <mat-icon>format_color_fill</mat-icon>
-                      <span class="subject-color" [ngStyle]="{'background': subject.color }"></span>
+                      <span class="subject-color" [ngStyle]="{'background': subject.color.background }"></span>
                     </div>
                     <div class="subject-sync-wrapper" fxLayout="row" fxLayoutAlign="center center">
                       <mat-icon class="checked" *ngIf="subject.googleSync">check_circle</mat-icon>
@@ -35,7 +35,7 @@
               </div>
             </div>
           </div>
-          <button mat-button color="primary">Continuar</button>
+          <button mat-button color="primary">Enviar</button>
         </form>
       </mat-card-content>
     </mat-card>

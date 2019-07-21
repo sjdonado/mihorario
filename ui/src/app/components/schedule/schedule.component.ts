@@ -1,11 +1,11 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import * as Color from 'color';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Subject } from '../../models/subject.model';
 import { SubjectDetailsDialogComponent } from '../dialogs/subject-details-dialog/subject-details-dialog.component';
 import { UserService } from 'src/app/services/user.service';
 import { AuthService } from 'src/app/services/auth.service';
 import html2canvas from 'html2canvas';
+import { EventColor } from 'src/app/models/event-color.model';
 
 interface ScheduleOption {
   title: string;
@@ -67,6 +67,7 @@ export class ScheduleComponent implements OnInit {
     if (!subject) {
       return;
     }
+    console.log('openSubjectDetailsDialog', subject);
     const dialogRef = this.dialog.open(SubjectDetailsDialogComponent, {
       width: `${window.innerWidth / 2.2 > 320 ? window.innerWidth / 2.2 : 300 }px`,
       data: { editor: true, subject: Object.assign(subject, this.getSubjectStyle(subject)) }
@@ -76,8 +77,8 @@ export class ScheduleComponent implements OnInit {
       console.log('result', subjectDetailsData);
       const { color, notificationTime } = subjectDetailsData;
       if (color && notificationTime ) {
-        const textColor = Color(color).isLight() ? 'black' : 'white';
-        this.setSubjectByDaysProperties(subject, color, textColor, notificationTime);
+        this.setSubjectByDaysProperties(subject, color, notificationTime);
+        console.log('subjectsByDays', this.subjectsByDays);
         this.userService.setSubjectsByDays(this.subjectsByDays);
       }
     });
@@ -87,20 +88,19 @@ export class ScheduleComponent implements OnInit {
     return this.subjectsByDays.map(days => days.find(elem => elem.nrc === subject.nrc)).filter(elem => elem);
   }
 
-  setSubjectByDaysProperties(subject: Subject, color: string, textColor: string, notificationTime: number) {
+  setSubjectByDaysProperties(subject: Subject, color: EventColor, notificationTime: number) {
     this.getSubjectByDays(subject).forEach(subjectByDay => {
       subjectByDay.color = color;
-      subjectByDay.textColor = textColor;
       subjectByDay.notificationTime = notificationTime;
     });
   }
 
   getSubjectStyle(subject: Subject) {
     if (!subject) {
-      return { color: '#FFFFFF', textColor: 'black' };
+      return { color: { foreground: '#1d1d1d' } };
     }
-    const { color, textColor } = this.getSubjectByDays(subject)[0];
-    return { color, textColor };
+    const { color } = this.getSubjectByDays(subject)[0];
+    return { color };
   }
 
   downloadSchedule() {
