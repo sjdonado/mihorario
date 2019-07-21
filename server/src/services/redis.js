@@ -10,6 +10,8 @@ const config = require('../config');
 const client = redis.createClient({
   host: config.redis.host,
   port: config.redis.port,
+  user: config.redis.user,
+  password: config.redis.password,
 });
 
 client.on('error', (err) => {
