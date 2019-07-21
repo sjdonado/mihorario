@@ -14,7 +14,7 @@ const config = require('../config');
  * @param {Object} payload
  * @param {String} expiration time
  */
-const signToken = (payload, expiresIn = '8h') => sign(payload, config.token.secret, {
+const signToken = (payload, expiresIn = '24h') => sign(payload, config.token.secret, {
   algorithm: 'HS256',
   expiresIn,
 });

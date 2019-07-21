@@ -39,6 +39,7 @@ import { SubjectDetailsDialogComponent } from './components/dialogs/subject-deta
 import { SubjectsSelectorComponent } from './components/export-calendar/components/subjects-selector/subjects-selector.component';
 import { CalendarOptionsComponent } from './components/export-calendar/components/calendar-options/calendar-options.component';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { PrivacyPolicyComponent } from './pages/privacy-policy/privacy-policy.component';
 
 @NgModule({
   declarations: [
@@ -52,6 +53,7 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
     SubjectDetailsDialogComponent,
     SubjectsSelectorComponent,
     CalendarOptionsComponent,
+    PrivacyPolicyComponent,
   ],
   imports: [
     BrowserModule,

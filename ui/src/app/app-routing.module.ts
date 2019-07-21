@@ -10,10 +10,18 @@ import { PeriodSelectorComponent } from './components/period-selector/period-sel
 import { ExportCalendarComponent } from './components/export-calendar/export-calendar.component';
 import { CalendarOptionsComponent } from './components/export-calendar/components/calendar-options/calendar-options.component';
 import { SubjectsSelectorComponent } from './components/export-calendar/components/subjects-selector/subjects-selector.component';
+import { PrivacyPolicyComponent } from './pages/privacy-policy/privacy-policy.component';
 
 const routes: Routes = [
   // { path: '**', redirectTo: '' },
-  { path: 'login', component: LoginComponent },
+  {
+    path: 'login',
+    component: LoginComponent
+  },
+  {
+    path: 'privacy-policy',
+    component: PrivacyPolicyComponent,
+  },
   { path: '',
     component: HomeComponent,
     canActivate: [AuthGuard],

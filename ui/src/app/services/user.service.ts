@@ -74,7 +74,6 @@ export class UserService {
 
   googleOauthLogin() {
     const provider = new auth.GoogleAuthProvider();
-    // provider.addScope('https://www.googleapis.com/auth/calendar');
     provider.addScope('https://www.googleapis.com/auth/calendar.events');
     return from(this.afAuth.auth.signInWithPopup(provider))
       .pipe(map(

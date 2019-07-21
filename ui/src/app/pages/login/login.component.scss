@@ -12,3 +12,17 @@ mat-progress-bar {
 .app-name {
   font-size: 22px;
 }
+
+input {
+  letter-spacing: 0.1em;
+}
+
+.privacy-policy {
+  cursor: pointer;
+  letter-spacing: 0.1em;
+  color: #1e88e5;
+  margin-bottom: 20px !important;
+  &:hover {
+    text-decoration: underline;
+  }
+}
