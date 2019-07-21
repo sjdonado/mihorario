@@ -5,7 +5,7 @@ const { getRecords } = require('../../../services/redis');
 const all = async (req, res, next) => {
   try {
     const { accessToken, refreshToken } = await getRecords(req.username);
-    const data = await getWeekEvents({
+    const data = await getWeekEvents(req.username, {
       access_token: accessToken,
       refresh_token: refreshToken,
     });
@@ -26,7 +26,7 @@ const importScheduleToCalendar = async (req, res, next) => {
       const { color, notificationTime } = selectedSubject;
       return Object.assign(subject, { colorId: color.id, notificationTime });
     }).filter(elem => elem));
-    const data = await importSchedule({
+    const data = await importSchedule(req.username, {
       access_token: accessToken,
       refresh_token: refreshToken,
     }, subjects);

@@ -7,11 +7,11 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { environment } from 'src/environments/environment';
 import { from } from 'rxjs';
 import { GoogleCalendarService } from './google-calendar.service';
+import { AuthService } from './auth.service';
 
-interface GoogleOauthInfo {
+interface GoogleOauthTokens {
   accessToken: string;
   refreshToken: string;
-  email: string;
 }
 
 @Injectable({
@@ -25,12 +25,13 @@ export class UserService {
   constructor(
     private httpClient: HttpClient,
     private afAuth: AngularFireAuth,
+    private authService: AuthService,
     private googleCalendarService: GoogleCalendarService,
   ) {
-    console.log('UserService -> userToken', localStorage.getItem('userToken'));
+    console.log('UserService -> userToken', this.authService.token);
     this.BASE_HEADER = new HttpHeaders({
       'Content-Type': 'application/json',
-      authorization: localStorage.getItem('userToken'),
+      authorization: this.authService.token,
     });
   }
 
@@ -59,14 +60,14 @@ export class UserService {
     );
   }
 
-  googleLogin(googleOauthInfo: GoogleOauthInfo) {
-    return this.httpClient.post(`${this.API_URL}/login/google`, googleOauthInfo, {
+  googleLogin(googleOauthTokens: GoogleOauthTokens, email: string) {
+    return this.httpClient.post(`${this.API_URL}/login/google`, googleOauthTokens, {
       headers: this.BASE_HEADER,
     }).pipe(map(
       (res: any) => {
-        console.warn('googleOauthInfo', googleOauthInfo);
-        this.setGoogleOauthInfo(googleOauthInfo);
-        return this.googleOauthInfo;
+        console.warn('googleOauthEmail', email);
+        this.setGoogleOauthEmail(email);
+        return this.googleOauthEmail;
       },
       err => console.error(err)
     ));
@@ -79,12 +80,11 @@ export class UserService {
       .pipe(map(
         res => {
           console.log('googleOauthLogin', res);
-          const googleOauthInfo = {
+          const googleOauthTokens = {
             accessToken: res.credential['accessToken'],
             refreshToken: res.user.refreshToken,
-            email: res.user.email
           };
-          return this.googleLogin(googleOauthInfo);
+          return this.googleLogin(googleOauthTokens, res.user.email);
         },
         err => console.error(err)
       ));
@@ -112,15 +112,15 @@ export class UserService {
     localStorage.setItem('subjectsByDays', JSON.stringify(subjectsByDays));
   }
 
-  setGoogleOauthInfo(googleOauthInfo: GoogleOauthInfo) {
-    localStorage.setItem('googleOauthInfo', JSON.stringify(googleOauthInfo));
+  setGoogleOauthEmail(email: string) {
+    localStorage.setItem('googleOauthEmail', email);
   }
 
-  get googleOauthInfo() {
-    return JSON.parse(localStorage.getItem('googleOauthInfo'));
+  get googleOauthEmail() {
+    return localStorage.getItem('googleOauthEmail');
   }
 
-  removeGoogleOauthInfo() {
-    localStorage.removeItem('googleOauthInfo');
+  removeGoogleOauthEmail() {
+    localStorage.removeItem('googleOauthEmail');
   }
 }

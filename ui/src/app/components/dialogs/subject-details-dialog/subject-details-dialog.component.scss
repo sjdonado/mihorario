@@ -15,7 +15,8 @@ button.close {
 
 .color-picker {
   cursor: pointer;
-  width: 58px;
+  min-width: 58px;
+  max-width: 58px;
   height: 42px;
   background: whitesmoke;
   border-radius: 4px;

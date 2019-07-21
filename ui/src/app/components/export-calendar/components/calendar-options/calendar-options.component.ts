@@ -10,7 +10,7 @@ import { observable } from 'rxjs';
 })
 export class CalendarOptionsComponent implements OnInit {
 
-  private googleOauthInfo: any;
+  private googleOauthEmail: string;
 
   constructor(
     private userService: UserService,
@@ -19,11 +19,11 @@ export class CalendarOptionsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.googleOauthInfo = this.userService.googleOauthInfo;
+    this.googleOauthEmail = this.userService.googleOauthEmail;
   }
 
   googleOauth() {
-    if (this.userService.googleOauthInfo) {
+    if (this.userService.googleOauthEmail) {
       this.router.navigateByUrl('/export/select');
       return;
     }
@@ -33,7 +33,6 @@ export class CalendarOptionsComponent implements OnInit {
           console.log('res', res);
           if (res) {
             this.ngZone.run(() => {
-              console.log('here')
               this.router.navigateByUrl('/export/select');
             });
           }
@@ -41,8 +40,8 @@ export class CalendarOptionsComponent implements OnInit {
       });
   }
 
-  googleSignOut() {
-    this.userService.removeGoogleOauthInfo();
+  signInWithAnotherAccount() {
+    this.userService.removeGoogleOauthEmail();
     this.googleOauth();
   }
 

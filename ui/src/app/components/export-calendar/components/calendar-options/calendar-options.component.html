@@ -11,11 +11,11 @@
           <mat-icon fxLayoutAlign="center center">arrow_back</mat-icon>
         </span>
         <div fxLayout="column" fxLayoutAlign="center center">
-          <ng-template [ngIf]="googleOauthInfo" [ngIfElse]="signIn">
-            <div *ngIf="googleOauthInfo" class="button" fxLayout="row" fxLayoutAlign="center center" (click)="googleOauth()">
-              <p>Continuar como {{ googleOauthInfo.email }}</p>
+          <ng-template [ngIf]="googleOauthEmail" [ngIfElse]="signIn">
+            <div *ngIf="googleOauthEmail" class="button" fxLayout="row" fxLayoutAlign="center center" (click)="googleOauth()">
+              <p>Continuar como {{ googleOauthEmail }}</p>
             </div>
-            <div class="button" fxLayout="row" fxLayoutAlign="center center" (click)="googleSignOut()">
+            <div class="button" fxLayout="row" fxLayoutAlign="center center" (click)="signInWithAnotherAccount()">
               <p>Iniciar sesión con otra cuenta</p>
               <div class="logo-wrapper" fxLayoutAlign="start center" fxFlex><div class="logo"></div></div>
             </div>

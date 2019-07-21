@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { AppComponent } from '../../app.component';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { NotificationService } from 'src/app/services/notification.service';
 
 @Component({
@@ -21,7 +20,6 @@ export class LoginComponent implements OnInit {
     private formBuilder: FormBuilder,
     private authService: AuthService,
     private appComponent: AppComponent,
-    private snackBar: MatSnackBar,
     private router: Router,
     private notificationService: NotificationService
   ) { }

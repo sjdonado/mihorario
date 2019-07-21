@@ -16,8 +16,8 @@ const getRangeOfDates = (start, end, key, arr = [start.startOf(key)]) => {
   return getRangeOfDates(next, end, key, arr.concat(next));
 };
 
-const getWeekEvents = (tokens) => {
-  const calendarService = new CalendarService(tokens);
+const getWeekEvents = (username, tokens) => {
+  const calendarService = new CalendarService(username, tokens);
   const start = moment().subtract(7, 'days').startOf('day').format();
   const end = moment().add(1, 'days').endOf('day').format();
   return calendarService.getEventsAtTimeRange(start, end);
@@ -30,8 +30,8 @@ const getWeekEvents = (tokens) => {
  * @param {Object} tokens.refresh_token
  * @param {*} schedule
  */
-const importSchedule = async (tokens, subjectsByDays) => {
-  const calendarService = new CalendarService(tokens);
+const importSchedule = async (username, tokens, subjectsByDays) => {
+  const calendarService = new CalendarService(username, tokens);
   const events = [];
   /**
   * With the Promise.all implementation some request are executing at same time causing a server
