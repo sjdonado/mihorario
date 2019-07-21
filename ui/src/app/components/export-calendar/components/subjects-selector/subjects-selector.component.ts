@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { UserService } from 'src/app/services/user.service';
 import { Subject } from 'src/app/models/subject.model';
 import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
-import { GoogleCalendarService } from 'src/app/services/google-calendar.service';
+import { UserService } from 'src/app/modules/home/services/user.service';
+import { GoogleCalendarService } from 'src/app/modules/home/services/google-calendar.service';
 import { MatDialog } from '@angular/material/dialog';
 import { SubjectDetailsDialogComponent } from 'src/app/components/dialogs/subject-details-dialog/subject-details-dialog.component';
 import { NotificationService } from 'src/app/services/notification.service';

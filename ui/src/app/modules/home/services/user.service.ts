@@ -1,13 +1,12 @@
 import { Injectable } from '@angular/core';
 import { tap, map } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Subject } from '../models/subject.model';
+import { Subject } from '../../../models/subject.model';
 import { auth } from 'firebase/app';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { environment } from 'src/environments/environment';
 import { from } from 'rxjs';
 import { GoogleCalendarService } from './google-calendar.service';
-import { AuthService } from './auth.service';
 
 interface GoogleOauthTokens {
   accessToken: string;
@@ -25,13 +24,12 @@ export class UserService {
   constructor(
     private httpClient: HttpClient,
     private afAuth: AngularFireAuth,
-    private authService: AuthService,
     private googleCalendarService: GoogleCalendarService,
   ) {
-    console.log('UserService -> userToken', this.authService.token);
+    console.log('UserService -> userToken', localStorage.getItem('userToken'));
     this.BASE_HEADER = new HttpHeaders({
       'Content-Type': 'application/json',
-      authorization: this.authService.token,
+      authorization: localStorage.getItem('userToken'),
     });
   }
 

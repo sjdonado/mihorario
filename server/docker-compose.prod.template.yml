@@ -7,13 +7,13 @@ services:
       - .:/usr/src/app
     command: bash -c "if [ ! -d 'node_modules' ]; then yarn; fi; yarn start"
     ports:
-      - 80:80
+      - 3000:3000
     environment:
       HOSTNAME: 0.0.0.0
-      PORT: 80
+      PORT: 3000
       CLIENT_NAME: https://mihorarioun.web.app
-      GOOGLE_SECRET_CLIENT: CgWGUp9zeNqdwSvdKnkAonvr
-      GOOGLE_CLIENT_ID: 119902822900-pv2v7cssdnq4vpobtn0moirt0g95ipnc.apps.googleusercontent.com
+      GOOGLE_SECRET_CLIENT:
+      GOOGLE_CLIENT_ID:
       CALLBACK: https://mihorarioun.web.app
       SECRET:
       CRYPTR_SECRET:

@@ -1,7 +1,6 @@
 import { Component, OnInit, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
-import { UserService } from 'src/app/services/user.service';
-import { observable } from 'rxjs';
+import { UserService } from 'src/app/modules/home/services/user.service';
 
 @Component({
   selector: 'app-calendar-options',

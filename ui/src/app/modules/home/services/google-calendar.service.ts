@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { tap } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -75,11 +74,10 @@ export class GoogleCalendarService {
 
   constructor(
     private httpClient: HttpClient,
-    private authService: AuthService
   ) {
     this.BASE_HEADER = new HttpHeaders({
       'Content-Type': 'application/json',
-      authorization: this.authService.token,
+      authorization: localStorage.getItem('userToken'),
     });
   }
 

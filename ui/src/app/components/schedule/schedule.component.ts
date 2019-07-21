@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Subject } from '../../models/subject.model';
 import { SubjectDetailsDialogComponent } from '../dialogs/subject-details-dialog/subject-details-dialog.component';
-import { UserService } from 'src/app/services/user.service';
+import { UserService } from 'src/app/modules/home/services/user.service';
 import { AuthService } from 'src/app/services/auth.service';
 import html2canvas from 'html2canvas';
 import { EventColor } from 'src/app/models/event-color.model';

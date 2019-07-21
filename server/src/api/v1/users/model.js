@@ -78,6 +78,7 @@ const pomeloSchedule = async (username, password, scheduleOption) => {
 
   await goTo(page, pomeloScheduleDetils);
   await page.waitForSelector('#term_id', { visible: true });
+  await page.waitFor(500);
 
   await page.evaluate((option) => {
     this.document.querySelector('#term_id').value = option;

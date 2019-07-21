@@ -9,7 +9,6 @@ import { tap } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { NotificationService } from '../services/notification.service';
-import { UserService } from '../services/user.service';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
@@ -17,7 +16,6 @@ export class AuthInterceptor implements HttpInterceptor {
   constructor(
     private router: Router,
     private notificationService: NotificationService,
-    private userService: UserService,
   ) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler):

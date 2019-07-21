@@ -12,7 +12,6 @@ export class AuthService {
   private BASE_HEADER = new HttpHeaders({
     'Content-Type': 'application/json'
   });
-  private userToken: string;
 
   constructor(
     private httpClient: HttpClient,
@@ -27,7 +26,6 @@ export class AuthService {
           console.warn('userToken', res.data.token);
           localStorage.setItem('userToken', res.data.token);
           localStorage.setItem('pomeloData', JSON.stringify(res.data.pomelo));
-          this.userToken = res.data.token;
         },
         err => console.error(err)
       )
@@ -35,7 +33,7 @@ export class AuthService {
   }
 
   get token() {
-    return localStorage.getItem('userToken') || this.userToken;
+    return localStorage.getItem('userToken');
   }
 
   get pomeloData() {
