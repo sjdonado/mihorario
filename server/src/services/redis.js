@@ -7,12 +7,7 @@
 const redis = require('redis');
 const config = require('../config');
 
-const client = redis.createClient({
-  host: config.redis.host,
-  port: config.redis.port,
-  user: config.redis.user,
-  password: config.redis.password,
-});
+const client = redis.createClient(config.redis.url);
 
 client.on('error', (err) => {
   console.log('Redis error: ', err);
