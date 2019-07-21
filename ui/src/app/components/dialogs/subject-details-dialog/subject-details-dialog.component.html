@@ -1,7 +1,8 @@
 <h1 mat-dialog-title>{{ subject.name }}</h1>
 <div mat-dialog-content>
   <div *ngIf="data.editor" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="20px">
-    <div class="color-picker" (click)="toggleColorPicker()" fxLayout="row" fxLayoutAlign="center center" fxFlex="11">
+    <div class="color-picker" (click)="toggleColorPicker()" fxLayout="row" fxLayoutAlign="center center" fxFlex="11"
+      matTooltip="Seleccionar color" aria-label="Botón que despliega menú con colores">
       <span [ngStyle]="{'background': subjectEventColor.background}"></span>
       <mat-icon matSuffix>arrow_drop_down</mat-icon>
     </div>

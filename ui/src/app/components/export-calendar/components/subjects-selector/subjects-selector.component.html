@@ -3,7 +3,7 @@
     <mat-card>
       <mat-card-content fxLayout="column">
         <div fxLayout="row">
-          <span class="go-back-button" routerLink="..">
+          <span matTooltip="Ir atrás" aria-label="Ir a la página anterior" class="go-back-button" routerLink="..">
             <mat-icon fxLayoutAlign="center center">arrow_back</mat-icon>
           </span>
         </div>
@@ -30,7 +30,7 @@
                   </div>
                 </div>
               </mat-checkbox>
-              <div class="more-btn" fxLayoutAlign="end center" fxFlex="5" (click)="openSubjectDetailsDialog(subject)">
+              <div matTooltip="Ver detalles" aria-label="Despliega dialogo con detalles de la materia" class="more-btn" fxLayoutAlign="end center" fxFlex="5" (click)="openSubjectDetailsDialog(subject)">
                 <mat-icon>more_vert</mat-icon>
               </div>
             </div>
