@@ -1,8 +1,15 @@
+:host {
+  display: block;
+  position: relative;
+  height: 100%;
+}
+
 .credits {
   position: absolute;
-  top: 95.5%;
+  bottom: 0;
   right: 0;
   z-index: 1;
+  margin: 0;
   margin-right: 10px;
   font-size: 10px;
   text-align: right;

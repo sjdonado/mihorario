@@ -1,3 +1,3 @@
 #!/bin/bash
 
-ssh -i "mihorarioUN.pem" ubuntu@ec2-18-218-70-158.us-east-2.compute.amazonaws.com
+ssh -i "mihorarioUN.pem" ubuntu@ec2-3-13-247-115.us-east-2.compute.amazonaws.com
