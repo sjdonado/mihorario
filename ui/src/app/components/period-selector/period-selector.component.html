@@ -23,7 +23,7 @@
                 </mat-option>
               </mat-select>
             </mat-form-field>
-            <button mat-button color="primary">Continuar</button>
+            <button mat-button color="primary" [disabled]="!getFormGroup.valid">Continuar</button>
           </form>
         </mat-card-content>
       </mat-card>

@@ -15,9 +15,15 @@ const getSchedule = async (req, res, next) => {
     const { scheduleOption } = req.query;
     if (!scheduleOption) throw new ApiError('Schedule period is not valid', 400);
 
-    const { password } = await getRecords(req.username);
-    const data = await pomeloSchedule(req.username, decryptPassword(password), scheduleOption);
+    const { password, firstTime } = await getRecords(req.username);
+    const data = await pomeloSchedule(
+      req.username,
+      decryptPassword(password),
+      firstTime,
+      scheduleOption,
+    );
     await setRecord(req.username, 'schedule', JSON.stringify(data));
+    if (firstTime) await setRecord(req.username, 'firstTime', false);
 
     res.json({ data });
   } catch (err) {
@@ -38,6 +44,7 @@ const login = async (req, res, next) => {
 
     if (await existsUserRecords(username)) await removeUserRecords(username);
     await setRecord(username, 'password', encryptPassword(password));
+    await setRecord(username, 'firstTime', true);
 
     const token = signToken({ username });
 

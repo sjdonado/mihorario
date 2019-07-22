@@ -57,6 +57,7 @@ const existsUserRecords = async username => (await Promise.all([
   existsRecord(username, 'schedule'),
   existsRecord(username, 'accessToken'),
   existsRecord(username, 'refreshToken'),
+  existsRecord(username, 'firstTime'),
 ])).some(elem => elem);
 
 /**
@@ -79,6 +80,7 @@ const removeUserRecords = username => Promise.all([
   removeRecord(username, 'schedule'),
   removeRecord(username, 'accessToken'),
   removeRecord(username, 'refreshToken'),
+  removeRecord(username, 'firstTime'),
 ]);
 
 module.exports = {
