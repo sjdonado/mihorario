@@ -42,7 +42,7 @@ export class UserService {
         (res: any) => {
           const defaultSubjectStyle = {
             color: this.googleCalendarService.eventColors[0],
-            notificationTime: 10,
+            notificationTime: 15,
           };
           console.log('getSchedule', res);
           this.setScheduleByHours(res.data.scheduleByHours.map((hours: Subject[]) => hours.map(subject => {

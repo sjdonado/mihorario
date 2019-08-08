@@ -30,7 +30,10 @@ export class SubjectDetailsDialogComponent {
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
     this.eventColors = this.googleCalendarService.eventColors.map(eventColor => eventColor.background);
-    this.notificationTimeOptions = [];
+    this.notificationTimeOptions = [{
+      text: 'Sin notificaciones',
+      value: 0,
+    }];
     for (let i = 5; i <= 60; i += 5) {
       this.notificationTimeOptions.push({
         text: `${i} minutos antes`,
@@ -38,9 +41,10 @@ export class SubjectDetailsDialogComponent {
       });
     }
     this.subject = this.data.subject;
+    console.log('=> SUBJECT', this.subject);
     this.subjectEventColor = this.data.subject.color;
+    console.log('subjectNotificationTime', this.data.subject.notificationTime, 'subjectEventColor', this.subjectEventColor);
     this.subjectNotificationTime = this.data.subject.notificationTime;
-    console.log('subject', this.data.subject, 'subjectEventColor', this.subjectEventColor);
   }
 
   colorPicker(event: any) {

@@ -74,12 +74,12 @@ export class ScheduleComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(subjectDetailsData => {
-      console.log('result', subjectDetailsData);
-      const { color, notificationTime } = subjectDetailsData;
-      if (color && notificationTime ) {
+      if (subjectDetailsData) {
+        const { color, notificationTime } = subjectDetailsData;
+        console.log('=> DIALOG CLOSED', color, notificationTime);
         this.setSubjectByDaysProperties(subject, color, notificationTime);
-        console.log('subjectsByDays', this.subjectsByDays);
         this.userService.setSubjectsByDays(this.subjectsByDays);
+        console.log('subjectsByDays', this.subjectsByDays);
       }
     });
   }
@@ -99,8 +99,8 @@ export class ScheduleComponent implements OnInit {
     if (!subject) {
       return { color: { foreground: '#1d1d1d' } };
     }
-    const { color } = this.getSubjectByDays(subject)[0];
-    return { color };
+    const { color, notificationTime } = this.getSubjectByDays(subject)[0];
+    return { color, notificationTime };
   }
 
   downloadSchedule() {
