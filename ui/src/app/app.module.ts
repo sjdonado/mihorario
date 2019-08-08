@@ -22,12 +22,16 @@ import { LoginComponent } from './components/login/login.component';
 
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-policy.component';
+import { IndexComponent } from './components/index/index.component';
+import { HelpComponent } from './components/help/help.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     PrivacyPolicyComponent,
+    IndexComponent,
+    HelpComponent,
   ],
   imports: [
     BrowserModule,

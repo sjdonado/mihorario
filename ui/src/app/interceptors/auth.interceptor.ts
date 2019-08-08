@@ -28,9 +28,9 @@ export class AuthInterceptor implements HttpInterceptor {
             this.invalidAuthLocalData();
           } else {
             console.log('I', err);
-            const message = err.error.error && err.error.error.message ?
-              err.error.error.message : this.notificationService.GENERAL_ERROR_MESSAGE;
-            this.notificationService.add(message);
+            // const message = err.error.error && err.error.error.message ?
+            //   err.error.error.message : this.notificationService.GENERAL_ERROR_MESSAGE;
+            // this.notificationService.add(message);
           }
         }
       )

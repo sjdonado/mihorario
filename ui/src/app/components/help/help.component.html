@@ -1,0 +1,18 @@
+<div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="5px" class="wrapper">
+  <span fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="5px" class="title app-name" fxFlex="10">
+    Ayuda
+  </span>
+  <div fxLayout="column" fxLayoutAlign="start center" fxFlex="80">
+    <mat-card fxFlex>
+      <span matTooltip="Ir atrás" aria-label="Ir a la página anterior" class="go-back-button" fxLayoutAlign="start center" routerLink="/">
+        <mat-icon fxLayoutAlign="center center">arrow_back</mat-icon>
+      </span>
+      <mat-card-content class="info">
+        <video controls>
+          <source src="/assets/help.mov" type="video/mp4">
+          Your browser does not support HTML5 video.
+        </video>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

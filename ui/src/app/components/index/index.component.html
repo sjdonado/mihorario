@@ -1,0 +1,32 @@
+<div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="5px" class="wrapper">
+  <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="5px" class="container" fxFlex>
+    <span class="title app-name" fxFlex="30">{{ title }}</span>
+    <div fxLayout="column"  fxLayoutGap="5px" class="features" fxFlex="40">
+      <div fxLayout="row">
+        <mat-icon>palette</mat-icon>
+        <p>Personaliza tu horario Uninorte.</p>
+      </div>
+      <div fxLayout="row">
+        <mat-icon>sync</mat-icon>
+        <p>Sincronizalo con el calendario de Google.</p>
+      </div>
+      <div fxLayout="row">
+        <mat-icon>alarm</mat-icon>
+        <p>Recibe notificaciones.</p>
+      </div>
+    </div>
+    <div fxLayout="row" fxLayoutGap="20px" class="links" fxFlex="20">
+      <p class="link" routerLink="/help">Ayuda</p>
+      <p class="link" routerLink="/privacy-policy">Sobre tus datos</p>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="center center" fxFlex="10">
+      <div fxLayout="row" fxLayoutAlign="center center" class="button" routerLink="/login">
+        <p>Entrar</p>
+        <mat-icon>arrow_right_alt</mat-icon>
+      </div>
+    </div>
+  </div>
+  <div fxLayout="row" fxHide.lt-md fxFlex="50">
+    <img src="/assets/screens.svg" width="500" height="200" alt="Mi horario screens">
+  </div>
+</div>

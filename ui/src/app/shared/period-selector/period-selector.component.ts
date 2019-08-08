@@ -43,7 +43,7 @@ export class PeriodSelectorComponent implements OnInit {
       (response: any) => {
         console.log(response);
         this.isLoading = false;
-        this.router.navigateByUrl('/');
+        this.router.navigateByUrl('/home');
       }, (err) => {
         this.isLoading = false;
         this.notificationService.add('Error al obtener tu horario, intente de nuevo.');

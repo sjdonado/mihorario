@@ -41,19 +41,26 @@ export class HomeComponent implements OnInit {
       data: { title: 'Cerrar sesión', message: '¿Estás seguro?' }
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.userService.logout()
-          .subscribe((res: any) => {
-            console.log('logout res', res);
-            if (!res.data) {
-              this.notificationService.add('Error al cerrar sesión, intenta de nuevo.');
-            } else {
-              localStorage.clear();
-              this.router.navigateByUrl('/login');
-            }
-          });
-      }
-    });
+    dialogRef.afterClosed()
+      .subscribe(result => {
+        if (result) {
+          this.userService.logout()
+            .subscribe(
+              (res: any) => {
+                console.log('logout res', res);
+                if (!res.data) {
+                  this.notificationService.add('Error al cerrar sesión, intenta de nuevo.');
+                }
+                localStorage.clear();
+                this.router.navigateByUrl('/login');
+              },
+              (err) => {
+                console.log('logoutErr', err);
+                localStorage.clear();
+                this.router.navigateByUrl('/login');
+              }
+            );
+        }
+      });
   }
 }

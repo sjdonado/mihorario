@@ -1,0 +1,59 @@
+.app-name {
+  font-size: 24px;
+}
+
+.container {
+  height: 65%;
+}
+
+.features {
+  p, mat-icon {
+    color: white;
+  }
+  p {
+    margin: 4px;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
+  }
+  div {
+    padding-left: 20px;
+  }
+}
+
+.links {
+  p {
+    color: white;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
+  }
+}
+
+.link {
+  cursor: pointer;
+  text-align: center;
+  &:hover {
+    // text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3) !important;
+    text-decoration: underline;
+  }
+  // transition: 1s;
+}
+
+.button {
+  background: white;
+  width: 160px;
+  margin: auto;
+  border-radius: 20px;
+  box-shadow: 0 2px 30px rgba(black, .2);
+
+  p, mat-icon {
+    color: rgb(29, 29, 29);
+  }
+
+  p {
+    font-size: 0.9em;
+    margin: 10px;
+  }
+
+  &:hover {
+    box-shadow: 0 2px 30px rgba(black, .4);
+  }
+  transition: 0.5s;
+}
