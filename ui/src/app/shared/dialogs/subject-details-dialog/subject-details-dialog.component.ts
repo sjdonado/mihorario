@@ -2,7 +2,7 @@ import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Subject } from 'src/app/models/subject.model';
 import { SubjectDetailsData } from 'src/app/models/subject-details-data.model';
-import { GoogleCalendarService } from 'src/app/modules/home/services/google-calendar.service';
+import { GoogleCalendarService } from 'src/app/components/home/services/google-calendar.service';
 import { EventColor } from 'src/app/models/event-color.model';
 
 export interface EventNotificationTime {

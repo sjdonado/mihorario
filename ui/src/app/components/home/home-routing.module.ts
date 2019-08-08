@@ -3,11 +3,11 @@ import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from '../../guards/auth.guard';
 import { ScheduleGuard } from '../../guards/schedule.guard';
 import { GoogleOauthGuard } from '../../guards/google-oauth.guard';
-import { ScheduleComponent } from '../../components/schedule/schedule.component';
-import { PeriodSelectorComponent } from '../../components/period-selector/period-selector.component';
-import { ExportCalendarComponent } from '../../components/export-calendar/export-calendar.component';
-import { CalendarOptionsComponent } from '../../components/export-calendar/components/calendar-options/calendar-options.component';
-import { SubjectsSelectorComponent } from '../../components/export-calendar/components/subjects-selector/subjects-selector.component';
+import { ScheduleComponent } from '../../shared/schedule/schedule.component';
+import { PeriodSelectorComponent } from '../../shared/period-selector/period-selector.component';
+import { ExportCalendarComponent } from '../../shared/export-calendar/export-calendar.component';
+import { CalendarOptionsComponent } from '../../shared/export-calendar/components/calendar-options/calendar-options.component';
+import { SubjectsSelectorComponent } from '../../shared/export-calendar/components/subjects-selector/subjects-selector.component';
 import { HomeComponent } from './home.component';
 
 const routes: Routes = [

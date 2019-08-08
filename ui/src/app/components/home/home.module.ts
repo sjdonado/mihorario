@@ -24,14 +24,14 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { ColorGithubModule } from 'ngx-color/github';
 
 import { HomeRoutingModule } from './home-routing.module';
-import { HomeComponent } from '../../modules/home/home.component';
-import { PeriodSelectorComponent } from '../../components/period-selector/period-selector.component';
-import { ScheduleComponent } from '../../components/schedule/schedule.component';
-import { ConfirmationDialogComponent } from '../../components/dialogs/confirmation-dialog/confirmation-dialog.component';
-import { ExportCalendarComponent } from '../../components/export-calendar/export-calendar.component';
-import { SubjectDetailsDialogComponent } from '../../components/dialogs/subject-details-dialog/subject-details-dialog.component';
-import { SubjectsSelectorComponent } from '../../components/export-calendar/components/subjects-selector/subjects-selector.component';
-import { CalendarOptionsComponent } from '../../components/export-calendar/components/calendar-options/calendar-options.component';
+import { HomeComponent } from '../../components/home/home.component';
+import { PeriodSelectorComponent } from '../../shared/period-selector/period-selector.component';
+import { ScheduleComponent } from '../../shared/schedule/schedule.component';
+import { ConfirmationDialogComponent } from '../../shared/dialogs/confirmation-dialog/confirmation-dialog.component';
+import { ExportCalendarComponent } from '../../shared/export-calendar/export-calendar.component';
+import { SubjectDetailsDialogComponent } from '../../shared/dialogs/subject-details-dialog/subject-details-dialog.component';
+import { SubjectsSelectorComponent } from '../../shared/export-calendar/components/subjects-selector/subjects-selector.component';
+import { CalendarOptionsComponent } from '../../shared/export-calendar/components/calendar-options/calendar-options.component';
 
 @NgModule({
   declarations: [

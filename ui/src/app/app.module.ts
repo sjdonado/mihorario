@@ -18,10 +18,10 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LoginComponent } from './modules/login/login.component';
+import { LoginComponent } from './components/login/login.component';
 
 import { AuthInterceptor } from './interceptors/auth.interceptor';
-import { PrivacyPolicyComponent } from './modules/privacy-policy/privacy-policy.component';
+import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-policy.component';
 
 @NgModule({
   declarations: [

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { LoginComponent } from './modules/login/login.component';
-import { PrivacyPolicyComponent } from './modules/privacy-policy/privacy-policy.component';
+import { LoginComponent } from './components/login/login.component';
+import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-policy.component';
 
 const routes: Routes = [
   {
@@ -14,7 +14,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    loadChildren: './modules/home/home.module#HomeModule'
+    loadChildren: './components/home/home.module#HomeModule'
   },
   { path: '**', redirectTo: '/' },
 ];
