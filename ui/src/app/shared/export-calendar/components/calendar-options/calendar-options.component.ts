@@ -9,7 +9,7 @@ import { UserService } from 'src/app/components/home/services/user.service';
 })
 export class CalendarOptionsComponent implements OnInit {
 
-  public googleOauthEmail: string;
+  public googleOauthData: any;
 
   constructor(
     private userService: UserService,
@@ -18,29 +18,26 @@ export class CalendarOptionsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.googleOauthEmail = this.userService.googleOauthEmail;
+    this.googleOauthData = this.userService.googleOauthData;
   }
 
   googleOauth() {
-    if (this.userService.googleOauthEmail) {
-      this.router.navigateByUrl('/export/select');
+    if (this.userService.googleOauthData) {
+      this.router.navigateByUrl('/home/export/select');
       return;
     }
     this.userService.googleOauthLogin()
-      .subscribe(loginObservable => {
-        loginObservable.subscribe(res => {
-          console.log('res', res);
-          if (res) {
-            this.ngZone.run(() => {
-              this.router.navigateByUrl('/export/select');
-            });
-          }
-        });
+      .subscribe(res => {
+        if (res) {
+          this.ngZone.run(() => {
+            this.router.navigateByUrl('/home/export/select');
+          });
+        }
       });
   }
 
   signInWithAnotherAccount() {
-    this.userService.removeGoogleOauthEmail();
+    this.userService.removeGoogleOauthData();
     this.googleOauth();
   }
 

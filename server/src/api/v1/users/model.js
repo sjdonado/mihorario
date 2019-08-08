@@ -73,13 +73,13 @@ const pomeloSchedulePeriods = async (username, password) => {
  * @param {String} password
  * @param {String} scheduleOption
  */
-const pomeloSchedule = async (username, password, firstTime, scheduleOption) => {
+const pomeloSchedule = async (username, password, scheduleOption) => {
   const { browser, page } = await login(username, password);
 
   await goTo(page, pomeloScheduleDetils);
   await page.waitForSelector('#term_id', { visible: true });
 
-  if (firstTime) await page.waitFor(1000);
+  // if (firstTime) await page.waitFor(1000);
 
   await page.evaluate((option) => {
     this.document.querySelector('#term_id').value = option;

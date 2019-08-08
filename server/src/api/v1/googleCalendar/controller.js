@@ -1,11 +1,10 @@
 const { getWeekEvents, importSchedule } = require('./model');
 
-const { getRecords } = require('../../../services/redis');
-
 const all = async (req, res, next) => {
   try {
-    const { accessToken, refreshToken } = await getRecords(req.username);
-    const data = await getWeekEvents(req.username, {
+    const { accessToken, refreshToken } = req.body;
+
+    const data = await getWeekEvents(req.user, {
       access_token: accessToken,
       refresh_token: refreshToken,
     });
@@ -17,16 +16,9 @@ const all = async (req, res, next) => {
 
 const importScheduleToCalendar = async (req, res, next) => {
   try {
-    const { selectedSubjects } = req.body;
-    const { accessToken, refreshToken, schedule } = await getRecords(req.username);
-    const { subjectsByDays } = JSON.parse(schedule);
-    const subjects = subjectsByDays.map(day => day.map((subject) => {
-      const selectedSubject = selectedSubjects.find(elem => elem.nrc === subject.nrc);
-      if (!selectedSubject) return null;
-      const { color, notificationTime } = selectedSubject;
-      return Object.assign(subject, { colorId: color.id, notificationTime });
-    }).filter(elem => elem));
-    const data = await importSchedule(req.username, {
+    const { accessToken, refreshToken, subjects } = req.body;
+    // console.log('SUBJECTS ==>', subjects);
+    const data = await importSchedule({
       access_token: accessToken,
       refresh_token: refreshToken,
     }, subjects);

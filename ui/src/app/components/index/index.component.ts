@@ -8,7 +8,7 @@ import { AppComponent } from 'src/app/app.component';
 })
 export class IndexComponent implements OnInit {
 
-  private title: String;
+  private title: string;
 
   constructor(
     private appComponent: AppComponent,

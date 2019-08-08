@@ -7,13 +7,13 @@
   <div fxLayout="column" fxLayoutAlign="start center" fxFlex="70">
     <mat-card>
       <mat-card-content fxLayout="column">
-        <span matTooltip="Ir atrás" aria-label="Ir a la página anterior" class="go-back-button" fxLayoutAlign="start center" routerLink="/">
+        <span matTooltip="Ir atrás" aria-label="Ir a la página anterior" class="go-back-button" fxLayoutAlign="start center" routerLink="/home">
           <mat-icon fxLayoutAlign="center center">arrow_back</mat-icon>
         </span>
         <div fxLayout="column" fxLayoutAlign="center center">
-          <ng-template [ngIf]="googleOauthEmail" [ngIfElse]="signIn">
-            <div *ngIf="googleOauthEmail" class="button" fxLayout="row" fxLayoutAlign="center center" (click)="googleOauth()">
-              <p>Continuar como {{ googleOauthEmail }}</p>
+          <ng-template [ngIf]="googleOauthData" [ngIfElse]="signIn">
+            <div *ngIf="googleOauthData" class="button" fxLayout="row" fxLayoutAlign="center center" (click)="googleOauth()">
+              <p>Continuar como {{ googleOauthData.email }}</p>
             </div>
             <div class="button" fxLayout="row" fxLayoutAlign="center center" (click)="signInWithAnotherAccount()">
               <p>Iniciar sesión con otra cuenta</p>

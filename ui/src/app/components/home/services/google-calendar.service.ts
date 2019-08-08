@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { tap } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { UserService } from './user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -82,7 +83,8 @@ export class GoogleCalendarService {
   }
 
   importSchedule(data: any) {
-    return this.httpClient.post(`${this.API_URL}/import`, data, {
+    const googleOauthData = JSON.parse(localStorage.getItem('googleOauthData'));
+    return this.httpClient.post(`${this.API_URL}/import`, Object.assign(data, googleOauthData), {
       headers: this.BASE_HEADER,
     }).pipe(
       tap(

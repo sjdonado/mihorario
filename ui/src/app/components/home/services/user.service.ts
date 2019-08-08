@@ -8,7 +8,8 @@ import { environment } from 'src/environments/environment';
 import { from } from 'rxjs';
 import { GoogleCalendarService } from './google-calendar.service';
 
-interface GoogleOauthTokens {
+interface GoogleOauthData {
+  email: string;
   accessToken: string;
   refreshToken: string;
 }
@@ -58,18 +59,18 @@ export class UserService {
     );
   }
 
-  googleLogin(googleOauthTokens: GoogleOauthTokens, email: string) {
-    return this.httpClient.post(`${this.API_URL}/login/google`, googleOauthTokens, {
-      headers: this.BASE_HEADER,
-    }).pipe(map(
-      (res: any) => {
-        console.warn('googleOauthEmail', email);
-        this.setGoogleOauthEmail(email);
-        return this.googleOauthEmail;
-      },
-      err => console.error(err)
-    ));
-  }
+  // googleLogin(googleOauthTokens: GoogleOauthTokens, email: string) {
+  //   return this.httpClient.post(`${this.API_URL}/login/google`, googleOauthTokens, {
+  //     headers: this.BASE_HEADER,
+  //   }).pipe(map(
+  //     (res: any) => {
+  //       console.warn('googleOauthEmail', email);
+  //       this.setGoogleOauthEmail(email);
+  //       return this.googleOauthEmail;
+  //     },
+  //     err => console.error(err)
+  //   ));
+  // }
 
   googleOauthLogin() {
     const provider = new auth.GoogleAuthProvider();
@@ -78,21 +79,23 @@ export class UserService {
       .pipe(map(
         res => {
           console.log('googleOauthLogin', res);
-          const googleOauthTokens = {
+          this.setGoogleOauthData({
+            email: res.user.email,
             accessToken: res.credential['accessToken'],
             refreshToken: res.user.refreshToken,
-          };
-          return this.googleLogin(googleOauthTokens, res.user.email);
+          });
+          return true;
+          // return this.googleLogin(googleOauthTokens, res.user.email);
         },
         err => console.error(err)
       ));
   }
 
-  logout() {
-    return this.httpClient.post(`${this.API_URL}/logout`, null, {
-      headers: this.BASE_HEADER,
-    });
-  }
+  // logout() {
+  //   return this.httpClient.post(`${this.API_URL}/logout`, null, {
+  //     headers: this.BASE_HEADER,
+  //   });
+  // }
 
   get scheduleByHours() {
     return JSON.parse(localStorage.getItem('schedule'));
@@ -110,15 +113,15 @@ export class UserService {
     localStorage.setItem('subjectsByDays', JSON.stringify(subjectsByDays));
   }
 
-  setGoogleOauthEmail(email: string) {
-    localStorage.setItem('googleOauthEmail', email);
+  setGoogleOauthData(googleOauthData: GoogleOauthData) {
+    localStorage.setItem('googleOauthData', JSON.stringify(googleOauthData));
   }
 
-  get googleOauthEmail() {
-    return localStorage.getItem('googleOauthEmail');
+  get googleOauthData() {
+    return JSON.parse(localStorage.getItem('googleOauthData'));
   }
 
-  removeGoogleOauthEmail() {
-    localStorage.removeItem('googleOauthEmail');
+  removeGoogleOauthData() {
+    localStorage.removeItem('googleOauthData');
   }
 }

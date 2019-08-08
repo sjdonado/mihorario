@@ -30,8 +30,8 @@ const getWeekEvents = (username, tokens) => {
  * @param {Object} tokens.refresh_token
  * @param {*} schedule
  */
-const importSchedule = async (username, tokens, subjectsByDays) => {
-  const calendarService = new CalendarService(username, tokens);
+const importSchedule = async (tokens, subjects) => {
+  const calendarService = new CalendarService(tokens);
   const events = [];
   /**
   * With the Promise.all implementation some request are executing at same time causing a server
@@ -39,7 +39,7 @@ const importSchedule = async (username, tokens, subjectsByDays) => {
   * Use for loops avoid this problem.
   */
   // eslint-disable-next-line no-restricted-syntax
-  for (const [dayNumber, day] of subjectsByDays.entries()) {
+  for (const [dayNumber, day] of subjects.entries()) {
     // eslint-disable-next-line no-restricted-syntax
     for (const subject of day) {
       // Calendar day   ---  dayNumber

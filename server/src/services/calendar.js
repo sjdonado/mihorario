@@ -7,7 +7,6 @@
 
 const { google } = require('googleapis');
 const { calendar } = require('../config');
-const { setRecord } = require('./redis');
 
 const oauth2Client = new google.auth.OAuth2(
   calendar.clientId,
@@ -16,12 +15,11 @@ const oauth2Client = new google.auth.OAuth2(
 );
 
 class CalendarService {
-  constructor(username, tokens) {
+  constructor(tokens) {
     oauth2Client.setCredentials(tokens);
-    if (oauth2Client.isTokenExpiring()) {
-      oauth2Client.refreshAccessTokenAsync();
-      setRecord(username, 'accessToken', oauth2Client.getAccessTokenAsync());
-    }
+    // if (oauth2Client.isTokenExpiring()) {
+    //   oauth2Client.refreshAccessTokenAsync();
+    // }
     this.googleCalendar = google.calendar({
       version: 'v3',
       auth: oauth2Client,

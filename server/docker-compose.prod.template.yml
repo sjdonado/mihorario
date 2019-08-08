@@ -16,15 +16,3 @@ services:
       GOOGLE_CLIENT_ID:
       CALLBACK: https://mihorarioun.web.app
       SECRET:
-      CRYPTR_SECRET:
-      REDIS_URL: redis://redis:6379
-    depends_on:
-      - redis
-  redis:
-    image: redis
-    entrypoint: redis-server --appendonly yes
-    volumes:
-      - ./redis/data:/data
-    ports:
-      - 6379:6379
-    restart: always

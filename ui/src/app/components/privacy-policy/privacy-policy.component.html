@@ -20,15 +20,12 @@
           <p>Mi horario UN está basado en una arquitectura cliente/servidor. Para comunicación entre estas partes se emplea autentificación por 
             <a href="https://jwt.io/" target="_blank">Json Web Token</a> con expiración por cada 24 horas. El api RESTful (servidor) está protegida con CORS
             (<a href="https://www.npmjs.com/package/cors" target="_blank">más información</a>).</p>
-          <p>Mi horario UN necesita almacenar TEMPORALMENTE las credenciales del usuario que implican su usuario uninorte y contraseña para poder obtener su horario,
-            TODA la información necesaria para dicho fin se almacena en una base de datos en MEMORIA (<a href="https://redis.io/" target="_blank">Redis</a>). Datos sensibles como la contraseña
-            son encriptados con el algoritmo aes-256-ctr (<a href="https://www.npmjs.com/package/cryptr" target="_blank">Más información</a>). Al usuario cerrar sesión TODA
-            su información es eliminada de la base de datos.</p>
+          <p>Mi horario UN NO almacena información del usuario en el servidor.</p>
           <p>Mi horario UN almacena información del usuario en el navegador por el cual acceda a la aplicación (Local Storage), al usuario cerrar sesión TODA su información es eliminada.</p>
           <p>Mi horario UN necesita la autorización del usuario para poder ver, modificar y crear eventos en su calendario de google (scope: https://www.googleapis.com/auth/calendar.events <a href="https://developers.google.com/calendar/auth" target="_blank">Más información</a>),
             los cuales son creados o editados ÚNICAMENTE si este está relacionado por el nombre con alguna materia del horario del usuario para el periodo seleccionado por el mismo.</p>
           <p>Mi horario UN NO hace uso de cookies para almacenar información.</p>
-          <p>Mi horario UN NO utilizará información de sus usuarios para NINGÚN fin diferente al ofrecido a los mismos a través de <a href="https://mihorarioun.web.app/" target="_blank">https://mihorarioun.web.app/</a>.</p>
+          <p>Mi horario UN NO utilizará información de sus usuarios para NINGÚN fin diferente al ofrecido a través de <a href="https://mihorarioun.web.app/" target="_blank">https://mihorarioun.web.app/</a>.</p>
         </mat-card-content>
       </mat-card>
     </div>

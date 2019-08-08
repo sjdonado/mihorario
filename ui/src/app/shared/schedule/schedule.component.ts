@@ -44,12 +44,12 @@ export class ScheduleComponent implements OnInit {
       {
         title: 'Seleccionar periodo',
         icon: 'calendar_view_day',
-        link: '/period'
+        link: '/home/period'
       },
       {
         title: 'Exportar',
         icon: 'import_export',
-        link: '/export'
+        link: '/home/export'
       },
     ];
     this.clicksOptions = [

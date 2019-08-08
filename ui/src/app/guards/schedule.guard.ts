@@ -15,6 +15,6 @@ export class ScheduleGuard implements CanActivate {
     if (this.userService.scheduleByHours) {
       return true;
     }
-    this.router.navigateByUrl('/period');
+    this.router.navigateByUrl('/home/period');
   }
 }

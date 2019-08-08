@@ -15,6 +15,7 @@ import { NotificationService } from 'src/app/services/notification.service';
 export class SubjectsSelectorComponent implements OnInit, OnDestroy {
 
   private subjects: Subject[];
+  private subjectsByDays: Subject[][];
   private form: FormGroup;
   private selectAll = false;
   public isLoading: boolean;
@@ -28,11 +29,14 @@ export class SubjectsSelectorComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
+    this.subjectsByDays = this.userService.subjectsByDays;
+
     this.subjects = [];
     this.form = this.formBuilder.group({
       selectedSubjects: this.formBuilder.array([]),
     });
-    this.userService.subjectsByDays.forEach((day: Subject[]) => day.forEach((subject: Subject) => {
+
+    this.subjectsByDays.forEach((day: Subject[]) => day.forEach((subject: Subject) => {
       if (!this.subjects.find(elem => elem.nrc === subject.nrc)) {
         this.subjects.push(subject);
         (this.form.controls.selectedSubjects as FormArray).push(this.formBuilder.group({
@@ -54,29 +58,41 @@ export class SubjectsSelectorComponent implements OnInit, OnDestroy {
   sendSubjects() {
     this.isLoading = true;
     const selectedSubjects = this.form.value.selectedSubjects.filter(subject => subject.checked);
-    console.log('selectedSubjects', selectedSubjects);
-    this.googleCalendarService.importSchedule({ selectedSubjects })
+    const subjects = this.subjectsByDays.map(day => day.map((subject) => {
+      const selectedSubject = selectedSubjects.find(elem => elem.nrc === subject.nrc);
+      if (selectedSubject) {
+        const { color, notificationTime } = selectedSubject;
+        return Object.assign(subject, { colorId: color.id, notificationTime });
+      }
+    }).filter(elem => elem));
+    // console.log('subjectsByDays', this.subjectsByDays);
+    // console.log('selectedSubjects', selectedSubjects);
+    // console.log('finalSubjects', subjects);
+    this.googleCalendarService.importSchedule({ subjects })
       .subscribe(
         (response: any) => {
           console.log(response);
+          let sucessImportsCount = 0;
           response.data.forEach(subjectResponse => {
             console.log('subjectResponse', subjectResponse);
             const subject = this.subjects.find(elem => elem.nrc === subjectResponse.data.subject.nrc);
-            let message: string;
+            // let message: string;
             if (subjectResponse.status && subjectResponse.status === 200) {
               subject.googleSync = true;
-              message = `${subjectResponse.data.subject.shortName} importada correctamente.`;
+              // message = `${subjectResponse.data.subject.shortName} importada correctamente.`;
+              sucessImportsCount += 1;
             } else {
               subject.googleSync = false;
-              message = `Error importando ${subjectResponse.data.subject.shortName}.`;
-            }
-            if (!this.notificationService.isInQueue(message)) {
-              this.notificationService.add(message);
+              const message = `Error importando ${subjectResponse.data.subject.shortName}.`;
+              if (!this.notificationService.isInQueue(message)) {
+                this.notificationService.add(message);
+              }
             }
           });
+          this.notificationService.add(`Materias importadas: ${sucessImportsCount}/${response.data.length}`);
           this.updateSubjectByDays();
-          this.selectAll = false;
           this.form.reset();
+          this.selectAll = false;
           this.isLoading = false;
         }, (err) => {
           this.isLoading = false;

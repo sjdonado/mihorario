@@ -33,12 +33,15 @@ const auth = (req, res, next) => {
       return;
     }
 
-    console.log('USER TOKEN ->', decoded);
-
-    const { username, iat, exp } = decoded;
+    const {
+      username,
+      password,
+      iat,
+      exp,
+    } = decoded;
     if (exp - iat < 0) next(new ApiError('Token expired'));
 
-    req.username = username;
+    req.user = { username, password };
     next();
   });
 };

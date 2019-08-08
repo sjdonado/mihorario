@@ -44,22 +44,23 @@ export class HomeComponent implements OnInit {
     dialogRef.afterClosed()
       .subscribe(result => {
         if (result) {
-          this.userService.logout()
-            .subscribe(
-              (res: any) => {
-                console.log('logout res', res);
-                if (!res.data) {
-                  this.notificationService.add('Error al cerrar sesión, intenta de nuevo.');
-                }
-                localStorage.clear();
-                this.router.navigateByUrl('/login');
-              },
-              (err) => {
-                console.log('logoutErr', err);
-                localStorage.clear();
-                this.router.navigateByUrl('/login');
-              }
-            );
+          localStorage.clear();
+          this.router.navigateByUrl('/login');
+          // this.userService.logout()
+          //   .subscribe(
+          //     (res: any) => {
+          //       console.log('logout res', res);
+          //       if (!res.data) {
+          //         this.notificationService.add('Error al cerrar sesión, intenta de nuevo.');
+          //       }
+
+          //     },
+          //     (err) => {
+          //       console.log('logoutErr', err);
+          //       localStorage.clear();
+          //       this.router.navigateByUrl('/login');
+          //     }
+          //   );
         }
       });
   }
