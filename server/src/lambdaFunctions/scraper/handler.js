@@ -134,14 +134,15 @@ const pomeloSchedule = async (username, password, scheduleOption) => {
     await goTo(pomeloScheduleDetils, null, page);
     await page.waitForSelector('#term_id', { visible: true });
 
-    await page.waitFor(10000);
-
     await page.evaluate((option) => {
       this.document.querySelector('#term_id').value = option;
       this.document.querySelector('body > div.pagebodydiv > form > input[type=submit]').click();
     }, scheduleOption);
 
     await page.waitForSelector('.datadisplaytable', { visible: true });
+
+    await page.waitFor(5000);
+
     await page.waitFor(() => [...this.document.querySelectorAll('.datadisplaytable')].length > 0);
 
     const subjectsByDays = await page.evaluate(() => {
