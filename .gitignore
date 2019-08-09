@@ -3,7 +3,8 @@ node_modules
 .env
 .vscode
 *.png
+*.zip
 docker-compose.prod.yml
 mihorarioUN.pem
-server/redis/data
 server/yarn.lock
+credentials.json
