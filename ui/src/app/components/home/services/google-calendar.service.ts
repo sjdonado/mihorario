@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import { tap } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { UserService } from './user.service';
+import { Subject } from '../../../models/subject.model';
 
 @Injectable({
   providedIn: 'root'
@@ -86,14 +85,24 @@ export class GoogleCalendarService {
     const googleOauthData = JSON.parse(localStorage.getItem('googleOauthData'));
     return this.httpClient.post(`${this.API_URL}/import`, Object.assign(data, googleOauthData), {
       headers: this.BASE_HEADER,
-    }).pipe(
-      tap(
-        (res: any) => {
-          console.log('importSchedule', res);
-        },
-        err => console.error(err),
-      )
-    );
+    });
+  }
+
+  syncSchedule(data: any) {
+    const googleOauthData = JSON.parse(localStorage.getItem('googleOauthData'));
+    return this.httpClient.post(`${this.API_URL}/sync`, Object.assign(data, googleOauthData), {
+      headers: this.BASE_HEADER,
+    });
+  }
+
+  getSubjects(subjectsByDays: Subject[][]) {
+    const subjects = [];
+    subjectsByDays.forEach((day: Subject[]) => day.forEach((subject: Subject) => {
+      if (!subjects.find(elem => elem.nrc === subject.nrc)) {
+        subjects.push(subject);
+      }
+    }));
+    return subjects;
   }
 
   get eventColors() {

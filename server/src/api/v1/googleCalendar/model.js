@@ -1,5 +1,6 @@
 const moment = require('moment');
 const ApiError = require('../../../lib/ApiError');
+const { parsePomeloDateToCalendar } = require('../../../lib/Date');
 
 const CalendarService = require('../../../services/calendar');
 
@@ -16,11 +17,11 @@ const getRangeOfDates = (start, end, key, arr = [start.startOf(key)]) => {
   return getRangeOfDates(next, end, key, arr.concat(next));
 };
 
-const getWeekEvents = (username, tokens) => {
-  const calendarService = new CalendarService(username, tokens);
-  const start = moment().subtract(7, 'days').startOf('day').format();
-  const end = moment().add(1, 'days').endOf('day').format();
-  return calendarService.getEventsAtTimeRange(start, end);
+const getSyncedSubjects = (tokens, subjects) => {
+  const calendarService = new CalendarService(tokens);
+  return calendarService.getSyncedScheduleEvents(subjects);
+  // const start = moment().subtract(7, 'days').startOf('day').format();
+  // const end = moment().add(1, 'days').endOf('day').format();
 };
 
 /**
@@ -68,14 +69,8 @@ const importSchedule = async (tokens, subjects) => {
         location: subject.place,
         summary: subject.name,
         description: subject.teacher,
-        start: {
-          dateTime: startDateTime.add(dayNumber, 'days').utcOffset('-05:00').format(),
-          timeZone: 'America/Bogota',
-        },
-        end: {
-          dateTime: endDateTime.add(dayNumber, 'days').utcOffset('-05:00').format(),
-          timeZone: 'America/Bogota',
-        },
+        start: parsePomeloDateToCalendar(startDateTime.add(dayNumber, 'days'), true),
+        end: parsePomeloDateToCalendar(endDateTime.add(dayNumber, 'days'), true),
         reminders: {
           useDefault: false,
           overrides: [
@@ -99,6 +94,6 @@ const importSchedule = async (tokens, subjects) => {
 };
 
 module.exports = {
-  getWeekEvents,
+  getSyncedSubjects,
   importSchedule,
 };

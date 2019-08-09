@@ -27,7 +27,7 @@ export class UserService {
     private afAuth: AngularFireAuth,
     private googleCalendarService: GoogleCalendarService,
   ) {
-    console.log('UserService -> userToken', localStorage.getItem('userToken'));
+    // console.log('UserService -> userToken', localStorage.getItem('userToken'));
     this.BASE_HEADER = new HttpHeaders({
       'Content-Type': 'application/json',
       authorization: localStorage.getItem('userToken'),

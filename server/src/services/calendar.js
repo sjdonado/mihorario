@@ -7,6 +7,7 @@
 
 const { google } = require('googleapis');
 const { calendar } = require('../config');
+const { parsePomeloDateToCalendar } = require('../lib/Date');
 
 const oauth2Client = new google.auth.OAuth2(
   calendar.clientId,
@@ -53,7 +54,7 @@ class CalendarService {
    * Verify if the event already exists
    * @param {*} newEvent
    */
-  async getCurrentEvent(newEvent) {
+  async getCurrentEvent(newEvent, deepMatch = false) {
     const {
       start,
       end,
@@ -61,15 +62,19 @@ class CalendarService {
       description,
       location,
     } = newEvent;
+
     const eventsList = await this.getEventsAtTimeRange(start.dateTime, end.dateTime);
 
     let currentEvent = null;
     if (eventsList.length > 0) {
-      const [firstEvent] = eventsList.filter(obj => (
-        obj.summary === summary
-        && obj.description === description
-        && obj.location === location
-      ));
+      const [firstEvent] = eventsList.filter((obj) => {
+        if (deepMatch) {
+          return obj.summary === summary
+          && obj.description === description
+          && obj.location === location;
+        }
+        return obj.summary === summary;
+      });
       currentEvent = firstEvent;
     }
     return currentEvent;
@@ -89,6 +94,43 @@ class CalendarService {
       singleEvents: true,
       orderBy: 'startTime',
     })).data.items;
+  }
+
+  getSyncedScheduleEvents(subjects) {
+    // eslint-disable-next-line no-restricted-syntax
+    // console.log('=> getSyncedScheduleEvents: SUBJECTS', subjects);
+    return Promise.all(subjects.map(async (subject) => {
+      // console.log('=> getSyncedScheduleEvents: SUBJECT', subject);
+      const {
+        startDate,
+        finishDate,
+        name,
+        teacher,
+        place,
+      } = subject;
+      // eslint-disable-next-line no-await-in-loop
+      // let googleSynced = false;
+      const event = { googleSynced: false };
+      try {
+        const currentEvent = await this.getCurrentEvent({
+          start: parsePomeloDateToCalendar(startDate),
+          end: parsePomeloDateToCalendar(finishDate),
+          summary: name,
+          description: teacher,
+          location: place,
+        }, true);
+        const { colorId, reminders } = currentEvent;
+        // console.log('=> getSyncedScheduleEvents: currentEvent', currentEvent);
+        Object.assign(event, {
+          googleSynced: event !== null,
+          color: colorId,
+          notificationTime: reminders.overrides[0].minutes,
+        });
+      } catch (err) {
+        console.log('err', err);
+      }
+      return Object.assign(subject, event);
+    }));
   }
 }
 

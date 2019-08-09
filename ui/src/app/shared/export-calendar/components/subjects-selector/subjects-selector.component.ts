@@ -30,25 +30,21 @@ export class SubjectsSelectorComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.subjectsByDays = this.userService.subjectsByDays;
+    this.subjects = this.googleCalendarService.getSubjects(this.subjectsByDays);
 
-    this.subjects = [];
     this.form = this.formBuilder.group({
       selectedSubjects: this.formBuilder.array([]),
     });
 
-    this.subjectsByDays.forEach((day: Subject[]) => day.forEach((subject: Subject) => {
-      if (!this.subjects.find(elem => elem.nrc === subject.nrc)) {
-        this.subjects.push(subject);
-        (this.form.controls.selectedSubjects as FormArray).push(this.formBuilder.group({
-          nrc: this.formBuilder.control(subject.nrc),
-          color: this.formBuilder.control(subject.color),
-          notificationTime: this.formBuilder.control(subject.notificationTime),
-          checked: this.formBuilder.control(false)
-        }));
-      }
-    }));
-
-    console.log('subjects', this.subjects);
+    this.subjects.forEach((subject: Subject) => {
+      (this.form.controls.selectedSubjects as FormArray).push(this.formBuilder.group({
+        nrc: this.formBuilder.control(subject.nrc),
+        color: this.formBuilder.control(subject.color),
+        notificationTime: this.formBuilder.control(subject.notificationTime),
+        checked: this.formBuilder.control(false),
+      }));
+    });
+    // console.log('subjects', this.subjects);
   }
 
   ngOnDestroy() {
@@ -58,6 +54,7 @@ export class SubjectsSelectorComponent implements OnInit, OnDestroy {
   sendSubjects() {
     this.isLoading = true;
     const selectedSubjects = this.form.value.selectedSubjects.filter(subject => subject.checked);
+    // const subjects = this.subjects.filter((subject: Subject) => selectedSubjects.find(elem => elem.nrc === subject.nrc));
     const subjects = this.subjectsByDays.map(day => day.map((subject) => {
       const selectedSubject = selectedSubjects.find(elem => elem.nrc === subject.nrc);
       if (selectedSubject) {
@@ -70,34 +67,41 @@ export class SubjectsSelectorComponent implements OnInit, OnDestroy {
     // console.log('finalSubjects', subjects);
     this.googleCalendarService.importSchedule({ subjects })
       .subscribe(
-        (response: any) => {
-          console.log(response);
+        (res: any) => {
+          console.log(res);
+          const { data } = res;
           let sucessImportsCount = 0;
-          response.data.forEach(subjectResponse => {
+          const importedSubjects = [];
+          data.forEach(subjectResponse => {
             console.log('subjectResponse', subjectResponse);
             const subject = this.subjects.find(elem => elem.nrc === subjectResponse.data.subject.nrc);
-            // let message: string;
+            const imported = importedSubjects.indexOf(subject.nrc) !== -1;
+            if (!imported) {
+              importedSubjects.push(subject.nrc);
+            }
             if (subjectResponse.status && subjectResponse.status === 200) {
-              subject.googleSync = true;
-              // message = `${subjectResponse.data.subject.shortName} importada correctamente.`;
-              sucessImportsCount += 1;
+              subject.googleSynced = true;
+              if (!imported) {
+                sucessImportsCount += 1;
+              }
             } else {
-              subject.googleSync = false;
+              subject.googleSynced = false;
               const message = `Error importando ${subjectResponse.data.subject.shortName}.`;
               if (!this.notificationService.isInQueue(message)) {
                 this.notificationService.add(message);
               }
             }
           });
-          this.notificationService.add(`Materias importadas: ${sucessImportsCount}/${response.data.length}`);
+          this.notificationService.add(`Materias importadas: ${sucessImportsCount}/${importedSubjects.length}`);
           this.updateSubjectByDays();
           this.form.reset();
           this.selectAll = false;
           this.isLoading = false;
-        }, (err) => {
+        },
+        (err) => {
           this.isLoading = false;
-          this.notificationService.add(`Error importando las materias seleccionadas, intenta de nuevo.`);
-          console.log('Error: ' + err);
+          this.notificationService.add('Error importando las materias seleccionadas, intenta de nuevo.');
+          console.log('Error', err);
         }
       );
   }

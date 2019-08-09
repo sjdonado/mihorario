@@ -14,5 +14,5 @@ export interface Subject {
   type: string;
   color?: EventColor;
   notificationTime?: number;
-  googleSync?: boolean;
+  googleSynced?: boolean;
 }

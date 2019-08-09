@@ -85,11 +85,14 @@ export class ScheduleComponent implements OnInit {
   }
 
   getSubjectByDays(subject: Subject) {
-    return this.subjectsByDays.map(days => days.find(elem => elem.nrc === subject.nrc)).filter(elem => elem);
+    return this.subjectsByDays.map((day: Subject[]) => day.find((elem: Subject) => elem.nrc === subject.nrc)).filter(elem => elem);
   }
 
   setSubjectByDaysProperties(subject: Subject, color: EventColor, notificationTime: number) {
     this.getSubjectByDays(subject).forEach(subjectByDay => {
+      if (subjectByDay.color !== color || subjectByDay.notificationTime !== notificationTime) {
+        subjectByDay.googleSynced = false;
+      }
       subjectByDay.color = color;
       subjectByDay.notificationTime = notificationTime;
     });
@@ -104,7 +107,7 @@ export class ScheduleComponent implements OnInit {
   }
 
   downloadSchedule() {
-    console.log('downloadSchedule');
+    // console.log('downloadSchedule');
     html2canvas(document.querySelector('#scheduleDiv')).then(canvas => {
       canvas.toBlob((blob => {
         const url = window.URL.createObjectURL(blob);

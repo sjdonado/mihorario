@@ -24,8 +24,8 @@
                       <span class="subject-color" [ngStyle]="{'background': subject.color.background }"></span>
                     </div>
                     <div class="subject-sync-wrapper" fxLayout="row" fxLayoutAlign="center center">
-                      <mat-icon class="checked" *ngIf="subject.googleSync">check_circle</mat-icon>
-                      <mat-icon class="error" color="red" *ngIf="!subject.googleSync">error</mat-icon>
+                      <mat-icon class="checked" *ngIf="subject.googleSynced">check_circle</mat-icon>
+                      <mat-icon class="warning" *ngIf="!subject.googleSynced">error</mat-icon>
                     </div>
                   </div>
                 </div>
