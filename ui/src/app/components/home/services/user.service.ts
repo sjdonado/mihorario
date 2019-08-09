@@ -91,12 +91,6 @@ export class UserService {
       ));
   }
 
-  // logout() {
-  //   return this.httpClient.post(`${this.API_URL}/logout`, null, {
-  //     headers: this.BASE_HEADER,
-  //   });
-  // }
-
   get scheduleByHours() {
     return JSON.parse(localStorage.getItem('schedule'));
   }
