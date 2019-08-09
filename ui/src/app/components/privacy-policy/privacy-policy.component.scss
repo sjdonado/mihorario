@@ -2,7 +2,13 @@ mat-card {
   max-width: 80%;
 }
 
+.container {
+  width: 100%;
+}
+
 .info {
+  max-width: 100%;
+  overflow-x: hidden;
   p {
     letter-spacing: 0.1em;
     text-indent: 0;
