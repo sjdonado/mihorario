@@ -70,8 +70,8 @@ class CalendarService {
       const [firstEvent] = eventsList.filter((obj) => {
         if (deepMatch) {
           return obj.summary === summary
-          && obj.description === description
-          && obj.location === location;
+            && obj.description === description
+            && obj.location === location;
         }
         return obj.summary === summary;
       });
@@ -113,19 +113,21 @@ class CalendarService {
       const event = { googleSynced: false };
       try {
         const currentEvent = await this.getCurrentEvent({
-          start: parsePomeloDateToCalendar(startDate),
-          end: parsePomeloDateToCalendar(finishDate),
+          start: parsePomeloDateToCalendar(startDate, true),
+          end: parsePomeloDateToCalendar(finishDate, true),
           summary: name,
           description: teacher,
           location: place,
         }, true);
-        const { colorId, reminders } = currentEvent;
-        // console.log('=> getSyncedScheduleEvents: currentEvent', currentEvent);
-        Object.assign(event, {
-          googleSynced: event !== null,
-          color: colorId,
-          notificationTime: reminders.overrides[0].minutes,
-        });
+        if (currentEvent) {
+          const { colorId, reminders } = currentEvent;
+          // console.log('=> getSyncedScheduleEvents: currentEvent', currentEvent);
+          Object.assign(event, {
+            googleSynced: event !== null,
+            color: colorId,
+            notificationTime: reminders.overrides[0].minutes,
+          });
+        }
       } catch (err) {
         console.log('err', err);
       }

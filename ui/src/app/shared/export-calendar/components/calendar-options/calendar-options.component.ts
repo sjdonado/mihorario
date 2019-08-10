@@ -46,10 +46,8 @@ export class CalendarOptionsComponent implements OnInit {
                   const subjectRes = data.find(elem => elem.nrc === subject.nrc);
                   subject.googleSynced = subjectRes.googleSynced;
                   const color = this.googleCalendarService.eventColors
-                    .find((eventColor) => {
-                      return eventColor.id === parseInt(subjectRes.color, 10);
-                    });
-                  subject.color = color ? color : this.googleCalendarService.eventColors[0];
+                    .find(eventColor => eventColor.id === parseInt(subjectRes.color, 10));
+                  subject.color = color ? color : subject.color;
                   subject.notificationTime = subjectRes.notificationTime;
                 }));
                 this.userService.setSubjectsByDays(this.subjectsByDays);

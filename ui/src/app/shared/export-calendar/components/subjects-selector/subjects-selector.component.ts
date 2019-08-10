@@ -31,6 +31,7 @@ export class SubjectsSelectorComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.subjectsByDays = this.userService.subjectsByDays;
     this.subjects = this.googleCalendarService.getSubjects(this.subjectsByDays);
+    // console.log('subjects', this.subjects);
 
     this.form = this.formBuilder.group({
       selectedSubjects: this.formBuilder.array([]),
@@ -44,7 +45,6 @@ export class SubjectsSelectorComponent implements OnInit, OnDestroy {
         checked: this.formBuilder.control(false),
       }));
     });
-    // console.log('subjects', this.subjects);
   }
 
   ngOnDestroy() {

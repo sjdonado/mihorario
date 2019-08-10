@@ -43,51 +43,54 @@ const importSchedule = async (tokens, subjects) => {
   for (const [dayNumber, day] of subjects.entries()) {
     // eslint-disable-next-line no-restricted-syntax
     for (const subject of day) {
-      // Calendar day   ---  dayNumber
-      // S M T W T F S  ---  S M T W T F S
-      // 1 2 3 4 5 6 7  ---  6 0 1 2 3 4 5
-      const startDate = moment(`${subject.startDate}`, 'MMM DD, YYYY', 'es');
-      const finishDate = moment(`${subject.finishDate}`, 'MMM DD, YYYY', 'es');
+      // Verify if is already synced
+      if (!subject.googleSynced) {
+        // Calendar day   ---  dayNumber
+        // S M T W T F S  ---  S M T W T F S
+        // 1 2 3 4 5 6 7  ---  6 0 1 2 3 4 5
+        const startDate = moment(`${subject.startDate}`, 'MMM DD, YYYY', 'es');
+        const finishDate = moment(`${subject.finishDate}`, 'MMM DD, YYYY', 'es');
 
-      const firstWeekDay = moment(subject.startDate, 'MMM DD, YYYY', 'es').startOf('week');
-      const invalidDays = startDate.weekday() === 0 ? [] : getRangeOfDates(firstWeekDay.clone(), startDate.clone().subtract(1, 'days'), 'days');
+        const firstWeekDay = moment(subject.startDate, 'MMM DD, YYYY', 'es').startOf('week');
+        const invalidDays = startDate.weekday() === 0 ? [] : getRangeOfDates(firstWeekDay.clone(), startDate.clone().subtract(1, 'days'), 'days');
 
-      // First classes day doesn't start on first week day offset
-      if (invalidDays.some(date => date.format('YYYYMMDD') === firstWeekDay.clone().add(dayNumber, 'days').format('YYYYMMDD'))) firstWeekDay.add(1, 'weeks');
+        // First classes day doesn't start on first week day offset
+        if (invalidDays.some(date => date.format('YYYYMMDD') === firstWeekDay.clone().add(dayNumber, 'days').format('YYYYMMDD'))) firstWeekDay.add(1, 'weeks');
 
-      const startDateTime = moment(`${firstWeekDay.format('DD-MM-YYYY')} ${subject.start} -05:00`, 'DD-MM-YYYY hh:mm A Z', 'es');
-      const endDateTime = moment(`${firstWeekDay.format('DD-MM-YYYY')} ${subject.finish} -05:00`, 'DD-MM-YYYY hh:mm A Z', 'es');
+        const startDateTime = moment(`${firstWeekDay.format('DD-MM-YYYY')} ${subject.start} -05:00`, 'DD-MM-YYYY hh:mm A Z', 'es');
+        const endDateTime = moment(`${firstWeekDay.format('DD-MM-YYYY')} ${subject.finish} -05:00`, 'DD-MM-YYYY hh:mm A Z', 'es');
 
-      const recurrence = [];
-      // On day classes verification
-      if (startDate.format('YYYYMMDD') !== finishDate.format('YYYYMMDD')) {
-        recurrence.push(`RRULE:FREQ=WEEKLY;UNTIL=${finishDate.format('YYYYMMDD')}`);
-        // `EXDATE;TZID=America/Bogota:${date.format('YYYYMMDD')}`
+        const recurrence = [];
+        // On day classes verification
+        if (startDate.format('YYYYMMDD') !== finishDate.format('YYYYMMDD')) {
+          recurrence.push(`RRULE:FREQ=WEEKLY;UNTIL=${finishDate.format('YYYYMMDD')}`);
+          // `EXDATE;TZID=America/Bogota:${date.format('YYYYMMDD')}`
+        }
+
+        const calendarEventData = {
+          location: subject.place,
+          summary: subject.name,
+          description: subject.teacher,
+          start: parsePomeloDateToCalendar(startDateTime.add(dayNumber, 'days')),
+          end: parsePomeloDateToCalendar(endDateTime.add(dayNumber, 'days')),
+          reminders: {
+            useDefault: false,
+            overrides: [
+              {
+                method: 'popup',
+                minutes: subject.notificationTime,
+              },
+            ],
+          },
+          recurrence,
+        };
+
+        if (subject.colorId !== 0) Object.assign(calendarEventData, { colorId: subject.colorId });
+
+        // eslint-disable-next-line no-await-in-loop
+        const calendarEvent = await calendarService.createEvent(calendarEventData);
+        events.push(Object.assign(calendarEvent, { data: { subject } }));
       }
-
-      const calendarEventData = {
-        location: subject.place,
-        summary: subject.name,
-        description: subject.teacher,
-        start: parsePomeloDateToCalendar(startDateTime.add(dayNumber, 'days'), true),
-        end: parsePomeloDateToCalendar(endDateTime.add(dayNumber, 'days'), true),
-        reminders: {
-          useDefault: false,
-          overrides: [
-            {
-              method: 'popup',
-              minutes: subject.notificationTime,
-            },
-          ],
-        },
-        recurrence,
-      };
-
-      if (subject.colorId !== 0) Object.assign(calendarEventData, { colorId: subject.colorId });
-
-      // eslint-disable-next-line no-await-in-loop
-      const calendarEvent = await calendarService.createEvent(calendarEventData);
-      events.push(Object.assign(calendarEvent, { data: { subject } }));
     }
   }
   return events;
