@@ -14,7 +14,7 @@ app.use(cors({
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-app.use('/api/v1', api);
+app.use('/v1', api);
 
 app.use((req, res, next) => {
   res.status(404);

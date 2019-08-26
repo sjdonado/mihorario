@@ -23,6 +23,7 @@ const scraper = dataPayload => new Promise((resolve, reject) => {
     const { data } = JSON.parse(res.Payload);
     // console.log('SCRAPER RES PAYLOAD =>', data);
     if (err) {
+      console.log('err', err);
       reject(err);
     }
     if (data && data.error) {

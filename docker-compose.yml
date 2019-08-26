@@ -1,0 +1,35 @@
+version: '3'
+
+services:
+  nginx:
+    restart: always
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./nginx
+    ports:
+      - 8080:80
+    depends_on:
+      - api
+      - client
+  api:
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./server
+    volumes:
+      - /usr/src/app/node_modules
+      - ./server:/usr/src/app
+    environment:
+      HOSTNAME: 0.0.0.0
+      PORT: 3000
+      CLIENT_NAME: http://localhost:8080
+      GOOGLE_SECRET_CLIENT:
+      GOOGLE_CLIENT_ID:
+      CALLBACK: https://mihorarioun.web.app
+      SECRET: 7B8394A601BF326D4B963E42177BABD5FABA2A021D19A1F9009B6355342ACEB1F24CB1C6C56EAF061AEDF367326BB89E0EDFF892F8A5EECF0D14FFCA590B7E0D
+  client:
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./ui
+    volumes:
+      - /usr/src/app/node_modules
+      - ./ui:/usr/src/app
