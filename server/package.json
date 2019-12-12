@@ -19,15 +19,14 @@
   },
   "homepage": "https://github.com/sjdonado/mihorario#readme",
   "dependencies": {
-    "aws-sdk": "^2.506.0",
+    "apollo-fetch": "^0.7.0",
     "body-parser": "^1.18.3",
     "cors": "^2.8.5",
     "express": "^4.16.4",
     "googleapis": "^40.0.0",
     "jsonwebtoken": "^8.5.1",
     "method-override": "^3.0.0",
-    "moment": "^2.24.0",
-    "puppeteer": "^1.17.0"
+    "moment": "^2.24.0"
   },
   "devDependencies": {
     "eslint": "^5.12.0",

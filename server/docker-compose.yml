@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  api:
+    build: .
+    volumes:
+      - /usr/src/app/node_modules
+      - .:/usr/src/app
+    environment:
+      HOSTNAME: 0.0.0.0
+      PORT: 3000
+      CLIENT_NAME: http://localhost:4200
+      CALLBACK: http://localhost:3000
+      UNINORTE_GRAPHQL: https://uninorte-graphql.herokuapp.com
+      GOOGLE_SECRET_CLIENT: CgWGUp9zeNqdwSvdKnkAonvr
+      GOOGLE_CLIENT_ID: 119902822900-pv2v7cssdnq4vpobtn0moirt0g95ipnc.apps.googleusercontent.com
+      SECRET: 7B8394A601BF326D4B963E42177BABD5FABA2A021D19A1F9009B6355342ACEB1F24CB1C6C56EAF061AEDF367326BB89E0EDFF892F8A5EECF0D14FFCA590B7E0D
