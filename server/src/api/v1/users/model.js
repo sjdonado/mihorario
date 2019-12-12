@@ -1,5 +1,7 @@
 const ApiError = require('../../../lib/ApiError');
-const { createApolloFetch } = require('apollo-fetch');
+const { request } = require('../../../services/apolloLink');
+
+const { USER_QUERY, TERMS_QUERY } = require('../../../graphql/queries');
 
 /**
  * Get Pomelo schedule options
@@ -8,12 +10,17 @@ const { createApolloFetch } = require('apollo-fetch');
  */
 const pomeloSchedulePeriods = async (username, password) => {
   try {
-    const data = await scraper({
-      action: 'pomeloSchedulePeriods',
+    const credentials = {
       username,
       password,
-    });
-    const { options, fullName } = data;
+    };
+    const userRes = await request(credentials, USER_QUERY);
+    const fullName = userRes.data.user.name;
+
+    const tersmRes = await request(credentials, TERMS_QUERY);
+    const options = tersmRes.data.terms;
+
+    console.log('res', { options, fullName });
     return { options, fullName };
   } catch (err) {
     console.log('err', err);

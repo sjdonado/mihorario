@@ -4,7 +4,7 @@ const config = {
     hostname: process.env.HOSTNAME,
     clientName: process.env.CLIENT_NAME,
     secret: process.env.SECRET,
-    uninorteGraphql: process.env.UNINORTE_GRAPHQL,
+    uninorteGraphQL: process.env.UNINORTE_GRAPHQL,
   },
   calendar: {
     clientId: process.env.GOOGLE_CLIENT_ID,
