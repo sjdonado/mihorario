@@ -18,6 +18,7 @@ jobs:
       - name: Build
         run: |
           cd client
+          alias ng="./node_modules/angular-cli/bin/ng"
           ng build --prod
       - name: Archive Production Artifact
         uses: actions/upload-artifact@master
@@ -41,10 +42,21 @@ jobs:
           args: deploy --only hosting:prod
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-      - name: Deploy server to Heroku
+      - name: Login to Heroku
+        uses: actions/heroku@1.0.0
+        with:
+          args: container:login
         env:
-          HEROKU_API_TOKEN: ${{ secrets.HEROKU_API_TOKEN }}
-          HEROKU_APP_NAME: "mihorarioun"
-        run: |
-          cd server
-          git push https://heroku:$HEROKU_API_TOKEN@git.heroku.com/$HEROKU_APP_NAME.git origin/master:master
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+      - name: Push
+        uses: actions/heroku@1.0.0
+        with:
+          args: cd server && container:push -a $(basename $GITHUB_REPOSITORY) web
+        env:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+      - name: Release
+        uses: actions/heroku@1.0.0
+        with:
+          args: cd server && container:release -a $(basename $GITHUB_REPOSITORY) web
+        env:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}

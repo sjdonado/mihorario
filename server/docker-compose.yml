@@ -2,7 +2,9 @@ version: '3'
 
 services:
   api:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
     volumes:
       - /usr/src/app/node_modules
       - .:/usr/src/app
