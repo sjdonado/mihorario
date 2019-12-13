@@ -18,8 +18,7 @@ jobs:
       - name: Build
         run: |
           cd client
-          npm install -g @angular/cli
-          ng build --prod
+          npm run build:prod
       - name: Archive Production Artifact
         uses: actions/upload-artifact@master
         with:
