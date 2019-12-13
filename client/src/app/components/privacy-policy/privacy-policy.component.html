@@ -1,0 +1,33 @@
+<div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="5px" class="wrapper">
+    <span fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="5px" class="title page-title" fxFlex="10">
+      Política de privacidad
+    </span>
+    <div fxLayout="column" fxLayoutAlign="start center" class="container" fxFlex="70">
+      <mat-card>
+        <span matTooltip="Ir atrás" aria-label="Ir a la página anterior" class="go-back-button" fxLayoutAlign="start center" routerLink="/">
+          <mat-icon fxLayoutAlign="center center">arrow_back</mat-icon>
+        </span>
+        <mat-card-content class="info">
+          <p>
+            Mi horario UN es una aplicación open source sin ánimo de lucro con licencia GNU General Public License v3.0
+            (<a href="https://github.com/sjdonado/mihorario/blob/master/LICENSE" target="_blank">Más información</a>).
+          </p>
+          <p>
+            El código fuente de Mi horario UN está alojado en Github y es de libre acceso <a href="https://github.com/sjdonado/mihorario" target="_blank">https://github.com/sjdonado/mihorario.</a>
+          </p>
+          <p>Mi horario UN NO está asociado directamente con la Universidad del Norte y accede a la información del usuario a través del <a href="https://github.com/krthr/uninorte-graphql" target="_blank">API no oficial de la universidad.</a></p>
+          <p>Mi horario UN hace uso del concepto Web Scraping para simular el trafico del usuario ingresado y obtener el horario del mismo.</p>
+          <p>Mi horario UN está basado en una arquitectura cliente/servidor. Para comunicación entre estas partes se emplea autentificación por 
+            <a href="https://jwt.io/" target="_blank">Json Web Token</a> con expiración por cada 24 horas. El api RESTful (servidor) está protegida con CORS
+            (<a href="https://www.npmjs.com/package/cors" target="_blank">más información</a>).</p>
+          <p>Mi horario UN NO almacena información del usuario en el servidor.</p>
+          <p>Mi horario UN almacena información del usuario en el navegador a través de cookies con tiempo de expiración de 24 horas, al usuario cerrar sesión TODA su información es eliminada inmediatamente.</p>
+          <p>Mi horario UN necesita la autorización del usuario para poder ver, modificar y crear eventos en su calendario de google (scope: https://www.googleapis.com/auth/calendar.events <a href="https://developers.google.com/calendar/auth" target="_blank">Más información</a>),
+            los cuales son creados o editados ÚNICAMENTE si este está relacionado por el nombre con alguna materia del horario del usuario para el periodo seleccionado por el mismo.</p>
+          <p>Mi horario UN NO hace uso de cookies para almacenar información.</p>
+          <p>Mi horario UN NO utilizará información de sus usuarios para NINGÚN fin diferente al ofrecido a través de <a href="https://mihorarioun.web.app/" target="_blank">https://mihorarioun.web.app/</a>.</p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+  
