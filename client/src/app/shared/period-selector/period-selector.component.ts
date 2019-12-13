@@ -4,6 +4,7 @@ import { UserService } from 'src/app/components/home/services/user.service';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { NotificationService } from 'src/app/services/notification.service';
+import { Term } from 'src/app/models/term.model';
 
 @Component({
   selector: 'app-period-selector',
@@ -15,7 +16,7 @@ export class PeriodSelectorComponent implements OnInit {
   public form: FormGroup;
   public isLoading: boolean;
   private name: string;
-  private schedulePeriods: string[];
+  private terms: Term[];
   private showGoBackButton: boolean;
 
   constructor(
@@ -29,17 +30,16 @@ export class PeriodSelectorComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.schedulePeriods = this.authService.pomeloData.options;
+    this.terms = this.authService.pomeloData.terms;
     this.name = this.authService.pomeloData.fullName.split(' ')[0];
     this.form = this.formBuilder.group({
-      schedulePeriod: [, Validators.required],
+      startDate: [, Validators.required],
     });
   }
 
-  getSchedule(scheduleOption: string) {
-    console.log('scheduleOption', this.form.value.schedulePeriod);
+  getSchedule() {
     this.isLoading = true;
-    this.userService.getSchedule(this.form.value.schedulePeriod).subscribe(
+    this.userService.getSchedule(this.form.value.startDate).subscribe(
       (response: any) => {
         console.log(response);
         this.isLoading = false;

@@ -2,7 +2,7 @@
 Import your Uninorte schedule to Google Calendar.
 
 ## Run in development env
-### api
+### Api
 ```
   cd api && docker-compose up
 ```
@@ -10,6 +10,9 @@ Import your Uninorte schedule to Google Calendar.
 ```
   cd client && ng serve
 ```
+
+## Uninorte API connection
+GraphQL wrapper for Uninorte API: [uninorte-graphql](https://github.com/krthr/uninorte-graphql)
 
 ## Credits
 Original idea: [mihorario](https://uncal.herokuapp.com) made by [krthr](https://github.com/krthr)

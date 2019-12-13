@@ -6,12 +6,9 @@ export interface Subject {
   shortName: string;
   place: string;
   start: string;
-  finish: string;
+  end: string;
   startDate: Date;
-  finishDate: Date;
-  subjectType: string;
-  teacher: string;
-  type: string;
+  endDate: Date;
   color?: EventColor;
   notificationTime?: number;
   googleSynced?: boolean;

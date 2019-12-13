@@ -34,8 +34,9 @@ export class UserService {
     });
   }
 
-  getSchedule(scheduleOption: string) {
-    return this.httpClient.get(`${this.API_URL}/schedule?scheduleOption=${scheduleOption}`, {
+  getSchedule(startDate: string) {
+    console.log('startDate', startDate);
+    return this.httpClient.get(`${this.API_URL}/schedule?startDate=${startDate}`, {
       headers: this.BASE_HEADER,
     }).pipe(
       tap(
@@ -44,7 +45,6 @@ export class UserService {
             color: this.googleCalendarService.eventColors[0],
             notificationTime: 15,
           };
-          console.log('getSchedule', res);
           this.setScheduleByHours(res.data.scheduleByHours.map((hours: Subject[]) => hours.map(subject => {
             if (!subject) {
               return subject;
