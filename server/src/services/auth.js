@@ -7,14 +7,14 @@
 const { sign, verify } = require('jsonwebtoken');
 
 const ApiError = require('../lib/ApiError');
-const config = require('../config');
+const { server } = require('../config');
 
 /**
  * Generate new token
  * @param {Object} payload
  * @param {String} expiration time
  */
-const signToken = (payload, expiresIn = '24h') => sign(payload, config.token.secret, {
+const signToken = (payload, expiresIn = '24h') => sign(payload, server.secret, {
   algorithm: 'HS256',
   expiresIn,
 });
@@ -27,7 +27,7 @@ const auth = (req, res, next) => {
     return;
   }
 
-  verify(token, config.token.secret, (err, decoded) => {
+  verify(token, server.secret, (err, decoded) => {
     if (err) {
       next(new ApiError('Unauthorized', 401));
       return;

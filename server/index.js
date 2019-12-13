@@ -11,5 +11,5 @@ const {
 const server = http.createServer(app);
 
 server.listen(port, hostname, () => {
-  console.log(`Server running at http://${hostname}:${port}/`);
+  console.log(`Server http://${hostname}:${port} \x1b[32m%s\x1b[0m`, 'online');
 });

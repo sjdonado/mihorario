@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  logIn() {
+  login() {
     this.isLoading = true;
     this.authService.pomeloLogin(this.form.value).subscribe(
       (response: Response) => {
