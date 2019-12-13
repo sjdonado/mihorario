@@ -18,7 +18,7 @@ jobs:
       - name: Build
         run: |
           cd client
-          alias ng="./node_modules/angular-cli/bin/ng"
+          npm install -g @angular/cli
           ng build --prod
       - name: Archive Production Artifact
         uses: actions/upload-artifact@master
