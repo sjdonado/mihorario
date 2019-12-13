@@ -5,6 +5,7 @@ export interface Subject {
   name: string;
   shortName: string;
   place: string;
+  type: string;
   start: string;
   end: string;
   startDate: Date;
