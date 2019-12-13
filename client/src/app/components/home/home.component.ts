@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CookieService } from 'ngx-cookie-service';
 import { MatDialog } from '@angular/material/dialog';
 import { UserService } from 'src/app/components/home/services/user.service';
 import { AuthService } from '../../services/auth.service';
@@ -24,7 +25,8 @@ export class HomeComponent implements OnInit {
     private authService: AuthService,
     private appComponent: AppComponent,
     private router: Router,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private cookieService: CookieService,
   ) { }
 
   ngOnInit() {
@@ -42,7 +44,7 @@ export class HomeComponent implements OnInit {
     dialogRef.afterClosed()
       .subscribe(result => {
         if (result) {
-          localStorage.clear();
+          this.cookieService.deleteAll();
           this.router.navigateByUrl('/');
         }
       });

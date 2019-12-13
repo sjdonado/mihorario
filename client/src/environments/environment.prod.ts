@@ -1,5 +1,11 @@
 export const environment = {
   production: true,
+  cookies: {
+    expires: 1,
+    path: '/',
+    domain: 'mihorarioun.web.app',
+    secure: true,
+  },
   apiUrl: 'https://mihorarioun.live/api/v1',
   firebase: {
     apiKey: 'AIzaSyBegpPTCe6ShMUmDW7yDcMjFi5Ve09zv-A',

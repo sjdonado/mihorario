@@ -25,6 +25,9 @@ import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-poli
 import { IndexComponent } from './components/index/index.component';
 import { HelpComponent } from './components/help/help.component';
 
+import { CookieService } from 'ngx-cookie-service';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -57,6 +60,7 @@ import { HelpComponent } from './components/help/help.component';
       useClass: AuthInterceptor,
       multi: true
     },
+    CookieService,
   ],
   bootstrap: [AppComponent],
 })

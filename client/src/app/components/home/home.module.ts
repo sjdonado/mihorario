@@ -33,6 +33,8 @@ import { SubjectDetailsDialogComponent } from '../../shared/dialogs/subject-deta
 import { SubjectsSelectorComponent } from '../../shared/export-calendar/components/subjects-selector/subjects-selector.component';
 import { CalendarOptionsComponent } from '../../shared/export-calendar/components/calendar-options/calendar-options.component';
 
+import { CookieService } from 'ngx-cookie-service';
+
 @NgModule({
   declarations: [
     HomeComponent,
@@ -70,6 +72,9 @@ import { CalendarOptionsComponent } from '../../shared/export-calendar/component
   entryComponents: [
     ConfirmationDialogComponent,
     SubjectDetailsDialogComponent
-  ]
+  ],
+  providers: [
+    CookieService,
+  ],
 })
 export class HomeModule { }
