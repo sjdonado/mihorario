@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { CookieService } from 'ngx-cookie-service';
 import { tap, map } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Subject } from '../../../models/subject.model';
@@ -7,6 +8,12 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { environment } from 'src/environments/environment';
 import { from } from 'rxjs';
 import { GoogleCalendarService } from './google-calendar.service';
+import {
+  USER_TOKEN_COOKIE,
+  SCHEDULE_BY_HOURS_KEY,
+  SUBJECTS_BY_DAYS_KEY,
+  GOOGLE_OAUTH_DATA_KEY,
+} from 'src/app/constants';
 
 interface GoogleOauthData {
   email: string;
@@ -26,16 +33,15 @@ export class UserService {
     private httpClient: HttpClient,
     private afAuth: AngularFireAuth,
     private googleCalendarService: GoogleCalendarService,
+    private cookieService: CookieService,
   ) {
-    // console.log('UserService -> userToken', localStorage.getItem('userToken'));
     this.BASE_HEADER = new HttpHeaders({
       'Content-Type': 'application/json',
-      authorization: localStorage.getItem('userToken'),
+      authorization: this.cookieService.get(USER_TOKEN_COOKIE),
     });
   }
 
   getSchedule(startDate: string) {
-    console.log('startDate', startDate);
     return this.httpClient.get(`${this.API_URL}/schedule?startDate=${startDate}`, {
       headers: this.BASE_HEADER,
     }).pipe(
@@ -59,19 +65,6 @@ export class UserService {
     );
   }
 
-  // googleLogin(googleOauthTokens: GoogleOauthTokens, email: string) {
-  //   return this.httpClient.post(`${this.API_URL}/login/google`, googleOauthTokens, {
-  //     headers: this.BASE_HEADER,
-  //   }).pipe(map(
-  //     (res: any) => {
-  //       console.warn('googleOauthEmail', email);
-  //       this.setGoogleOauthEmail(email);
-  //       return this.googleOauthEmail;
-  //     },
-  //     err => console.error(err)
-  //   ));
-  // }
-
   googleOauthLogin() {
     const provider = new auth.GoogleAuthProvider();
     provider.addScope('https://www.googleapis.com/auth/calendar.events');
@@ -92,30 +85,38 @@ export class UserService {
   }
 
   get scheduleByHours() {
-    return JSON.parse(localStorage.getItem('schedule'));
+    return JSON.parse(localStorage.getItem(SCHEDULE_BY_HOURS_KEY));
   }
 
   setScheduleByHours(schedule: Subject[][]) {
-    localStorage.setItem('schedule', JSON.stringify(schedule));
+    localStorage.setItem(SCHEDULE_BY_HOURS_KEY, JSON.stringify(schedule));
   }
 
   get subjectsByDays() {
-    return JSON.parse(localStorage.getItem('subjectsByDays'));
+    return JSON.parse(localStorage.getItem(SUBJECTS_BY_DAYS_KEY));
   }
 
   setSubjectsByDays(subjectsByDays: Subject[][]) {
-    localStorage.setItem('subjectsByDays', JSON.stringify(subjectsByDays));
+    localStorage.setItem(SUBJECTS_BY_DAYS_KEY, JSON.stringify(subjectsByDays));
   }
 
   setGoogleOauthData(googleOauthData: GoogleOauthData) {
-    localStorage.setItem('googleOauthData', JSON.stringify(googleOauthData));
+    this.cookieService.set(
+      GOOGLE_OAUTH_DATA_KEY,
+      JSON.stringify(googleOauthData),
+      environment.cookies.expires,
+      environment.cookies.path,
+      environment.cookies.domain,
+      environment.cookies.secure,
+      'Strict',
+    );
   }
 
   get googleOauthData() {
-    return JSON.parse(localStorage.getItem('googleOauthData'));
+    return this.cookieService.check(GOOGLE_OAUTH_DATA_KEY) ? JSON.parse(this.cookieService.get(GOOGLE_OAUTH_DATA_KEY)) : null;
   }
 
   removeGoogleOauthData() {
-    localStorage.removeItem('googleOauthData');
+    this.cookieService.delete(GOOGLE_OAUTH_DATA_KEY);
   }
 }

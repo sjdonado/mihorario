@@ -4,6 +4,7 @@ import {
   HttpHandler,
   HttpEvent,
 } from '@angular/common/http';
+import { CookieService } from 'ngx-cookie-service';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
@@ -16,6 +17,7 @@ export class AuthInterceptor implements HttpInterceptor {
   constructor(
     private router: Router,
     private notificationService: NotificationService,
+    private cookieService: CookieService,
   ) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler):
@@ -39,6 +41,7 @@ export class AuthInterceptor implements HttpInterceptor {
 
   private invalidAuthLocalData() {
     this.notificationService.add('Tiempo límite de sesión web ha expirado, ingrese nuevamente.');
+    this.cookieService.deleteAll();
     localStorage.clear();
     this.router.navigate(['/login']);
   }

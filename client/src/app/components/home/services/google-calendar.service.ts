@@ -1,7 +1,12 @@
 import { Injectable } from '@angular/core';
+import { CookieService } from 'ngx-cookie-service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Subject } from '../../../models/subject.model';
+import {
+  USER_TOKEN_COOKIE,
+  GOOGLE_OAUTH_DATA_KEY,
+} from 'src/app/constants';
 
 @Injectable({
   providedIn: 'root'
@@ -74,22 +79,23 @@ export class GoogleCalendarService {
 
   constructor(
     private httpClient: HttpClient,
+    private cookieService: CookieService,
   ) {
     this.BASE_HEADER = new HttpHeaders({
       'Content-Type': 'application/json',
-      authorization: localStorage.getItem('userToken'),
+      authorization: this.cookieService.get(USER_TOKEN_COOKIE),
     });
   }
 
   importSchedule(data: any) {
-    const googleOauthData = JSON.parse(localStorage.getItem('googleOauthData'));
+    const googleOauthData = JSON.parse(this.cookieService.get(GOOGLE_OAUTH_DATA_KEY));
     return this.httpClient.post(`${this.API_URL}/import`, Object.assign(data, googleOauthData), {
       headers: this.BASE_HEADER,
     });
   }
 
   syncSchedule(data: any) {
-    const googleOauthData = JSON.parse(localStorage.getItem('googleOauthData'));
+    const googleOauthData = JSON.parse(this.cookieService.get(GOOGLE_OAUTH_DATA_KEY));
     return this.httpClient.post(`${this.API_URL}/sync`, Object.assign(data, googleOauthData), {
       headers: this.BASE_HEADER,
     });
