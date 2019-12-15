@@ -21,7 +21,7 @@ jobs:
         uses: actions/upload-artifact@master
         with:
           name: dist
-          path: client/dist
+          path: client/dist/ui
   deploy:
     name: Deploy
     needs: build
@@ -35,9 +35,8 @@ jobs:
           name: dist
       - name: Deploy client to Firebase
         uses: w9jds/firebase-action@master
-        working-directory: client
         with:
-          args: deploy --only hosting:prod
+          args: deploy
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
       - name: Login to Heroku
