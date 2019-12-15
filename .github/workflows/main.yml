@@ -48,12 +48,15 @@ jobs:
       - name: Push
         uses: actions/heroku@1.0.0
         with:
-          args: container:push -a $(basename $GITHUB_REPOSITORY) web
+          args: container:push -a $APP_NAME web
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+          APP_NAME: mihorarioun
       - name: Release
         uses: actions/heroku@1.0.0
         with:
-          args: container:release -a $(basename $GITHUB_REPOSITORY) web
+          args: container:release -a $APP_NAME web
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+          APP_NAME: mihorarioun
+
