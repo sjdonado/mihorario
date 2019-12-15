@@ -12,18 +12,16 @@ jobs:
       - name: Checkout Repo
         uses: actions/checkout@master
       - name: Install Dependencies
-        run: |
-          cd client
-          npm install
+        working-directory: client
+        run: npm install
       - name: Build
-        run: |
-          cd client
-          npm run build:prod
+        working-directory: client
+        run: npm run build:prod
       - name: Archive Production Artifact
         uses: actions/upload-artifact@master
         with:
           name: dist
-          path: dist
+          path: client/dist
   deploy:
     name: Deploy
     needs: build
@@ -37,6 +35,7 @@ jobs:
           name: dist
       - name: Deploy client to Firebase
         uses: w9jds/firebase-action@master
+        working-directory: client
         with:
           args: deploy --only hosting:prod
         env:
@@ -50,12 +49,12 @@ jobs:
       - name: Push
         uses: actions/heroku@1.0.0
         with:
-          args: cd server && container:push -a $(basename $GITHUB_REPOSITORY) web
+          args: container:push -a $(basename $GITHUB_REPOSITORY) web
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
       - name: Release
         uses: actions/heroku@1.0.0
         with:
-          args: cd server && container:release -a $(basename $GITHUB_REPOSITORY) web
+          args: container:release -a $(basename $GITHUB_REPOSITORY) web
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
