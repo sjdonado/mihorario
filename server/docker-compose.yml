@@ -12,7 +12,6 @@ services:
       - 3000:3000
       - 9229:9229
     environment:
-      HOSTNAME: 0.0.0.0
       PORT: 3000
       CLIENT_NAME: http://localhost:4200
       CALLBACK: http://localhost:3000
