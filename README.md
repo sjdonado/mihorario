@@ -40,4 +40,4 @@ Original idea: [mihorario](https://uncal.herokuapp.com) made by [krthr](https://
 
 #### mihorarioUN is an open source project that is not associated directly with Universidad del Norte.
 
-[contributing]: https://github.com/sjdonado/mihorario/blob/master/CONTRIBUTING.md
+[contributing]: https://github.com/sjdonado/quevent/blob/master/CONTRIBUTING.md
