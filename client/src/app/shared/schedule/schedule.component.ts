@@ -107,7 +107,9 @@ export class ScheduleComponent implements OnInit {
   }
 
   downloadSchedule() {
-    // console.log('downloadSchedule');
+    const oldViewPortContent = document.querySelector('meta[name=viewport]').getAttribute('content');
+    const viewport = document.querySelector('meta[name=viewport]');
+    viewport.setAttribute('content', 'width=1024');
     html2canvas(document.querySelector('#scheduleDiv')).then(canvas => {
       canvas.toBlob((blob => {
         const url = window.URL.createObjectURL(blob);
@@ -115,10 +117,11 @@ export class ScheduleComponent implements OnInit {
         document.body.appendChild(a);
         a.setAttribute('style', 'display: none');
         a.href = url;
-        a.download = 'mihorarioUN';
+        a.download = `mi_horario_un_${new Date().toLocaleDateString()}`;
         a.click();
         window.URL.revokeObjectURL(url);
         a.remove();
+        viewport.setAttribute('content', oldViewPortContent);
       }), 'image/jpeg');
     });
   }

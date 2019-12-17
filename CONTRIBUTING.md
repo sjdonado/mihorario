@@ -11,7 +11,7 @@ If you find a bug in the source code, you can help us by
 submitting an issue to our [GitHub Repository][github]. Even better, you can
 [submit a Pull Request](#submit-pr) with a fix.
 
-### <a name="submit-pr"></a> Submitting a Pull Request (PR)
+## <a name="submit-pr"></a> Submitting a Pull Request (PR)
 1. Select or create an issue
 
 2. Fork the repo
