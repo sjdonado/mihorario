@@ -110,14 +110,17 @@ export class ScheduleComponent implements OnInit {
     const oldViewPortContent = document.querySelector('meta[name=viewport]').getAttribute('content');
     const viewport = document.querySelector('meta[name=viewport]');
     viewport.setAttribute('content', 'width=1024');
-    html2canvas(document.querySelector('#scheduleDiv')).then(canvas => {
+    html2canvas(document.querySelector('#scheduleDiv'), {
+      height: 516,
+    }).then(canvas => {
       canvas.toBlob((blob => {
         const url = window.URL.createObjectURL(blob);
         const a = document.createElement('a');
         document.body.appendChild(a);
         a.setAttribute('style', 'display: none');
-        a.href = url;
-        a.download = `mi_horario_un_${new Date().toLocaleDateString()}`;
+        a.setAttribute('target', '_blank');
+        a.setAttribute('href', url);
+        a.setAttribute('download', `mi_horario_un_${new Date().toLocaleDateString()}`);
         a.click();
         window.URL.revokeObjectURL(url);
         a.remove();
