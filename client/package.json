@@ -24,6 +24,7 @@
     "@angular/platform-browser": "^8.0.3",
     "@angular/platform-browser-dynamic": "^8.0.3",
     "@angular/router": "^8.0.3",
+    "file-saver": "^2.0.2",
     "firebase": "^6.6.2",
     "html2canvas": "^1.0.0-rc.5",
     "ngx-color": "^3.0.3",
