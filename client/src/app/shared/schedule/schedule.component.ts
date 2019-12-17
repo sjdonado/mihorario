@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { saveAs } from 'file-saver';
 import { MatDialog } from '@angular/material/dialog';
 import { Subject } from '../../models/subject.model';
 import { SubjectDetailsDialogComponent } from '../dialogs/subject-details-dialog/subject-details-dialog.component';
@@ -112,19 +113,10 @@ export class ScheduleComponent implements OnInit {
     const viewport = document.querySelector('meta[name=viewport]');
     viewport.setAttribute('content', 'width=1024');
     html2canvas(document.querySelector('#scheduleDiv'), {
-      height: 800,
+      height: 616,
     }).then(canvas => {
       canvas.toBlob((blob => {
-        const url = (window.URL || window['webkitURL']).createObjectURL(blob);
-        const a = document.createElement('a');
-        document.body.appendChild(a);
-        a.setAttribute('style', 'display: none');
-        a.setAttribute('target', '_blank');
-        a.setAttribute('href', url);
-        a.setAttribute('download', `mi_horario_un_${new Date().toLocaleDateString()}`);
-        a.click();
-        window.URL.revokeObjectURL(url);
-        a.remove();
+        saveAs(blob, `mi_horario_un_${new Date().toLocaleDateString()}`);
         viewport.setAttribute('content', oldViewPortContent);
       }), 'image/jpeg');
     });
