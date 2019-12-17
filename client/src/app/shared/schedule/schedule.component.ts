@@ -106,15 +106,16 @@ export class ScheduleComponent implements OnInit {
     return { color, notificationTime };
   }
 
+
   downloadSchedule() {
     const oldViewPortContent = document.querySelector('meta[name=viewport]').getAttribute('content');
     const viewport = document.querySelector('meta[name=viewport]');
     viewport.setAttribute('content', 'width=1024');
     html2canvas(document.querySelector('#scheduleDiv'), {
-      height: 516,
+      height: 800,
     }).then(canvas => {
       canvas.toBlob((blob => {
-        const url = window.URL.createObjectURL(blob);
+        const url = (window.URL || window['webkitURL']).createObjectURL(blob);
         const a = document.createElement('a');
         document.body.appendChild(a);
         a.setAttribute('style', 'display: none');
