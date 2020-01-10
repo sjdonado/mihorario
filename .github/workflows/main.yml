@@ -40,20 +40,20 @@ jobs:
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
       - name: Login to Heroku
-        uses: actions/heroku@1.0.0
+        uses: sjdonado/heroku@master
         with:
           args: container:login
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
       - name: Push
-        uses: actions/heroku@1.0.0
+        uses: sjdonado/heroku@master
         with:
           args: container:push -a $APP_NAME web
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
           APP_NAME: mihorarioun
       - name: Release
-        uses: actions/heroku@1.0.0
+        uses: sjdonado/heroku@master
         with:
           args: container:release -a $APP_NAME web
         env:

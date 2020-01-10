@@ -29,7 +29,7 @@ export class ScheduleComponent implements OnInit {
   private fullName: string;
   private schedule: Subject[][];
   private subjectsByDays: Subject[][];
-  private isLocationView: boolean;
+  public isLocationView: boolean;
 
   constructor(
     private dialog: MatDialog,
