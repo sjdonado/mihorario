@@ -38,7 +38,7 @@ export class CalendarOptionsComponent implements OnInit {
     this.userService.googleOauthLogin()
       .subscribe((oauthRes) => {
         if (oauthRes) {
-          this.googleCalendarService.syncSchedule({ subjects: this.subjects })
+          this.googleCalendarService.syncSchedule(this.subjects)
             .subscribe(
               (res: any) => {
                 const { data } = res;

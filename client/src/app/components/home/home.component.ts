@@ -7,6 +7,7 @@ import { AppComponent } from '../../app.component';
 import { Subject } from '../../models/subject.model';
 import { ConfirmationDialogComponent } from '../../shared/dialogs/confirmation-dialog/confirmation-dialog.component';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 
 @Component({
@@ -44,8 +45,12 @@ export class HomeComponent implements OnInit {
     dialogRef.afterClosed()
       .subscribe(result => {
         if (result) {
-          this.cookieService.deleteAll();
-          this.router.navigateByUrl('/');
+          this.cookieService.deleteAll(
+            environment.cookies.path,
+            environment.cookies.domain,
+          );
+          localStorage.clear();
+          window.location.reload();
         }
       });
   }

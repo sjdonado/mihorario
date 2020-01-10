@@ -41,8 +41,8 @@ export class UserService {
     });
   }
 
-  getSchedule(startDate: string) {
-    return this.httpClient.get(`${this.API_URL}/schedule?startDate=${startDate}`, {
+  getSchedule(termId: string) {
+    return this.httpClient.get(`${this.API_URL}/schedule?termId=${termId}`, {
       headers: this.BASE_HEADER,
     }).pipe(
       tap(
@@ -117,6 +117,6 @@ export class UserService {
   }
 
   removeGoogleOauthData() {
-    this.cookieService.delete(GOOGLE_OAUTH_DATA_KEY);
+    this.cookieService.delete(GOOGLE_OAUTH_DATA_KEY, environment.cookies.path, environment.cookies.domain);
   }
 }

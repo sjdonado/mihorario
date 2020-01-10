@@ -87,16 +87,16 @@ export class GoogleCalendarService {
     });
   }
 
-  importSchedule(data: any) {
+  importSchedule(subjects: Subject[][]) {
     const googleOauthData = JSON.parse(this.cookieService.get(GOOGLE_OAUTH_DATA_KEY));
-    return this.httpClient.post(`${this.API_URL}/import`, Object.assign(data, googleOauthData), {
+    return this.httpClient.post(`${this.API_URL}/import`, Object.assign({ subjects }, googleOauthData), {
       headers: this.BASE_HEADER,
     });
   }
 
-  syncSchedule(data: any) {
+  syncSchedule(subjects: Subject[]) {
     const googleOauthData = JSON.parse(this.cookieService.get(GOOGLE_OAUTH_DATA_KEY));
-    return this.httpClient.post(`${this.API_URL}/sync`, Object.assign(data, googleOauthData), {
+    return this.httpClient.post(`${this.API_URL}/sync`, Object.assign({ subjects }, googleOauthData), {
       headers: this.BASE_HEADER,
     });
   }

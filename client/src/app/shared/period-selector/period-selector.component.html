@@ -17,8 +17,8 @@
           <form [formGroup]="getFormGroup" (ngSubmit)="getSchedule()" fxLayout="column">
             <mat-form-field>
               <mat-label>Periodo académico</mat-label>
-              <mat-select formControlName="startDate">
-                <mat-option *ngFor="let term of terms" [value]="term.startDate">
+              <mat-select formControlName="termId">
+                <mat-option *ngFor="let term of terms" [value]="term.id">
                   {{ term.name }}
                 </mat-option>
               </mat-select>

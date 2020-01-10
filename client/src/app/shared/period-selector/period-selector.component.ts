@@ -33,13 +33,13 @@ export class PeriodSelectorComponent implements OnInit {
     this.terms = this.authService.pomeloData.terms;
     this.name = this.authService.pomeloData.fullName.split(' ')[0];
     this.form = this.formBuilder.group({
-      startDate: [, Validators.required],
+      termId: [, Validators.required],
     });
   }
 
   getSchedule() {
     this.isLoading = true;
-    this.userService.getSchedule(this.form.value.startDate).subscribe(
+    this.userService.getSchedule(this.form.value.termId).subscribe(
       (response: any) => {
         console.log(response);
         this.isLoading = false;

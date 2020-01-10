@@ -54,7 +54,6 @@ export class SubjectsSelectorComponent implements OnInit, OnDestroy {
   sendSubjects() {
     this.isLoading = true;
     const selectedSubjects = this.form.value.selectedSubjects.filter(subject => subject.checked);
-    // const subjects = this.subjects.filter((subject: Subject) => selectedSubjects.find(elem => elem.nrc === subject.nrc));
     const subjects = this.subjectsByDays.map(day => day.map((subject) => {
       const selectedSubject = selectedSubjects.find(elem => elem.nrc === subject.nrc);
       if (selectedSubject) {
@@ -65,7 +64,7 @@ export class SubjectsSelectorComponent implements OnInit, OnDestroy {
     // console.log('subjectsByDays', this.subjectsByDays);
     // console.log('selectedSubjects', selectedSubjects);
     // console.log('finalSubjects', subjects);
-    this.googleCalendarService.importSchedule({ subjects })
+    this.googleCalendarService.importSchedule(subjects)
       .subscribe(
         (res: any) => {
           console.log(res);
