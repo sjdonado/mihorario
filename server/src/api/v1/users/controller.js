@@ -4,12 +4,12 @@ const { signToken } = require('../../../services/auth');
 
 const getSchedule = async (req, res, next) => {
   try {
-    const { startDate } = req.query;
-    if (!startDate) throw new ApiError('Start date is not valid', 400);
+    const { termId } = req.query;
+    if (!termId) throw new ApiError('Start date is not valid', 400);
 
     const { username, password } = req.user;
 
-    const data = await pomeloSchedule({ username, password }, startDate);
+    const data = await pomeloSchedule({ username, password }, termId);
 
     res.json({ data });
   } catch (err) {

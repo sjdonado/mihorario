@@ -103,9 +103,9 @@ class CalendarService {
       // console.log('=> getSyncedScheduleEvents: SUBJECT', subject);
       const {
         startDate,
-        finishDate,
+        endDate,
         name,
-        teacher,
+        instructors,
         place,
       } = subject;
       // eslint-disable-next-line no-await-in-loop
@@ -114,9 +114,9 @@ class CalendarService {
       try {
         const currentEvent = await this.getCurrentEvent({
           start: parsePomeloDateToCalendar(startDate, true),
-          end: parsePomeloDateToCalendar(finishDate, true),
+          end: parsePomeloDateToCalendar(endDate, true),
           summary: name,
-          description: teacher,
+          description: instructors,
           location: place,
         }, true);
         if (currentEvent) {

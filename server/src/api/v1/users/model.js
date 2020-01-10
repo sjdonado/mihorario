@@ -6,7 +6,7 @@ const { request } = require('../../../services/apolloLink');
 const {
   USER_QUERY,
   TERMS_QUERY,
-  GROUPED_SCHEDULE_QUERY,
+  SCHEDULE_QUERY,
 } = require('../../../graphql/queries');
 
 /**
@@ -35,35 +35,20 @@ const pomeloSchedulePeriods = async (credentials) => {
  * @param {String} password
  * @param {String} scheduleOption
  */
-const pomeloSchedule = async (credentials, startDate) => {
+const pomeloSchedule = async (credentials, termId) => {
   try {
-    const startDateParsed = moment(startDate, 'YYYY-MM-DD').add(2, 'month');
-    // const endDateParsed = moment(moment(startDate, 'YYYY-MM-DD').add(7, 'days');
-    const year = startDateParsed.year();
-    const month = startDateParsed.month();
-    const day = startDateParsed.day();
-    
-    const variables = {
-      start: {
-        year,
-        month,
-        day,
-      },
-      end: {
-        year,
-        month,
-        day: day + 7,
-      },
-    };
-  
-    const groupedScheduleResponse = await request(credentials, GROUPED_SCHEDULE_QUERY, variables);
-    const data = groupedScheduleResponse.data.groupedSchedule;
+    const scheduleResponse = await request(credentials, SCHEDULE_QUERY, { termId });
+    const data = scheduleResponse.data.schedule;
+    console.log('data', data);
 
     const subjectsByDays = [[], [], [], [], [], [], []];
     data.forEach(({
       courseName,
       sectionId,
       sectionTitle,
+      firstMeetingDate,
+      lastMeetingDate,
+      instructors,
       meetings,
     }) => {
       meetings.forEach(({
@@ -71,23 +56,27 @@ const pomeloSchedule = async (credentials, startDate) => {
         room,
         dates,
       }) => {
-        dates.forEach(({ start, end }) => {
-          const startDate = moment(start).utcOffset(-5);
-          const endDate = moment(end).utcOffset(-5);
+        dates.forEach(({ start, end, startTime, endTime }) => {
+          const parsedStartTime = moment(startTime, 'HH:mm').utcOffset(-5);
+          const parsedEndTime = moment(endTime, 'HH:mm').utcOffset(-5);
+          const startDate = moment(start);
+          const endDate = moment(end);
           const weekdayParsed = startDate.weekday() - 1 < 0 ? 6 : startDate.weekday() - 1;
 
           subjectsByDays[weekdayParsed].push({
             nrc: sectionId,
             name: sectionTitle,
             shortName: sectionTitle,
+            instructors: instructors.join(','),
             type: courseName,
-            start: startDate.format('hh:mm A'),
-            end: endDate.format('hh:mm A'),
             place: `${buildingId} ${room}`,
+            startTime: parsedStartTime.format('hh:mm A'),
+            endTime: parsedEndTime.format('hh:mm A'),
             startDate: startDate.format('MMM DD, YYYY', 'es'),
             endDate: endDate.format('MMM DD, YYYY', 'es'),
-          })
-          
+            firstMeetingDate,
+            lastMeetingDate,
+          });
         })
       })
     });
@@ -95,8 +84,8 @@ const pomeloSchedule = async (credentials, startDate) => {
     const scheduleByHours = Array.from(Array(14), () => new Array(6));
     subjectsByDays.forEach((day, index) => {
       day.forEach((row) => {
-        const startSubjectDate = moment(row.start, 'hh:mm A');
-        const endSubjectDate = moment(row.end, 'hh:mm A');
+        const startSubjectDate = moment(row.startTime, 'hh:mm A');
+        const endSubjectDate = moment(row.endTime, 'hh:mm A');
 
         let startSubjectInt = parseInt(startSubjectDate.hours(), 10);
         if (startSubjectInt < 6) startSubjectInt = 6;

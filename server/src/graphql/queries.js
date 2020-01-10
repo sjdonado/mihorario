@@ -21,18 +21,19 @@ const TERMS_QUERY = gql`
   }
 `;
 
-const GROUPED_SCHEDULE_QUERY = gql`
-  query GroupedScheduleQuery(
-    $start: Date!
-    $end: Date!
+const SCHEDULE_QUERY = gql`
+  query ScheduleQuery(
+    $termId: String!
   ) {
-    groupedSchedule(
-      start: $start
-      end: $end
+    schedule(
+      termId: $termId
     ) {
       courseName
       sectionId
       sectionTitle
+      firstMeetingDate
+      lastMeetingDate
+      instructors
       meetings {
         building
         buildingId
@@ -40,6 +41,8 @@ const GROUPED_SCHEDULE_QUERY = gql`
         dates {
           start
           end
+          startTime
+          endTime
         }
       }
     }
@@ -49,5 +52,5 @@ const GROUPED_SCHEDULE_QUERY = gql`
 module.exports = {
   USER_QUERY,
   TERMS_QUERY,
-  GROUPED_SCHEDULE_QUERY,
+  SCHEDULE_QUERY,
 };
