@@ -1,5 +1,5 @@
-<div fxLayout="column" class="wrapper">
-  <mat-card fxFlex>
+<div fxLayout="column" fxLayoutAlign="center" class="wrapper">
+  <mat-card>
     <div class="card-header" fxLayout="row" fxFlex="6">
       <div fxHide.gt-xs fxFlex>
         <span [matMenuTriggerFor]="menu"class="option card-header" fxLayout="row" fxLayoutAlign="center center" fxFlex="100">
@@ -13,6 +13,9 @@
           <button mat-menu-item *ngFor="let clickOption of clicksOptions" (click)="this[clickOption.click]()">
             {{ clickOption.title }}
           </button>
+          <button mat-menu-item (click)="toggleView()">
+            {{ isLocationView ? 'Ver nombres' : 'Ver lugares' }}
+          </button>
         </mat-menu>
       </div>
       <div fxHide.lt-sm fxFlex>
@@ -24,9 +27,12 @@
           (click)="this[clickOption.click]()" fxFlex>
           <p>{{ clickOption.title }}</p><mat-icon matSuffix>{{ clickOption.icon }}</mat-icon>
         </span>
+        <span class="option" fxLayout="row" fxLayoutAlign="center center" (click)="toggleView()" fxFlex>
+          <p>Ver lugares</p><mat-icon matSuffix>{{ isLocationView ? 'toggle_on' : 'toggle_off' }}</mat-icon>
+        </span>
       </div>
     </div>
-    <mat-card-content fxFlex>
+    <mat-card-content>
       <div id="scheduleDiv" class="table-container" role="table" aria-label="Horario">
         <div class="flex-table header" role="rowgroup">
           <div class="flex-row first hour" role="columnheader"><p>HORA</p></div>
@@ -52,18 +58,18 @@
             (click)="openSubjectDetailsDialog(schedule[i][j])" [ngStyle]="{'background': getSubjectStyle(schedule[i][j]).color.background }">
             <ng-template [ngIf]="j < 5" [ngIfElse]="saturdaySunday">
               <p [ngStyle]="{'color': getSubjectStyle(schedule[i][j]).color.foreground }">
-                {{ schedule[i][j] ? schedule[i][j].shortName : '&#8203;' }}
+                {{ schedule[i][j] ? (isLocationView ? schedule[i][j].place : schedule[i][j].shortName) : '&#8203;' }}
               </p>
             </ng-template>
             <ng-template #saturdaySunday>
               <div fxLayout="row">
                 <div class="flex-text-left" [ngStyle]="{ 'background': getSubjectStyle(schedule[i][j]).color.background }" fxFlex="50">
                   <p [ngStyle]="{'color': getSubjectStyle(schedule[i][j]).color.foreground }"
-                    (click)="openSubjectDetailsDialog(schedule[i][j])" >{{ schedule[i][j] ? schedule[i][j].shortName : '&#8203;' }}</p>
+                    (click)="openSubjectDetailsDialog(schedule[i][j])" >{{ schedule[i][j] ? (isLocationView ? schedule[i][j].place :  schedule[i][j].shortName) : '&#8203;' }}</p>
                 </div>
                 <div class="flex-text" [ngStyle]="{ 'background': getSubjectStyle(schedule[i][6]).color.background }" fxFlex="50">
                   <p [ngStyle]="{'color': getSubjectStyle(schedule[i][6]).color.foreground }"
-                    (click)="openSubjectDetailsDialog(schedule[i][6])">{{ schedule[i][6] ?  schedule[i][6].shortName : '&#8203;' }}</p>
+                    (click)="openSubjectDetailsDialog(schedule[i][6])">{{ schedule[i][6] ?  (isLocationView ? schedule[i][6].place : schedule[i][6].shortName) : '&#8203;' }}</p>
                 </div>
               </div>
             </ng-template>
@@ -73,4 +79,3 @@
     </mat-card-content>
   </mat-card>
 </div>
-  

@@ -26,7 +26,8 @@ $row-bg: #f6f6f6;
 }
 
 .table-container {
-  display: block;
+  display: table;
+  width: 100%;
   margin: auto;
   font-size: 0.76em;
 }

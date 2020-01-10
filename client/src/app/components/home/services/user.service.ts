@@ -47,18 +47,27 @@ export class UserService {
     }).pipe(
       tap(
         (res: any) => {
-          const defaultSubjectStyle = {
-            color: this.googleCalendarService.eventColors[0],
-            notificationTime: 15,
-          };
+          let currentStyle;
+          let styleColorIdx = 0;
+          const styles = new Map();
           this.setScheduleByHours(res.data.scheduleByHours.map((hours: Subject[]) => hours.map(subject => {
             if (!subject) {
               return subject;
             }
-            return Object.assign(subject, defaultSubjectStyle);
+            if (styles.has(subject.nrc)) {
+              currentStyle = styles.get(subject.nrc);
+            } else {
+              currentStyle = {
+                color: this.googleCalendarService.eventColors[styleColorIdx + 1],
+                notificationTime: 15,
+              };
+              styles.set(subject.nrc, currentStyle);
+              styleColorIdx++;
+            }
+            return Object.assign(subject, currentStyle);
           })));
           this.setSubjectsByDays(res.data.subjectsByDays
-            .map((hours: Subject[]) => hours.map(subject => Object.assign(subject, defaultSubjectStyle))));
+            .map((day: Subject[]) => day.map(subject => Object.assign(subject, styles.get(subject.nrc)))));
         },
         err => console.error(err),
       )

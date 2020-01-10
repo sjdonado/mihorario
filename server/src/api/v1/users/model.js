@@ -24,7 +24,6 @@ const pomeloSchedulePeriods = async (credentials) => {
 
     return { fullName, terms };
   } catch (err) {
-    console.log('err', err);
     throw new ApiError('Invalid credentials', 400);
   }
 };
@@ -39,7 +38,6 @@ const pomeloSchedule = async (credentials, termId) => {
   try {
     const scheduleResponse = await request(credentials, SCHEDULE_QUERY, { termId });
     const data = scheduleResponse.data.schedule;
-    console.log('data', data);
 
     const subjectsByDays = [[], [], [], [], [], [], []];
     data.forEach(({

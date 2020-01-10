@@ -29,6 +29,7 @@ export class ScheduleComponent implements OnInit {
   private fullName: string;
   private schedule: Subject[][];
   private subjectsByDays: Subject[][];
+  private isLocationView: boolean;
 
   constructor(
     private dialog: MatDialog,
@@ -41,6 +42,7 @@ export class ScheduleComponent implements OnInit {
     this.subjectsByDays = this.userService.subjectsByDays;
     this.fullName = this.authService.pomeloData.fullName;
     this.days = ['LUNES', 'MARTES', 'MIÉRCOLES', 'JUEVES', 'VIERNES', 'SÁBADO', 'DOMINGO'];
+    this.isLocationView = false;
     this.linksOptions = [
       {
         title: 'Seleccionar periodo',
@@ -58,10 +60,10 @@ export class ScheduleComponent implements OnInit {
         title: 'Descargar',
         icon: 'arrow_downward',
         click: 'downloadSchedule'
-      }
+      },
     ];
-    console.log('schedule', this.schedule);
-    console.log('subjectsByDays', this.subjectsByDays);
+    // console.log('schedule', this.schedule);
+    // console.log('subjectsByDays', this.subjectsByDays);
   }
 
   openSubjectDetailsDialog(subject: Subject): void {
@@ -120,5 +122,9 @@ export class ScheduleComponent implements OnInit {
         viewport.setAttribute('content', oldViewPortContent);
       }), 'image/jpeg');
     });
+  }
+
+  toggleView() {
+    this.isLocationView = !this.isLocationView;
   }
 }
