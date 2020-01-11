@@ -49,16 +49,16 @@ const importSchedule = async (tokens, subjects) => {
         const startDate = moment(subject.firstMeetingDate);
         const endDate = moment(subject.lastMeetingDate);
 
-        const firstWeekDay = moment(subject.firstMeetingDate).startOf('week');
-        const invalidDays = startDate.weekday() === 0 ? [] : getRangeOfDates(firstWeekDay.clone(), startDate.clone().subtract(1, 'days'), 'days');
+        const firstWeekDay = moment(subject.firstMeetingDate).startOf('week').add(1, 'day');
+        const invalidDays = startDate.weekday() - 1 === 0 ? [] : getRangeOfDates(firstWeekDay.clone(), startDate.clone().subtract(1, 'day'), 'days');
 
         // First classes day doesn't start on first week day offset
         if (invalidDays.some(date => date.format('YYYYMMDD') === firstWeekDay.clone().add(dayNumber, 'days').format('YYYYMMDD'))) {
           firstWeekDay.add(1, 'weeks');
         }
 
-        const startDateTime = moment(`${firstWeekDay.format('DD-MM-YYYY')} ${subject.startTime} -05:00`, 'DD-MM-YYYY hh:mm A Z', 'es');
-        const endDateTime = moment(`${firstWeekDay.format('DD-MM-YYYY')} ${subject.endTime} -05:00`, 'DD-MM-YYYY hh:mm A Z', 'es');
+        const startDateTime = moment(`${firstWeekDay.format('YYYYMMDD')} ${subject.startTime} -05:00`, 'YYYYMMDD hh:mm A Z');
+        const endDateTime = moment(`${firstWeekDay.format('YYYYMMDD')} ${subject.endTime} -05:00`, 'YYYYMMDD hh:mm A Z');
 
         const recurrence = [];
         // On day classes verification
