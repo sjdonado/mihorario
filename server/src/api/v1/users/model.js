@@ -79,7 +79,7 @@ const pomeloSchedule = async (credentials, termId) => {
       })
     });
 
-    const scheduleByHours = Array.from(Array(14), () => new Array(6));
+    const scheduleByHours = Array.from(Array(15), () => new Array(6));
     subjectsByDays.forEach((day, index) => {
       day.forEach((row) => {
         const startSubjectDate = moment(row.startTime, 'hh:mm A');
