@@ -28,13 +28,35 @@ class CalendarService {
   }
 
   /**
+   * Get events at time range
+   * @param {Date} start
+   * @param {Date} end
+   */
+  async getEventsAtTimeRange(start, end, multi = false) {
+    const params = {
+      calendarId: 'primary',
+      timeMin: start,
+      timeMax: end,
+    };
+
+    if (!multi) {
+      Object.assign(params, {
+        maxResults: 10,
+        singleEvents: true,
+        orderBy: 'startTime',
+      });
+    }
+    return (await this.googleCalendar.events.list(params)).data.items;
+  }
+
+  /**
    * Create a new event
    * @param {*} newEvent
    */
   async createEvent(newEvent) {
     let data;
     try {
-      const currentEvent = await this.getCurrentEvent(newEvent);
+      const currentEvent = await this.searchEvent(newEvent);
       data = currentEvent ? await this.googleCalendar.events.update({
         calendarId: 'primary',
         eventId: currentEvent.id,
@@ -51,10 +73,27 @@ class CalendarService {
   }
 
   /**
+   * Remove event
+   * @param {*} eventId 
+   */
+  async deleteEvent(eventId) {
+    let data;
+    try {
+      data = await this.googleCalendar.events.delete({
+        calendarId: 'primary',
+        eventId,
+      });
+    } catch (err) {
+      data = { err };
+    }
+    return data;
+  }
+
+  /**
    * Verify if the event already exists
    * @param {*} newEvent
    */
-  async getCurrentEvent(newEvent, deepMatch = false) {
+  async searchEvent(newEvent, deepMatch = false, multi = false) {
     const {
       start,
       end,
@@ -63,11 +102,12 @@ class CalendarService {
       location,
     } = newEvent;
 
-    const eventsList = await this.getEventsAtTimeRange(start.dateTime, end.dateTime);
+    const eventsList = await this.getEventsAtTimeRange(start.dateTime, end.dateTime, multi);
 
-    let currentEvent = null;
+    let event = null;
+    let events;
     if (eventsList.length > 0) {
-      const [firstEvent] = eventsList.filter((obj) => {
+      events = eventsList.filter((obj) => {
         if (deepMatch) {
           return obj.summary === summary
             && obj.description === description
@@ -75,32 +115,15 @@ class CalendarService {
         }
         return obj.summary === summary;
       });
-      currentEvent = firstEvent;
+      event = events[0];
     }
-    return currentEvent;
-  }
+    if (multi) return events;
 
-  /**
-   * Get events at time range
-   * @param {Date} start
-   * @param {Date} end
-   */
-  async getEventsAtTimeRange(start, end) {
-    return (await this.googleCalendar.events.list({
-      calendarId: 'primary',
-      timeMin: start,
-      timeMax: end,
-      maxResults: 10,
-      singleEvents: true,
-      orderBy: 'startTime',
-    })).data.items;
+    return event;
   }
 
   getSyncedScheduleEvents(subjects) {
-    // eslint-disable-next-line no-restricted-syntax
-    // console.log('=> getSyncedScheduleEvents: SUBJECTS', subjects);
     return Promise.all(subjects.map(async (subject) => {
-      // console.log('=> getSyncedScheduleEvents: SUBJECT', subject);
       const {
         startDate,
         endDate,
@@ -108,11 +131,9 @@ class CalendarService {
         instructors,
         place,
       } = subject;
-      // eslint-disable-next-line no-await-in-loop
-      // let googleSynced = false;
       const event = { googleSynced: false };
       try {
-        const currentEvent = await this.getCurrentEvent({
+        const currentEvent = await this.searchEvent({
           start: parsePomeloDateToCalendar(startDate, true),
           end: parsePomeloDateToCalendar(endDate, true),
           summary: name,
@@ -133,6 +154,23 @@ class CalendarService {
       }
       return Object.assign(subject, event);
     }));
+  }
+
+  async getAllSyncedEvents(subjects) {
+    let events = [];
+    for (let { startDate, endDate, name, instructors, place } of subjects) {
+      const params = {
+        start: parsePomeloDateToCalendar(startDate, true),
+        end: parsePomeloDateToCalendar(endDate, true),
+        summary: name,
+        description: instructors,
+        location: place,
+      };
+
+      const foundEvents = await this.searchEvent(params, true, true);
+      events = events.concat(foundEvents.map(({ id }) => id));
+    }
+    return events;
   }
 }
 

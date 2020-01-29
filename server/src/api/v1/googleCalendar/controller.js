@@ -1,4 +1,8 @@
-const { getSyncedSubjects, importSchedule } = require('./model');
+const {
+  getSyncedSubjects,
+  importSchedule,
+  removeSubjects,
+} = require('./model');
 
 const syncSchedule = async (req, res, next) => {
   try {
@@ -14,10 +18,23 @@ const syncSchedule = async (req, res, next) => {
   }
 };
 
-const importScheduleToCalendar = async (req, res, next) => {
+const importSubjectsToCalendar = async (req, res, next) => {
+  try {
+    const { accessToken, refreshToken, subjectsMatrix } = req.body;
+    const data = await importSchedule({
+      access_token: accessToken,
+      refresh_token: refreshToken,
+    }, subjectsMatrix);
+    res.json({ data });
+  } catch (err) {
+    next(err);
+  }
+};
+
+const removeSubjectsFromCalendar = async (req, res, next) => {
   try {
     const { accessToken, refreshToken, subjects } = req.body;
-    const data = await importSchedule({
+    const data = await removeSubjects({
       access_token: accessToken,
       refresh_token: refreshToken,
     }, subjects);
@@ -29,5 +46,6 @@ const importScheduleToCalendar = async (req, res, next) => {
 
 module.exports = {
   syncSchedule,
-  importScheduleToCalendar,
+  importSubjectsToCalendar,
+  removeSubjectsFromCalendar,
 };

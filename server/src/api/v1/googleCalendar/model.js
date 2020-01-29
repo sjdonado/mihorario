@@ -17,7 +17,7 @@ const getRangeOfDates = (start, end, key, arr = [start.startOf(key)]) => {
   return getRangeOfDates(next, end, key, arr.concat(next));
 };
 
-const getSyncedSubjects = (tokens, subjects) => {
+const getSyncedSubjects = async (tokens, subjects) => {
   const calendarService = new CalendarService(tokens);
   return calendarService.getSyncedScheduleEvents(subjects);
 };
@@ -27,9 +27,9 @@ const getSyncedSubjects = (tokens, subjects) => {
  * @param {Object} tokens
  * @param {Object} tokens.access_token
  * @param {Object} tokens.refresh_token
- * @param {*} schedule
+ * @param {Object[][]} subjectsMatrix
  */
-const importSchedule = async (tokens, subjects) => {
+const importSchedule = async (tokens, subjectsMatrix) => {
   const calendarService = new CalendarService(tokens);
   const events = [];
   /**
@@ -38,7 +38,7 @@ const importSchedule = async (tokens, subjects) => {
   * Use for loops avoid this problem.
   */
   // eslint-disable-next-line no-restricted-syntax
-  for (const [dayNumber, day] of subjects.entries()) {
+  for (const [dayNumber, day] of subjectsMatrix.entries()) {
     // eslint-disable-next-line no-restricted-syntax
     for (const subject of day) {
       // Verify if is already synced
@@ -46,10 +46,10 @@ const importSchedule = async (tokens, subjects) => {
         // Calendar day   ---  dayNumber
         // S M T W T F S  ---  S M T W T F S
         // 1 2 3 4 5 6 7  ---  6 0 1 2 3 4 5
-        const startDate = moment(subject.firstMeetingDate);
-        const endDate = moment(subject.lastMeetingDate);
+        const startDate = moment(subject.startDate);
+        const endDate = moment(subject.endDate);
 
-        const firstWeekDay = moment(subject.firstMeetingDate).startOf('week').add(1, 'day');
+        const firstWeekDay = moment(subject.startDate).startOf('week').add(1, 'day');
         const invalidDays = startDate.weekday() - 1 === 0 ? [] : getRangeOfDates(firstWeekDay.clone(), startDate.clone().subtract(1, 'day'), 'days');
 
         // First classes day doesn't start on first week day offset
@@ -96,7 +96,24 @@ const importSchedule = async (tokens, subjects) => {
   return events;
 };
 
+/**
+ * Remove Pomelo subjects from Google calendar
+ * @param {Object} tokens
+ * @param {Object} tokens.access_token
+ * @param {Object} tokens.refresh_token
+ * @param {Object[]} subjects
+ */
+const removeSubjects = async (tokens, subjects) => {
+  const calendarService = new CalendarService(tokens);
+
+  const allSyncedEvents = await calendarService.getAllSyncedEvents(subjects)
+  await Promise.all(allSyncedEvents.map((eventId) => calendarService.deleteEvent(eventId)));
+
+  return subjects.map((subject) => Object.assign(subject, { googleSynced: false }));
+}
+
 module.exports = {
   getSyncedSubjects,
   importSchedule,
+  removeSubjects,
 };

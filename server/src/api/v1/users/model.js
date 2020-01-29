@@ -72,8 +72,8 @@ const pomeloSchedule = async (credentials, termId) => {
             endTime: parsedEndTime.format('hh:mm A'),
             startDate: startDate.format('MMM DD, YYYY', 'es'),
             endDate: endDate.format('MMM DD, YYYY', 'es'),
-            firstMeetingDate,
-            lastMeetingDate,
+            // firstMeetingDate: moment(firstMeetingDate).format('MMM DD, YYYY', 'es'),
+            // lastMeetingDate: moment(lastMeetingDate).format('MMM DD, YYYY', 'es'),
           });
         })
       })
