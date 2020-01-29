@@ -66,6 +66,7 @@ export class UserService {
             }
             return Object.assign(subject, currentStyle);
           })));
+
           this.setSubjectsByDays(res.data.subjectsByDays
             .map((day: Subject[]) => day.map(subject => Object.assign(subject, styles.get(subject.nrc)))));
         },
@@ -83,6 +84,7 @@ export class UserService {
           console.log('googleOauthLogin', res);
           this.setGoogleOauthData({
             email: res.user.email,
+            // tslint:disable-next-line: no-string-literal
             accessToken: res.credential['accessToken'],
             refreshToken: res.user.refreshToken,
           });

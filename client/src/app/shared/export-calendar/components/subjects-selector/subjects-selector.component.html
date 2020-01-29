@@ -35,7 +35,8 @@
               </div>
             </div>
           </div>
-          <button mat-button color="primary">Enviar</button>
+          <button mat-button color="primary" [ngStyle]="{'margin': '2px 0px' }">Añadir al calendario</button>
+          <button mat-button color="warn" (click)="removeSubjects()">Remover del calendario</button>
         </form>
       </mat-card-content>
     </mat-card>

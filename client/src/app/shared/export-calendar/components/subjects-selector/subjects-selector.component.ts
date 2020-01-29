@@ -52,8 +52,11 @@ export class SubjectsSelectorComponent implements OnInit, OnDestroy {
   }
 
   sendSubjects() {
-    this.isLoading = true;
     const selectedSubjects = this.form.value.selectedSubjects.filter(subject => subject.checked);
+    if (!selectedSubjects.length) {
+      return;
+    }
+    this.isLoading = true;
     const subjects = this.subjectsByDays.map(day => day.map((subject) => {
       const selectedSubject = selectedSubjects.find(elem => elem.nrc === subject.nrc);
       if (selectedSubject) {
@@ -61,10 +64,13 @@ export class SubjectsSelectorComponent implements OnInit, OnDestroy {
         return Object.assign(subject, { colorId: color.id, notificationTime });
       }
     }).filter(elem => elem));
-    // console.log('subjectsByDays', this.subjectsByDays);
-    // console.log('selectedSubjects', selectedSubjects);
-    // console.log('finalSubjects', subjects);
-    this.googleCalendarService.importSchedule(subjects)
+    console.log('subjectsByDays', this.subjectsByDays);
+    console.log('selectedSubjects', selectedSubjects);
+    console.log('finalSubjects', subjects);
+
+    return;
+
+    this.googleCalendarService.importSubjects(subjects)
       .subscribe(
         (res: any) => {
           console.log(res);
@@ -100,6 +106,39 @@ export class SubjectsSelectorComponent implements OnInit, OnDestroy {
         (err) => {
           this.isLoading = false;
           this.notificationService.add('Error importando las materias seleccionadas, intenta de nuevo.');
+          console.log('Error', err);
+        }
+      );
+  }
+
+  removeSubjects() {
+    const selectedSubjects = this.form.value.selectedSubjects.filter(subject => subject.checked);
+    if (!selectedSubjects.length) {
+      return;
+    }
+    this.isLoading = true;
+    const subjects = [];
+    this.subjectsByDays.forEach(day => day.forEach((subject) => {
+      if (selectedSubjects.some(elem => elem.nrc === subject.nrc)) {
+        subjects.push(subject);
+      }
+    }));
+    // console.log('subjectsByDays', this.subjectsByDays);
+    // console.log('selectedSubjects', selectedSubjects);
+    // console.log('finalSubjects', subjects);
+    this.googleCalendarService.removeSubjects(subjects)
+      .subscribe(
+        (res: any) => {
+          console.log(res);
+          this.subjects = res.data;
+          this.notificationService.add(`Materias removidas: ${res.data.length}/${subjects.length}`);
+          this.form.reset();
+          this.selectAll = false;
+          this.isLoading = false;
+        },
+        (err) => {
+          this.isLoading = false;
+          this.notificationService.add('Error removiendo las materias seleccionadas, intenta de nuevo.');
           console.log('Error', err);
         }
       );
