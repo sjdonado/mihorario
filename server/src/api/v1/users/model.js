@@ -44,8 +44,6 @@ const pomeloSchedule = async (credentials, termId) => {
       courseName,
       sectionId,
       sectionTitle,
-      firstMeetingDate,
-      lastMeetingDate,
       instructors,
       meetings,
     }) => {
@@ -59,22 +57,22 @@ const pomeloSchedule = async (credentials, termId) => {
           const parsedEndTime = moment(endTime, 'HH:mm').utcOffset(-5);
           const startDate = moment(start);
           const endDate = moment(end);
-          const weekdayParsed = startDate.weekday() - 1 < 0 ? 6 : startDate.weekday() - 1;
-
-          subjectsByDays[weekdayParsed].push({
-            nrc: sectionId,
-            name: sectionTitle,
-            shortName: sectionTitle,
-            instructors: instructors.join(','),
-            type: courseName,
-            place: `${buildingId} ${room}`,
-            startTime: parsedStartTime.format('hh:mm A'),
-            endTime: parsedEndTime.format('hh:mm A'),
-            startDate: startDate.format('MMM DD, YYYY', 'es'),
-            endDate: endDate.format('MMM DD, YYYY', 'es'),
-            // firstMeetingDate: moment(firstMeetingDate).format('MMM DD, YYYY', 'es'),
-            // lastMeetingDate: moment(lastMeetingDate).format('MMM DD, YYYY', 'es'),
-          });
+          const weekdayParsed = endDate.weekday() < 0 ? 6 : endDate.weekday();
+          
+          if (startDate.month() !== endDate.month()) {
+            subjectsByDays[weekdayParsed].push({
+              nrc: sectionId,
+              name: sectionTitle,
+              shortName: sectionTitle,
+              instructors: instructors.join(','),
+              type: courseName,
+              place: `${buildingId} ${room}`,
+              startTime: parsedStartTime.format('hh:mm A'),
+              endTime: parsedEndTime.format('hh:mm A'),
+              startDate: startDate.format('MMM DD, YYYY', 'es'),
+              endDate: endDate.format('MMM DD, YYYY', 'es'),
+            });
+          }
         })
       })
     });
