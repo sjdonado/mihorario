@@ -68,8 +68,6 @@ export class SubjectsSelectorComponent implements OnInit, OnDestroy {
     console.log('selectedSubjects', selectedSubjects);
     console.log('finalSubjects', subjects);
 
-    return;
-
     this.googleCalendarService.importSubjects(subjects)
       .subscribe(
         (res: any) => {
