@@ -7,6 +7,7 @@
 </div>
 
 ## How to run?
+* Please write me an email for sharing to you the Google oauth env variables, otherwise you can create your own credentials [more info](https://support.google.com/cloud/answer/6158849)
 ### Server
 
 ```shell
@@ -26,7 +27,7 @@
 Want to file a bug, contribute some code, or improve documentation? Excellent! Read up on our guidelines for [contributing][contributing].
 
 ## External dependencies
-* **Uninorte API connection:** Unofficial GraphQL wrapper for Uninorte API: [uninorte-graphql](https://github.com/krthr/uninorte-graphql)
+* **Uninorte API connection:** Unofficial GraphQL wrapper for Uninorte API: [uninorte-cli](https://www.npmjs.com/package/uninorte-cli)
 
 ## Contributors
 <table>

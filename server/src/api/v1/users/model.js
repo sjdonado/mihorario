@@ -1,29 +1,23 @@
 const moment = require('moment');
+const Uninorte = require('uninorte-cli');
 
 const ApiError = require('../../../lib/ApiError');
-const { request } = require('../../../services/apolloLink');
-
-const {
-  USER_QUERY,
-  TERMS_QUERY,
-  SCHEDULE_QUERY,
-} = require('../../../graphql/queries');
 
 /**
  * Get Pomelo schedule options
  * @param {String} username
  * @param {String} password
  */
-const pomeloSchedulePeriods = async (credentials) => {
+const pomeloSchedulePeriods = async (username, password) => {
   try {
-    const userResponse = await request(credentials, USER_QUERY);
-    const fullName = userResponse.data.user.name;
+    const client = await Uninorte(username, password);
 
-    const termsResponse = await request(credentials, TERMS_QUERY);
-    const terms = termsResponse.data.terms;
+    const { name } = await client.user;
+    const terms = (await client.terms).map(({ id, name, startDate, endDate }) => ({ id, name, startDate, endDate }));
 
-    return { fullName, terms };
+    return { fullName: name, terms };
   } catch (err) {
+    console.log(err);
     throw new ApiError('Invalid credentials', 400);
   }
 };
@@ -34,10 +28,10 @@ const pomeloSchedulePeriods = async (credentials) => {
  * @param {String} password
  * @param {String} scheduleOption
  */
-const pomeloSchedule = async (credentials, termId) => {
+const pomeloSchedule = async (username, password, termId) => {
   try {
-    const scheduleResponse = await request(credentials, SCHEDULE_QUERY, { termId });
-    const data = scheduleResponse.data.schedule;
+    const client = await Uninorte(username, password);
+    const data = await client.schedule(termId);
 
     const subjectsByDays = [[], [], [], [], [], [], []];
     data.forEach(({
@@ -101,7 +95,7 @@ const pomeloSchedule = async (credentials, termId) => {
 
     return { scheduleByHours, subjectsByDays };
   } catch (err) {
-    // console.log('errors =>', err.result.errors);
+    console.log(err);
     throw new ApiError(err);
   }
 };

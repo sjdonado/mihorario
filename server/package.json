@@ -19,8 +19,6 @@
   },
   "homepage": "https://github.com/sjdonado/mihorario#readme",
   "dependencies": {
-    "apollo-link": "^1.2.13",
-    "apollo-link-http": "^1.5.16",
     "body-parser": "^1.18.3",
     "cors": "^2.8.5",
     "express": "^4.16.4",
@@ -30,7 +28,7 @@
     "jsonwebtoken": "^8.5.1",
     "method-override": "^3.0.0",
     "moment": "^2.24.0",
-    "node-fetch": "^2.6.0"
+    "uninorte-cli": "^1.0.4"
   },
   "devDependencies": {
     "eslint": "^5.12.0",

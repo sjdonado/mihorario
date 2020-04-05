@@ -4,7 +4,7 @@ node_modules
 .vscode
 *.png
 *.zip
-docker-compose.prod.yml
 mihorarioUN.pem
 server/yarn.lock
 credentials.json
+docker-compose.yml

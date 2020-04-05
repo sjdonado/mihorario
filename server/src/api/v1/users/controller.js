@@ -9,7 +9,7 @@ const getSchedule = async (req, res, next) => {
 
     const { username, password } = req.user;
 
-    const data = await pomeloSchedule({ username, password }, termId);
+    const data = await pomeloSchedule(username, password, termId);
 
     res.json({ data });
   } catch (err) {
@@ -26,7 +26,7 @@ const login = async (req, res, next) => {
 
     if (!username || !password) next(new ApiError('Bad request', 400));
 
-    const pomelo = await pomeloSchedulePeriods({ username, password });
+    const pomelo = await pomeloSchedulePeriods(username, password);
     const token = signToken({ username, password });
 
     res.json({ data: { token, pomelo } });

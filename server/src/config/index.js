@@ -3,7 +3,6 @@ const config = {
     port: process.env.PORT,
     clientName: process.env.CLIENT_NAME,
     secret: process.env.SECRET,
-    uninorteGraphQL: process.env.UNINORTE_GRAPHQL,
   },
   calendar: {
     clientId: process.env.GOOGLE_CLIENT_ID,
