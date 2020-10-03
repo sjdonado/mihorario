@@ -15,6 +15,9 @@ jobs:
       - name: Install Dependencies
         working-directory: client
         run: npm install
+      - name: Adding firebase Api Key
+        working-directory: client
+        run: npm run build:update ${{ secrets.FIREBASE_API_KEY }}
       - name: Build
         working-directory: client
         run: npm run build:prod
