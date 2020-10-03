@@ -1,4 +1,4 @@
-name: Build and Deploy Client
+name: Build and deploy prod to Firebase
 
 on:
   push:
@@ -21,26 +21,9 @@ jobs:
       - name: Build
         working-directory: client
         run: npm run build:prod
-      - name: Archive Production Artifact
-        uses: actions/upload-artifact@master
-        with:
-          name: dist
-          path: client/dist/ui
-  deploy:
-    name: Deploy
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Repo
-        uses: actions/checkout@master
-      - name: Download Artifact
-        uses: actions/download-artifact@master
-        with:
-          name: dist
-      - name: Deploy client to Firebase
+      - name: Deploy to Firebase
         uses: w9jds/firebase-action@master
         with:
-          args: deploy
+          args: deploy --only hosting:prod
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-
