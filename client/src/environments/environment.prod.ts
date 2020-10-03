@@ -8,7 +8,7 @@ export const environment = {
   },
   apiUrl: 'https://mihorarioun.herokuapp.com/api/v1',
   firebase: {
-    apiKey: 'AIzaSyBegpPTCe6ShMUmDW7yDcMjFi5Ve09zv-A',
+    apiKey: '{API_KEY}',
     authDomain: 'mihorarioun.firebaseapp.com',
     databaseURL: '',
     projectId: 'mihorarioun',

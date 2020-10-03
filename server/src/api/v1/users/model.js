@@ -1,5 +1,5 @@
 const moment = require('moment');
-const Uninorte = require('uninorte-cli');
+const Uninorte = require('@cronun/uninorte.js').default;
 
 const ApiError = require('../../../lib/ApiError');
 

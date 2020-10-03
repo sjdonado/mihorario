@@ -27,7 +27,7 @@
 Want to file a bug, contribute some code, or improve documentation? Excellent! Read up on our guidelines for [contributing][contributing].
 
 ## External dependencies
-* **Uninorte API connection:** Unofficial GraphQL wrapper for Uninorte API: [uninorte-cli](https://www.npmjs.com/package/uninorte-cli)
+* **Uninorte API connection:** Unofficial GraphQL wrapper for Uninorte API: [uninorte.js](https://github.com/Cronun/uninorte.js)
 
 ## Contributors
 <table>

@@ -11,7 +11,7 @@ export const environment = {
   },
   apiUrl: 'http://localhost:3000/api/v1',
   firebase: {
-    apiKey: 'AIzaSyBegpPTCe6ShMUmDW7yDcMjFi5Ve09zv-A',
+    apiKey: '',
     authDomain: 'mihorarioun.firebaseapp.com',
     databaseURL: '',
     projectId: 'mihorarioun',
