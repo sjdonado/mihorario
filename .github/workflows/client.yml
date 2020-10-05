@@ -1,4 +1,4 @@
-name: Build and deploy to Firebase
+name: Build and deploy client to Firebase
 
 on:
   push:
@@ -23,7 +23,6 @@ jobs:
         run: npm run build:prod
       - name: Deploy to Firebase
         uses: w9jds/firebase-action@master
-        working-directory: client
         with:
           args: deploy --only hosting
         env:
