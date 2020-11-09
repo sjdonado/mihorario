@@ -1,3 +1,5 @@
+[![Code Grade](https://www.code-inspector.com/project/15308/score/svg)](https://frontend.code-inspector.com/public/project/15308/mihorario/dashboard)
+[![Code Grade](https://www.code-inspector.com/project/15308/status/svg)](https://frontend.code-inspector.com/public/project/15308/mihorario/dashboard)
 # 📆 Mi horario UN
 > Import your Uninorte schedule to Google Calendar.
 <div align="center">
