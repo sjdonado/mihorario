@@ -8,3 +8,4 @@ mihorarioUN.pem
 server/yarn.lock
 credentials.json
 docker-compose.yml
+.firebase

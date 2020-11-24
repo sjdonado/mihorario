@@ -9,7 +9,8 @@
 </div>
 
 ## How to run?
-* Please write me an email for sharing to you the Google oauth env variables, otherwise you can create your own credentials [more info](https://support.google.com/cloud/answer/6158849)
+* Please write me an email for sharing with you the Google Oauth credentials, otherwise you can create another ones here [more info](https://support.google.com/cloud/answer/6158849)
+
 ### Server
 
 ```shell
@@ -17,6 +18,7 @@
   docker-compose rm -f
   docker-compose up --build
 ```
+
 ### Client
 
 ```shell
