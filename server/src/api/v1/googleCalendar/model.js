@@ -106,11 +106,11 @@ const importSchedule = async (tokens, subjectsMatrix) => {
 const removeSubjects = async (tokens, subjects) => {
   const calendarService = new CalendarService(tokens);
 
-  const allSyncedEvents = await calendarService.getAllSyncedEvents(subjects)
-  await Promise.all(allSyncedEvents.map((eventId) => calendarService.deleteEvent(eventId)));
+  const allSyncedEvents = await calendarService.getAllSyncedEvents(subjects);
+  await Promise.all(allSyncedEvents.map(eventId => calendarService.deleteEvent(eventId)));
 
-  return subjects.map((subject) => Object.assign(subject, { googleSynced: false }));
-}
+  return subjects.map(subject => Object.assign(subject, { googleSynced: false }));
+};
 
 module.exports = {
   getSyncedSubjects,

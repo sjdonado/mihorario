@@ -1,37 +1,46 @@
 const moment = require('moment');
-const Uninorte = require('@cronun/uninorte.js').default;
+const logger = require('../../../utils/logger');
 
 const ApiError = require('../../../lib/ApiError');
+const PomeloService = require('../../../services/pomelo');
 
 /**
- * Get Pomelo schedule options
- * @param {String} username
- * @param {String} password
+ * Get pomelo userId
+ * @param {{ username: String, password: String }} credentials
  */
-const pomeloSchedulePeriods = async (username, password) => {
+const pomeloUserId = (credentials) => {
   try {
-    const client = await Uninorte(username, password);
-
-    const { name } = await client.user;
-    const terms = (await client.terms).map(({ id, name, startDate, endDate }) => ({ id, name, startDate, endDate }));
-
-    return { fullName: name, terms };
+    const client = new PomeloService(credentials);
+    return client.getUserId();
   } catch (err) {
-    console.log(err);
+    logger.error(err, { message: 'Invalid credentials' });
     throw new ApiError('Invalid credentials', 400);
   }
 };
 
 /**
- * Get Pomelo schedule
- * @param {String} username
- * @param {String} password
+ * Get pomelo schedule terms
+ * @param {{ username: String, password: String }} credentials
+ * @param {String} userId
+ */
+const pomeloScheduleTerms = async (credentials, userId) => {
+  try {
+    const client = new PomeloService(credentials);
+    return client.getFullNameAndTerms(userId);
+  } catch (err) {
+    throw new ApiError(err, 400);
+  }
+};
+
+/**
+ * Get pomelo schedule
+ * @param {{ username: String, password: String }} credentials
  * @param {String} scheduleOption
  */
-const pomeloSchedule = async (username, password, termId) => {
+const pomeloSchedule = async (credentials, userId, termId) => {
   try {
-    const client = await Uninorte(username, password);
-    const data = await client.schedule(termId);
+    const client = new PomeloService(credentials);
+    const data = await client.getSchedule(userId, termId);
 
     const subjectsByDays = [[], [], [], [], [], [], []];
     data.forEach(({
@@ -46,13 +55,18 @@ const pomeloSchedule = async (username, password, termId) => {
         room,
         dates,
       }) => {
-        dates.forEach(({ start, end, startTime, endTime }) => {
+        dates.forEach(({
+          start,
+          end,
+          startTime,
+          endTime,
+        }) => {
           const parsedStartTime = moment(startTime, 'HH:mm').utcOffset(-5);
           const parsedEndTime = moment(endTime, 'HH:mm').utcOffset(-5);
           const startDate = moment(start);
           const endDate = moment(end);
           const weekdayParsed = endDate.weekday() < 0 ? 6 : endDate.weekday();
-          
+
           if (startDate.month() !== endDate.month()) {
             subjectsByDays[weekdayParsed].push({
               nrc: sectionId,
@@ -67,8 +81,8 @@ const pomeloSchedule = async (username, password, termId) => {
               endDate: endDate.format('MMM DD, YYYY', 'es'),
             });
           }
-        })
-      })
+        });
+      });
     });
 
     const scheduleByHours = Array.from(Array(18), () => new Array(6));
@@ -95,12 +109,13 @@ const pomeloSchedule = async (username, password, termId) => {
 
     return { scheduleByHours, subjectsByDays };
   } catch (err) {
-    console.log(err);
+    logger.error(err);
     throw new ApiError(err);
   }
 };
 
 module.exports = {
+  pomeloUserId,
+  pomeloScheduleTerms,
   pomeloSchedule,
-  pomeloSchedulePeriods,
 };

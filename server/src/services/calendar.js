@@ -6,6 +6,7 @@
  */
 
 const { google } = require('googleapis');
+const logger = require('../utils/logger');
 const { calendar } = require('../config');
 const { parsePomeloDateToCalendar } = require('../lib/Date');
 
@@ -74,7 +75,7 @@ class CalendarService {
 
   /**
    * Remove event
-   * @param {*} eventId 
+   * @param {*} eventId
    */
   async deleteEvent(eventId) {
     let data;
@@ -142,7 +143,7 @@ class CalendarService {
         }, true);
         if (currentEvent) {
           const { colorId, reminders } = currentEvent;
-          // console.log('=> getSyncedScheduleEvents: currentEvent', currentEvent);
+          // logger.info('=> getSyncedScheduleEvents: currentEvent', currentEvent);
           Object.assign(event, {
             googleSynced: event !== null,
             color: colorId,
@@ -150,7 +151,7 @@ class CalendarService {
           });
         }
       } catch (err) {
-        console.log('err', err);
+        logger.error(err);
       }
       return Object.assign(subject, event);
     }));
@@ -158,7 +159,7 @@ class CalendarService {
 
   async getAllSyncedEvents(subjects) {
     let events = [];
-    for (let { startDate, endDate, name, instructors, place } of subjects) {
+    for (const { startDate, endDate, name, instructors, place } of subjects) {
       const params = {
         start: parsePomeloDateToCalendar(startDate, true),
         end: parsePomeloDateToCalendar(endDate, true),

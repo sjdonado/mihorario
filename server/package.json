@@ -23,7 +23,7 @@
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
     "express": "^4.16.4",
-    "googleapis": "^40.0.0",
+    "googleapis": "^80.1.0",
     "graphql": "^14.5.8",
     "graphql-tag": "^2.10.1",
     "jsonwebtoken": "^8.5.1",
@@ -35,6 +35,6 @@
     "eslint": "^5.12.0",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.14.0",
-    "nodemon": "^1.18.9"
+    "nodemon": "^2.0.9"
   }
 }
