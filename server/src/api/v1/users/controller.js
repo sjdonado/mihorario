@@ -19,16 +19,12 @@ const getSchedule = async (req, res, next) => {
 
 const login = async (req, res, next) => {
   try {
-    const {
-      username,
-      password,
-    } = req.body;
-
+    const { username, password } = req.body;
     if (!username || !password) next(new ApiError('Bad request', 400));
 
     const credentials = { username, password };
 
-    const userId = await pomeloUserId();
+    const userId = await pomeloUserId(credentials);
     const token = signToken({ credentials, userId });
 
     const pomelo = await pomeloScheduleTerms(credentials, userId);

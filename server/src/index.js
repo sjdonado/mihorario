@@ -28,8 +28,7 @@ app.use((err, req, res, next) => {
   const {
     statusCode = 500, message,
   } = err;
-
-  logger.error(err, { message });
+  logger.error(err);
   res.status(statusCode);
   res.json({
     error: true,
