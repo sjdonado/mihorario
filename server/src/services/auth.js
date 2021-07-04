@@ -34,14 +34,14 @@ const auth = (req, res, next) => {
     }
 
     const {
-      username,
-      password,
+      credentials,
+      userId,
       iat,
       exp,
     } = decoded;
     if (exp - iat < 0) next(new ApiError('Token expired'));
 
-    req.user = { username, password };
+    req.user = { credentials, userId };
     next();
   });
 };

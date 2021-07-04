@@ -3,5 +3,8 @@
   "rules": {
     "no-unused-vars": "off",
     "no-new": 0
+  },
+  "env": {
+    "jest": true
   }
 }
