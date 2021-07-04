@@ -59,7 +59,7 @@ const pomeloSchedule = async (credentials, userId, termId) => {
           nrc: sectionId,
           name: sectionTitle,
           shortName: sectionTitle,
-          instructors: instructors.join(','),
+          instructors: instructors.map(({ formattedName }) => formattedName).join(','),
           type: courseName,
           place: `${buildingId} ${room}`,
           startDate: startDateParsed.format('MMM DD, YYYY', 'es'),
