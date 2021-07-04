@@ -1,7 +1,7 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 const cors = require('cors');
 
+const logger = require('./utils/logger');
 const api = require('./api/v1/');
 const { server } = require('./config');
 
@@ -11,8 +11,8 @@ app.use(cors({
   origin: [server.clientName],
 }));
 
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 app.use('/api/v1', api);
 
@@ -29,9 +29,7 @@ app.use((err, req, res, next) => {
     statusCode = 500, message,
   } = err;
 
-  console.log('ERROR', err);
-  console.log('ERROR_MESSAGE', message);
-
+  logger.error(err, { message });
   res.status(statusCode);
   res.json({
     error: true,
