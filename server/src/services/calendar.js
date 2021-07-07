@@ -47,7 +47,10 @@ class CalendarService {
         orderBy: 'startTime',
       });
     }
-    return (await this.googleCalendar.events.list(params)).data.items;
+
+    const events = await this.googleCalendar.events.list(params);
+
+    return events.data.items;
   }
 
   /**
@@ -55,39 +58,37 @@ class CalendarService {
    * @param {*} newEvent
    */
   async createEvent(newEvent) {
-    let data;
     try {
       const currentEvent = await this.searchEvent(newEvent);
-      data = currentEvent ? await this.googleCalendar.events.update({
-        calendarId: 'primary',
-        eventId: currentEvent.id,
-        resource: Object.assign(currentEvent, newEvent),
-      })
-        : await this.googleCalendar.events.insert({
+      if (currentEvent) {
+        return this.googleCalendar.events.update({
           calendarId: 'primary',
-          resource: newEvent,
+          eventId: currentEvent.id,
+          resource: Object.assign(currentEvent, newEvent),
         });
-    } catch (err) {
-      data = { err };
+      }
+      return this.googleCalendar.events.insert({
+        calendarId: 'primary',
+        resource: newEvent,
+      });
+    } catch (error) {
+      return { error };
     }
-    return data;
   }
 
   /**
    * Remove event
    * @param {*} eventId
    */
-  async deleteEvent(eventId) {
-    let data;
+  deleteEvent(eventId) {
     try {
-      data = await this.googleCalendar.events.delete({
+      return this.googleCalendar.events.delete({
         calendarId: 'primary',
         eventId,
       });
-    } catch (err) {
-      data = { err };
+    } catch (error) {
+      return { error };
     }
-    return data;
   }
 
   /**
@@ -116,7 +117,8 @@ class CalendarService {
         }
         return obj.summary === summary;
       });
-      event = events[0];
+      const [foundEvent] = events;
+      event = foundEvent;
     }
     if (multi) return events;
 
@@ -150,16 +152,24 @@ class CalendarService {
             notificationTime: reminders.overrides[0].minutes,
           });
         }
-      } catch (err) {
-        logger.error(err);
+      } catch (error) {
+        logger.error(error);
       }
       return Object.assign(subject, event);
     }));
   }
 
   async getAllSyncedEvents(subjects) {
-    let events = [];
-    for (const { startDate, endDate, name, instructors, place } of subjects) {
+    const events = [];
+
+    await Promise.all(subjects.map(async (subject) => {
+      const {
+        startDate,
+        endDate,
+        name,
+        instructors,
+        place,
+      } = subject;
       const params = {
         start: parsePomeloDateToCalendar(startDate, true),
         end: parsePomeloDateToCalendar(endDate, true),
@@ -169,8 +179,9 @@ class CalendarService {
       };
 
       const foundEvents = await this.searchEvent(params, true, true);
-      events = events.concat(foundEvents.map(({ id }) => id));
-    }
+      events.push(...foundEvents.map(({ id }) => ({ subject, eventId: id })));
+    }));
+
     return events;
   }
 }
