@@ -4,8 +4,8 @@
   "description": "Mihorario fork",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "dev": "serverless local-dev-server --port 3000",
+    "dev": "serverless offline",
+    "deploy": "serverless deploy",
     "test": "PINO_LEVEL=error jest --coverage --testTimeout 7000",
     "test:debug": "PINO_LEVEL=error node --inspect-brk node_modules/.bin/jest --coverage --runInBand"
   },
@@ -20,18 +20,14 @@
   },
   "homepage": "https://github.com/sjdonado/mihorario#readme",
   "dependencies": {
-    "@cloudflare/wrangler": "^1.17.0",
     "axios": "^0.21.1",
     "axios-mock-adapter": "^1.19.0",
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
     "express": "^4.16.4",
     "googleapis": "^80.1.0",
-    "graphql": "^14.5.8",
-    "graphql-tag": "^2.10.1",
     "jest": "^27.0.6",
     "jsonwebtoken": "^8.5.1",
-    "method-override": "^3.0.0",
     "moment": "^2.24.0",
     "moment-timezone": "^0.5.33",
     "pino": "^6.11.3",
@@ -42,7 +38,6 @@
     "eslint": "^5.12.0",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.14.0",
-    "nodemon": "^2.0.9",
     "serverless-offline": "^7.0.0"
   },
   "jest": {
