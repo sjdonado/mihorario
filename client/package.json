@@ -28,7 +28,6 @@
     "file-saver": "^2.0.2",
     "firebase": "^7.24.0",
     "html2canvas": "^1.0.0-rc.5",
-    "ngx-color": "^3.0.3",
     "ngx-cookie-service": "^2.2.0",
     "rxjs": "~6.6.7",
     "tslib": "^1.10.0",
