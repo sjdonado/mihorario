@@ -9,7 +9,7 @@ export const environment = {
     domain: 'localhost',
     secure: false,
   },
-  apiUrl: 'http://localhost:3000/api/v1',
+  apiUrl: 'http://localhost:3000/dev/api/v1',
   firebase: {
     apiKey: '',
     authDomain: 'mihorarioun.firebaseapp.com',
