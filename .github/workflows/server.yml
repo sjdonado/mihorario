@@ -9,7 +9,11 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
+      - name: Install modules
+        run: yarn --cwd server
+      - name: Run tests
+        run: yarn --cwd server test
       - name: Login to Heroku
         uses: sjdonado/heroku@master
         with:
