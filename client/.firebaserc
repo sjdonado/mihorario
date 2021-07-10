@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "mihorarioun": {
+      "hosting": {
+        "ui": [
+          "mihorarioun"
+        ]
+      }
+    }
+  }
+}

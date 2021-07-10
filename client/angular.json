@@ -28,7 +28,7 @@
             ],
             "styles": [
               {
-              "input": "src/theme.scss"
+                "input": "src/theme.scss"
               },
               "src/styles.scss"
             ],
@@ -45,7 +45,6 @@
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
-              "extractCss": true,
               "namedChunks": false,
               "aot": true,
               "extractLicenses": true,
@@ -119,8 +118,13 @@
               "devServerTarget": "ui:serve:production"
             }
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {}
         }
       }
-    }},
+    }
+  },
   "defaultProject": "ui"
 }

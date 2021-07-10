@@ -1,12 +1,13 @@
+import firebase from 'firebase/app';
 import { Injectable } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { tap, map } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Subject } from '../../../models/subject.model';
-import { auth } from 'firebase/app';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { environment } from 'src/environments/environment';
 import { from } from 'rxjs';
+
+import { Subject } from '../../../models/subject.model';
 import { GoogleCalendarService } from './google-calendar.service';
 import {
   USER_TOKEN_COOKIE,
@@ -76,9 +77,9 @@ export class UserService {
   }
 
   googleOauthLogin() {
-    const provider = new auth.GoogleAuthProvider();
+    const provider = new firebase.auth.GoogleAuthProvider();
     provider.addScope('https://www.googleapis.com/auth/calendar.events');
-    return from(this.afAuth.auth.signInWithPopup(provider))
+    return from(this.afAuth.signInWithPopup(provider))
       .pipe(map(
         res => {
           console.log('googleOauthLogin', res);

@@ -24,7 +24,7 @@ const routes: Routes = [
   },
   {
     path: 'home',
-    loadChildren: './components/home/home.module#HomeModule'
+    loadChildren: () => import('./components/home/home.module').then(m => m.HomeModule),
   },
   { path: '**', redirectTo: '/' },
 ];
