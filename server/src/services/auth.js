@@ -32,14 +32,7 @@ const auth = (req, res, next) => {
       next(new ApiError('Unauthorized', 401));
       return;
     }
-
-    const {
-      credentials,
-      userId,
-      iat,
-      exp,
-    } = decoded;
-    if (exp - iat < 0) next(new ApiError('Token expired'));
+    const { credentials, userId } = decoded;
 
     req.user = { credentials, userId };
     next();

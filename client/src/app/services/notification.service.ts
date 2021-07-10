@@ -1,5 +1,5 @@
-import { Injectable, NgZone } from '@angular/core';
-import { MatSnackBar, SimpleSnackBar } from '@angular/material';
+import { Injectable } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 interface Message {
   text: string;
