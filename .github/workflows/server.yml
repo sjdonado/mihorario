@@ -11,9 +11,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Install modules
-        run: yarn --cwd server
+        run: npm --prefix server run install
       - name: Run tests
-        run: yarn --cwd server test
+        run: npm --prefix server run test
       - name: Login to Heroku
         uses: sjdonado/heroku@master
         with:
