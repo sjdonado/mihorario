@@ -1,4 +1,4 @@
-name: Build and deploy server
+name: Deploy server
 
 on:
   push:
@@ -10,10 +10,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Install modules
-        run: npm --prefix server run install
-      - name: Run tests
-        run: npm --prefix server run test
       - name: serverless deploy
         uses: serverless/github-action@master
         with:
