@@ -1,5 +1,0 @@
-.vscode
-node_modules
-.eslintrc.json
-Dockerfile.dev
-yarn.lock

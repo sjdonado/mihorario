@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "dev": "serverless offline --printOutput",
-    "deploy": "serverless deploy",
     "test": "PINO_LEVEL=error jest --coverage --testTimeout 7000",
-    "test:debug": "PINO_LEVEL=error node --inspect-brk node_modules/.bin/jest --coverage --runInBand"
+    "test:debug": "PINO_LEVEL=error node --inspect-brk node_modules/.bin/jest --coverage --runInBand",
+    "deploy": "serverless deploy"
   },
   "repository": {
     "type": "git",
@@ -38,6 +38,7 @@
     "eslint": "^5.12.0",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.14.0",
+    "serverless": "^2.51.2",
     "serverless-offline": "^7.0.0"
   },
   "jest": {
