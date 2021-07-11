@@ -1,5 +1,4 @@
 const moment = require('moment');
-const logger = require('../../../utils/logger');
 
 const PomeloService = require('../../../services/pomelo');
 
@@ -85,8 +84,8 @@ const pomeloSchedule = async (credentials, userId, termId) => {
         scheduleByHours[startSubjectInt - 6][index] = Object.assign({}, row, {
           startParsedTime: `${startSubjectInt}:${startSubjectDate.minutes()}`,
           endParsedTime: `${startSubjectInt + 1}:${endSubjectDate.minutes()}`,
-          startDate: moment(row.startDate, 'MMM DD, YYYY', 'es').toISOString(),
-          endDate: moment(row.endDate, 'MMM DD, YYYY', 'es').toISOString(),
+          startDate: row.startDate,
+          endDate: row.endDate,
         });
         startSubjectInt += 1;
       }
