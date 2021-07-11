@@ -1,0 +1,35 @@
+org: sjdonado
+app: mihorarioun
+service: mihorarioun
+
+frameworkVersion: '2'
+
+useDotenv: true
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  lambdaHashingVersion: '20201221'
+  environment:
+    GOOGLE_CALENDAR_CALLBACK: ${param:GOOGLE_CALENDAR_CALLBACK}
+    CLIENT_NAME: ${param:CLIENT_NAME}
+    GOOGLE_CLIENT_ID: ${param:GOOGLE_CLIENT_ID}
+    GOOGLE_SECRET_CLIENT: ${param:GOOGLE_SECRET_CLIENT}
+    HOSTNAME: ${param:HOSTNAME}
+    PINO_LEVEL: ${param:PINO_LEVEL}
+    POMELO_BASE_URL: ${param:POMELO_BASE_URL}
+    SECRET: ${param:SECRET}
+
+functions:
+  api:
+    handler: handler.handler
+    events:
+      - http:
+          path: /
+          method: ANY
+      - http:
+          path: /{proxy+}
+          method: ANY
+
+plugins:
+  - serverless-offline

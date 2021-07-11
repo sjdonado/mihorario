@@ -6,7 +6,7 @@ export const environment = {
     domain: 'mihorarioun.web.app',
     secure: true,
   },
-  apiUrl: 'https://mihorarioun.herokuapp.com/api/v1',
+  apiUrl: 'https://e3pc8k5p2g.execute-api.us-east-1.amazonaws.com/dev/api/v1',
   firebase: {
     apiKey: '{API_KEY}',
     authDomain: 'mihorarioun.firebaseapp.com',

@@ -1,4 +1,6 @@
-const moment = require('moment');
+const moment = require('moment-timezone');
+
+const TIME_ZONE = 'America/Bogota';
 
 /**
  * parsePomeloDateTime
@@ -8,7 +10,7 @@ const moment = require('moment');
 const parsePomeloDateTime = (pomeloDate, utcOffset = false) => {
   const momentDate = moment(`${pomeloDate}`, 'MMM DD, YYYY', 'es');
   if (utcOffset) {
-    return momentDate.utcOffset('-05:00').format();
+    return momentDate.tz(TIME_ZONE).format();
   }
   return momentDate.format();
 };
@@ -17,16 +19,15 @@ const parsePomeloDateTime = (pomeloDate, utcOffset = false) => {
  * parsePomeloDateToCalendar
  * @param {*} dateTime Pomelo date time MMM DD, YYYY or momentDate
  * @param {boolean} parse Parse pomelo date time
- * @param {boolean} utcOffset America/Bogota offset
  */
 const parsePomeloDateToCalendar = (dateTime, parse = false) => {
   const response = {
-    timeZone: 'America/Bogota',
+    timeZone: TIME_ZONE,
   };
   if (parse) {
     Object.assign(response, { dateTime: parsePomeloDateTime(dateTime, true) });
   } else {
-    Object.assign(response, { dateTime: dateTime.utcOffset('-05:00').format() });
+    Object.assign(response, { dateTime: dateTime.tz(TIME_ZONE).format() });
   }
   return response;
 };

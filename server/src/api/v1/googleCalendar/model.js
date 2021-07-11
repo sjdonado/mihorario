@@ -49,8 +49,8 @@ const importSchedule = async (tokens, subjectsMatrix) => {
           location: subject.place,
           summary: subject.name,
           description: subject.instructors,
-          start: parsePomeloDateToCalendar(startDateTime.add(dayNumber, 'days')),
-          end: parsePomeloDateToCalendar(endDateTime.add(dayNumber, 'days')),
+          start: parsePomeloDateToCalendar(startDateTime.add(dayNumber + 1, 'days')),
+          end: parsePomeloDateToCalendar(endDateTime.add(dayNumber + 1, 'days')),
           reminders: {
             useDefault: false,
             overrides: [

@@ -1,4 +1,4 @@
-name: Deploy Server to Heroku
+name: Deploy server
 
 on:
   push:
@@ -10,27 +10,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Install modules
-        run: yarn --cwd server
-      - name: Run tests
-        run: yarn --cwd server test
-      - name: Login to Heroku
-        uses: sjdonado/heroku@master
+      - name: serverless deploy
+        uses: serverless/github-action@master
         with:
-          args: container:login
+          args: deploy
         env:
-          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-      - name: Push
-        uses: sjdonado/heroku@master
-        with:
-          args: container:push -a $APP_NAME web
-        env:
-          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-          APP_NAME: mihorarioun
-      - name: Release
-        uses: sjdonado/heroku@master
-        with:
-          args: container:release -a $APP_NAME web
-        env:
-          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-          APP_NAME: mihorarioun
+          SERVERLESS_ACCESS_KEY: ${{ secrets.SERVERLESS_ACCESS_KEY }}
