@@ -10,6 +10,7 @@ provider:
   name: aws
   runtime: nodejs12.x
   lambdaHashingVersion: '20201221'
+  timeout: 10
   environment:
     GOOGLE_CALENDAR_CALLBACK: ${param:GOOGLE_CALENDAR_CALLBACK}
     CLIENT_NAME: ${param:CLIENT_NAME}
@@ -30,6 +31,7 @@ functions:
       - http:
           path: /{proxy+}
           method: ANY
+    timeout: 10
 
 plugins:
   - serverless-offline

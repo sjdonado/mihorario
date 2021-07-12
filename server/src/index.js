@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 
 const logger = require('./utils/logger');
-const api = require('./api/v1/');
+const api = require('./api/v1');
 const { server } = require('./config');
 
 const app = express();

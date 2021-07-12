@@ -246,8 +246,8 @@ google.calendar.mockImplementation(() => ({
       if (!eventId) {
         throw new Error('EventId is null');
       }
-      CALENDAR_EVENTS_RESPONSE.map(subject => subject.eventId !== eventId);
-      return CALENDAR_EVENTS_RESPONSE.findOne(elem => elem.eventId === eventId);
+      CALENDAR_EVENTS_RESPONSE.map((subject) => subject.eventId !== eventId);
+      return CALENDAR_EVENTS_RESPONSE.findOne((elem) => elem.eventId === eventId);
     },
   },
 }));

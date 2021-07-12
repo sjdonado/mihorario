@@ -81,12 +81,13 @@ const pomeloSchedule = async (credentials, userId, termId) => {
       const endSubjectInt = parseInt(endSubjectDate.hours(), 10);
 
       while (endSubjectInt - startSubjectInt >= 1) {
-        scheduleByHours[startSubjectInt - 6][index] = Object.assign({}, row, {
+        scheduleByHours[startSubjectInt - 6][index] = {
+          ...row,
           startParsedTime: `${startSubjectInt}:${startSubjectDate.minutes()}`,
           endParsedTime: `${startSubjectInt + 1}:${endSubjectDate.minutes()}`,
           startDate: row.startDate,
           endDate: row.endDate,
-        });
+        };
         startSubjectInt += 1;
       }
     });
