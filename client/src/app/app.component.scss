@@ -15,23 +15,16 @@
   text-align: right;
   color: #333;
 
-  mat-icon {
-    font-size: 20px;
+  p {
+    margin-right: 10px;
   }
-  a:link {
-    color: #333;
+
+  a:link, .link {
+    cursor: pointer;
     font-weight: 500;
-    text-decoration: none;
-  }
-  a:visited {
-    color: #333;
-    text-decoration: none;
-  }
-  a:hover {
-    color: #333;
     text-decoration: underline;
   }
-  a:active {
+  a:hover, a:active, a:link, a:visited, .link {
     color: #333;
   }
 }
