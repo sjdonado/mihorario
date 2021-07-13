@@ -2,7 +2,6 @@
 node_modules
 .env
 .vscode
-*.png
 *.zip
 mihorarioUN.pem
 server/yarn.lock

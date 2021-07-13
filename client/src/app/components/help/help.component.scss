@@ -1,17 +1,19 @@
 mat-card {
-  // width: 80%;
-  max-width: 80%;
+  max-width: 70%;
+  max-height: 90%;
 }
 
 .info {
-  width: 100%;
+  overflow-x: auto;
+  padding: 16px;
   text-align: center;
   p {
+    text-align: left;
     letter-spacing: 0.1em;
     text-indent: 0;
     line-height: 15pt;
   }
-  video {
-    width: 78%;
+  img {
+    margin-bottom: 20px;
   }
 }
