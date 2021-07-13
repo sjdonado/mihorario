@@ -10,7 +10,7 @@
             routerLink="{{ linkOption.link }}">
             {{ linkOption.title }}
           </button>
-          <button mat-menu-item *ngFor="let clickOption of clicksOptions" (click)="this[clickOption.click]()">
+          <button mat-menu-item *ngFor="let clickOption of clicksOptions" (click)="clickOption.click()">
             {{ clickOption.title }}
           </button>
           <button mat-menu-item (click)="toggleView()">
@@ -24,7 +24,7 @@
           <p>{{ linkOption.title }}</p><mat-icon matSuffix>{{ linkOption.icon }}</mat-icon>
         </span>
         <span *ngFor="let clickOption of clicksOptions" class="option" fxLayout="row" fxLayoutAlign="center center"
-          (click)="this[clickOption.click]()" fxFlex>
+          (click)="clickOption.click()" fxFlex>
           <p>{{ clickOption.title }}</p><mat-icon matSuffix>{{ clickOption.icon }}</mat-icon>
         </span>
         <span class="option" fxLayout="row" fxLayoutAlign="center center" (click)="toggleView()" fxFlex>

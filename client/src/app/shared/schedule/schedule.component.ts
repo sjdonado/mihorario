@@ -12,7 +12,7 @@ interface ScheduleOption {
   title: string;
   icon: string;
   link?: string;
-  click?: string;
+  click?: () => void;
 }
 
 @Component({
@@ -59,11 +59,9 @@ export class ScheduleComponent implements OnInit {
       {
         title: 'Descargar',
         icon: 'arrow_downward',
-        click: 'downloadSchedule'
+        click: this.downloadSchedule
       },
     ];
-    // console.log('schedule', this.schedule);
-    // console.log('subjectsByDays', this.subjectsByDays);
   }
 
   openSubjectDetailsDialog(subject: Subject): void {
@@ -114,9 +112,8 @@ export class ScheduleComponent implements OnInit {
     const oldViewPortContent = document.querySelector('meta[name=viewport]').getAttribute('content');
     const viewport = document.querySelector('meta[name=viewport]');
     viewport.setAttribute('content', 'width=1024');
-    html2canvas(document.querySelector('#scheduleDiv'), {
-      height: 616,
-    }).then(canvas => {
+    const elem = document.getElementById('scheduleDiv');
+    html2canvas(elem, { height: 616 }).then(canvas => {
       canvas.toBlob((blob => {
         saveAs(blob, `mi_horario_un_${new Date().toLocaleDateString()}`);
         viewport.setAttribute('content', oldViewPortContent);

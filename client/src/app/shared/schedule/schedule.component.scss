@@ -107,10 +107,6 @@ $row-bg: #f6f6f6;
     padding: 0;
     border: 0;
     border-bottom: solid 1px $table-border;
-    // &:hover {
-    //   background: #F5F5F5;
-    //   transition: 500ms;
-    // }
   }
 }
 
@@ -119,10 +115,6 @@ $row-bg: #f6f6f6;
   text-align: center;
   padding: 0.5em 0.5em;
   border-right: solid 1px $table-border;
-  // flex: 1 1 33.3%;
-  // &:last-child {
-  //   border-right: 0;
-  // }
 }
 
 @media all and (max-width: 767px) {
@@ -133,10 +125,6 @@ $row-bg: #f6f6f6;
       width: 100%;
       // border-top: solid 1px $table-border;
     }
-    // &:last-child {
-    //   // border-left: solid 1px $table-border;
-    //   border-bottom: 0;
-    // }
   }
   .column {
     width: 100%;
@@ -145,9 +133,6 @@ $row-bg: #f6f6f6;
 
 @media all and (max-width: 430px) {
   .flex-table {
-    // .flex-row {
-    //   border-bottom: 0;
-    // }
     .flex-row:last-of-type {
       border-bottom: solid 1px $table-border;
     }
@@ -159,7 +144,7 @@ $row-bg: #f6f6f6;
   }
   .flex-row {
     width: 100%; //1px = border right
-    
+
    &.first {
      width: 100%;
      border-bottom: solid 1px $table-border;
