@@ -1,7 +1,5 @@
-[![Code Grade](https://www.code-inspector.com/project/15308/score/svg)](https://frontend.code-inspector.com/public/project/15308/mihorario/dashboard)
-[![Code Grade](https://www.code-inspector.com/project/15308/status/svg)](https://frontend.code-inspector.com/public/project/15308/mihorario/dashboard)
 # 📆 Mi horario UN
-> Import your Uninorte schedule to Google Calendar.
+> More than 1,8k students already imported their schedule into Google Calendar!
 <div align="center">
     <a href="https://mihorarioun.web.app">
         <img src="/client/src/assets/screens.svg" alt="Mi horario UN" width="800px" />
@@ -14,24 +12,19 @@
 ### Server
 
 ```shell
-  cd server
-  docker-compose rm -f
-  docker-compose up --build
+  yarn
+  yarn --cwd server dev
 ```
 
 ### Client
 
 ```shell
-  cd client
-  npm install
-  npm start
+  yarn
+  yarn --cwd client start
 ```
 
 ## Want to help?
-Want to file a bug, contribute some code, or improve documentation? Excellent! Read up on our guidelines for [contributing][contributing].
-
-## External dependencies
-* **Uninorte API connection:** Unofficial GraphQL wrapper for Uninorte API: [uninorte.js](https://github.com/Cronun/uninorte.js)
+Want to fix a bug, contribute or improve documentation? Great! Take a look of the [guidelines][contributing].
 
 ## Contributors
 <table>
@@ -43,6 +36,6 @@ Want to file a bug, contribute some code, or improve documentation? Excellent! R
 ## Credits
 Original idea: [mihorario](https://uncal.herokuapp.com) made by [krthr](https://github.com/krthr)
 
-#### mihorarioUN is an open source project that is not associated directly with Universidad del Norte.
+#### mihorarioUN is an open source project which isn't associated directly with Universidad del Norte.
 
 [contributing]: https://github.com/sjdonado/quevent/blob/master/CONTRIBUTING.md
