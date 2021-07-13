@@ -27,13 +27,13 @@ mat-card-content{
   overflow: auto;
   max-height: 100%;
 }
- 
+
 div.card-title{
   font-size: 22px;
   font-weight: 500;
   margin-bottom: 8px;
 }
- 
+
 .mat-card{
   display: flex !important;
   flex-direction: column;
@@ -89,7 +89,7 @@ div.photo-preview {
 
 div.wrapper {
   width: 100%;
-  height: 100%;
+  height: 95%;
   background: linear-gradient(to bottom, rgb(96, 161, 235), rgba(172, 215, 250, 0.4) 87%, rgba(white, .5));
 }
 
