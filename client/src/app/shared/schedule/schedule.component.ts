@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { saveAs } from 'file-saver';
 import { MatDialog } from '@angular/material/dialog';
 import { Subject } from '../../models/subject.model';
 import { SubjectDetailsDialogComponent } from '../dialogs/subject-details-dialog/subject-details-dialog.component';
@@ -7,6 +6,7 @@ import { UserService } from 'src/app/components/home/services/user.service';
 import { AuthService } from 'src/app/services/auth.service';
 import html2canvas from 'html2canvas';
 import { EventColor } from 'src/app/models/event-color.model';
+import { NotificationService } from 'src/app/services/notification.service';
 
 interface ScheduleOption {
   title: string;
@@ -34,7 +34,8 @@ export class ScheduleComponent implements OnInit {
   constructor(
     private dialog: MatDialog,
     private authService: AuthService,
-    private userService: UserService
+    private userService: UserService,
+    private notificationService: NotificationService,
   ) { }
 
   ngOnInit() {
@@ -59,7 +60,7 @@ export class ScheduleComponent implements OnInit {
       {
         title: 'Descargar',
         icon: 'arrow_downward',
-        click: this.downloadSchedule
+        click: this.downloadSchedule.bind(this)
       },
     ];
   }
@@ -108,17 +109,27 @@ export class ScheduleComponent implements OnInit {
   }
 
 
-  downloadSchedule() {
-    const oldViewPortContent = document.querySelector('meta[name=viewport]').getAttribute('content');
-    const viewport = document.querySelector('meta[name=viewport]');
-    viewport.setAttribute('content', 'width=1024');
-    const elem = document.getElementById('scheduleDiv');
-    html2canvas(elem, { height: 616 }).then(canvas => {
-      canvas.toBlob((blob => {
-        saveAs(blob, `mi_horario_un_${new Date().toLocaleDateString()}`);
-        viewport.setAttribute('content', oldViewPortContent);
-      }), 'image/jpeg');
-    });
+  async downloadSchedule() {
+    try {
+      const oldViewPortContent = document.querySelector('meta[name=viewport]').getAttribute('content');
+      const viewport = document.querySelector('meta[name=viewport]');
+      const windowWidth = 1440;
+      viewport.setAttribute('content', `width=${windowWidth}`);
+      const scheduleDiv = document.getElementById('scheduleDiv');
+
+      const canvas = await html2canvas(scheduleDiv, { height: 615, width: 1340, scrollX: 10, scrollY: 40, windowWidth })
+
+      viewport.setAttribute('content', oldViewPortContent);
+
+      const link = document.createElement('a');
+      link.download = `mihorarioun_${new Date().toLocaleDateString()}`;
+      link.href = canvas.toDataURL();
+      link.click();
+
+      this.notificationService.add('Horario descargado correctamente');
+    } catch(err) {
+      this.notificationService.add('Ocurrio un error, intenta de nuevo');
+    }
   }
 
   toggleView() {

@@ -16,3 +16,15 @@ mat-progress-bar {
 input {
   letter-spacing: 0.1em;
 }
+
+.home-link {
+  cursor: pointer;
+  font-size: 0.9em;
+  text-align: center;
+  letter-spacing: 0.1em;
+  color: #1e88e5;
+  margin-top: 20px !important;
+  &:hover {
+    text-decoration: underline;
+  }
+}

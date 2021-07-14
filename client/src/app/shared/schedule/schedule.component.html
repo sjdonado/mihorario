@@ -10,7 +10,7 @@
             routerLink="{{ linkOption.link }}">
             {{ linkOption.title }}
           </button>
-          <button mat-menu-item *ngFor="let clickOption of clicksOptions" (click)="clickOption.click()">
+          <button mat-menu-item *ngFor="let clickOption of clicksOptions" (click)="clickOption.click()" disabled>
             {{ clickOption.title }}
           </button>
           <button mat-menu-item (click)="toggleView()">
