@@ -8,7 +8,7 @@
       <mat-card-content>
         <form fxLayout="column" fxLayoutAlign="start" fxLayoutGap="5px" [formGroup]="getFormGroup" (ngSubmit)="login()">
           <mat-form-field appearance="outline">
-            <mat-label>Usuario Uninorte</mat-label>
+            <mat-label>Usuario uninorte</mat-label>
             <mat-icon matSuffix>perm_identity</mat-icon>
             <input matInput placeholder="miusuario" formControlName="username">
             <mat-error *ngIf="getFormGroup.controls.username.hasError('required')">

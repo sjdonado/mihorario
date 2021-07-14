@@ -1,5 +1,5 @@
 mat-card {
-  max-width: 70%;
+  max-width: 90%;
   max-height: 90%;
 }
 
@@ -15,5 +15,8 @@ mat-card {
   }
   img {
     margin-bottom: 20px;
+    width: 90%;
+    min-width: 240px;
+    max-width: 720px;
   }
 }

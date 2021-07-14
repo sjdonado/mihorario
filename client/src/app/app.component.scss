@@ -14,10 +14,10 @@
   font-size: 10px;
   text-align: right;
   color: #333;
-  margin: 5px;
+  margin: 4px;
 
   p {
-    margin-right: 10px;
+    margin-right: 2px;
   }
 
   a:link, .link {
@@ -27,5 +27,14 @@
   }
   a:hover, a:active, a:link, a:visited, .link {
     color: #333;
+  }
+}
+
+@media all and (max-width: 425px) {
+  .credits {
+    font-size: 8px;
+    p {
+      margin-right: 1px;
+    }
   }
 }
