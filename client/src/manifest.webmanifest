@@ -1,6 +1,6 @@
 {
-  "name": "ui",
-  "short_name": "ui",
+  "name": "Mi horario UN",
+  "short_name": "mihorarioun",
   "theme_color": "#60a1eb",
   "background_color": "#fafafa",
   "display": "standalone",
