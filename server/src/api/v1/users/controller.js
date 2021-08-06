@@ -1,6 +1,7 @@
 const ApiError = require('../../../lib/ApiError');
 const { pomeloSchedule, pomeloUserId, pomeloScheduleTerms } = require('./model');
 const { signToken } = require('../../../services/auth');
+const { listAllUsers } = require('../../../services/firebase');
 
 const getSchedule = async (req, res, next) => {
   try {

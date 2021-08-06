@@ -8,6 +8,8 @@
 }
 
 .features {
+  margin-bottom: 12px;
+
   p, mat-icon {
     color: white;
   }
@@ -17,6 +19,9 @@
   }
   div {
     padding-left: 20px;
+  }
+  .counter {
+    margin-right: 0;
   }
 }
 
