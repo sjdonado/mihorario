@@ -20,6 +20,7 @@ provider:
     PINO_LEVEL: ${param:PINO_LEVEL}
     POMELO_BASE_URL: ${param:POMELO_BASE_URL}
     SECRET: ${param:SECRET}
+    FIREBASE_PRIVATE_KEY: ${param:FIREBASE_PRIVATE_KEY}
 
 functions:
   api:
