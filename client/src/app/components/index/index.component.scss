@@ -4,7 +4,7 @@
 }
 
 .container {
-  height: 70%;
+  height: 65%;
 }
 
 .features {
@@ -34,10 +34,8 @@
   cursor: pointer;
   text-align: center;
   &:hover {
-    // text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3) !important;
     text-decoration: underline;
   }
-  // transition: 1s;
 }
 
 .button {
@@ -60,4 +58,10 @@
     box-shadow: 0 2px 30px rgba(black, .4);
   }
   transition: 0.5s;
+}
+
+@media all and (max-width: 767px) {
+  .container {
+    height: 85%;
+  }
 }

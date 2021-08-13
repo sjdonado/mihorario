@@ -1,12 +1,12 @@
 <div fxLayout="column" fxLayoutGap="10px" fxFlexFill>
   <ng-template [ngIf]="!isLoading" [ngIfElse]="loading">
     <div fxLayout="column" fxLayoutAlign="center center" fxFlex="40">
-      <span class="title header" fxLayoutAlign="center center">
-        <p>Hola, {{ name }}</p>
-      </span>
-      <span class="title select-title" fxLayoutAlign="center center">
-        <p>Selecciona un periodo</p>
-      </span>
+      <h1 class="header" fxLayoutAlign="center center">
+        Hola, {{ name }}
+      </h1>
+      <h1 class="select-title" fxLayoutAlign="center center">
+        Selecciona un periodo
+      </h1>
     </div>
     <div fxLayout="column" fxLayoutAlign="center center" fxFlex="30">
       <mat-card>
