@@ -12,15 +12,15 @@
 ### Server
 
 ```shell
-  yarn
-  yarn --cwd server dev
+  npm install
+  npm run --prefix server dev
 ```
 
 ### Client
 
 ```shell
-  yarn
-  yarn --cwd client start
+  npm install
+  npm run --prefix client start
 ```
 
 ## Want to help?
