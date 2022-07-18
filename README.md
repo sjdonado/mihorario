@@ -1,5 +1,5 @@
 # 📆 Mi horario UN
-> More than 1,8k students already imported their schedule into Google Calendar!
+> More than 3,7k schedules have been imported to Google Calendar!
 <div align="center">
     <a href="https://mihorarioun.web.app">
         <img src="/client/src/assets/screens.svg" alt="Mi horario UN" width="800px" />
@@ -7,7 +7,7 @@
 </div>
 
 ## How to run?
-* Please write me an email for sharing with you the Google Oauth credentials, otherwise you can create another ones here [more info](https://support.google.com/cloud/answer/6158849)
+* Please write me an email to share with you the Dev Google Oauth credentials, otherwise you can create your own [here](https://support.google.com/cloud/answer/6158849)
 
 ### Server
 
@@ -34,7 +34,7 @@ Want to fix a bug, contribute or improve documentation? Great! Take a look of th
 <table>
 
 ## Credits
-Original idea: [mihorario](https://uncal.herokuapp.com) made by [krthr](https://github.com/krthr)
+- First version [mihorario](https://uncal.herokuapp.com) made by [krthr](https://github.com/krthr)
 
 #### mihorarioUN is an open source project which isn't associated directly with Universidad del Norte.
 
