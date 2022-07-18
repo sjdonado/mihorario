@@ -19,7 +19,7 @@
           <p>Mi horario UN hace uso de una arquitectura serverless (reduce costos de operación). Para la comunicación entre el cliente y AWS se emplea autentificación por
             <a href="https://jwt.io/" target="_blank">JWT</a> con expiración por cada 24 horas. Cada lambda function está protegida con CORS
             (<a href="https://www.npmjs.com/package/cors" target="_blank">más información</a>).</p>
-          <p>Mi horario UN NO almacena información del usuario en el servidor, no posee base de datos y es desplegada en la nube<a href="https://github.com/sjdonado/mihorario/actions" target="_blank">automáticamente</a> con Github Actions.</p>
+          <p>Mi horario UN NO almacena información del usuario en el servidor, no posee base de datos y es desplegada en la nube <a href="https://github.com/sjdonado/mihorario/actions" target="_blank">automáticamente</a> con Github Actions.</p>
           <p>Mi horario UN almacena el token de autenticación del usuario en el navegador a través de cookies con tiempo de expiración de 24 horas, al usuario cerrar sesión TODA su información es eliminada inmediatamente.</p>
           <p>Mi horario UN necesita la autorización del usuario para poder ver, modificar y crear eventos en su calendario de google (scope: https://www.googleapis.com/auth/calendar.events <a href="https://developers.google.com/calendar/auth" target="_blank">más información</a>),
             los cuales son creados o editados ÚNICAMENTE si este está relacionado por el nombre con alguna materia del horario del usuario para el periodo seleccionado por el mismo.</p>

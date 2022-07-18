@@ -23,7 +23,10 @@
               La contraseña es <strong>requerida</strong>
             </mat-error>
           </mat-form-field>
-          <button mat-button color="primary" [disabled]="!getFormGroup.valid || isLoading">Iniciar sesión</button>
+          <p class="login-info">
+            Al Iniciar sesión acepto la <span class="home-link" routerLink="/privacy-policy">Política de privacidad</span>
+          </p>
+          <button mat-stroked-button color="primary" [disabled]="!getFormGroup.valid || isLoading">Iniciar sesión</button>
           <span class="home-link" routerLink="/">Inicio</span>
         </form>
       </mat-card-content>

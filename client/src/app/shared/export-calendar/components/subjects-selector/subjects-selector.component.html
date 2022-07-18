@@ -35,15 +35,15 @@
               </div>
             </div>
           </div>
-          <button mat-button color="primary" [ngStyle]="{'margin': '2px 0px' }">Añadir al calendario</button>
-          <button mat-button color="warn" (click)="removeSubjects()">Remover del calendario</button>
+          <button mat-stroked-button color="primary" [ngStyle]="{'margin': '4px'}">Añadir al calendario</button>
+          <button mat-stroked-button color="warn" (click)="removeSubjects()" [ngStyle]="{'margin': '4px'}">Remover del calendario</button>
         </form>
       </mat-card-content>
     </mat-card>
-  </ng-template>  
+  </ng-template>
   <ng-template #loading>
     <div fxLayoutAlign="center center" fxFlex>
       <mat-spinner></mat-spinner>
-    </div>  
+    </div>
   </ng-template>
 </div>
