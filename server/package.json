@@ -1,7 +1,6 @@
 {
   "name": "mihorario",
-  "version": "0.0.1",
-  "description": "Mihorario fork",
+  "version": "1.0.0",
   "main": "index.js",
   "scripts": {
     "dev": "serverless offline --printOutput",
@@ -33,14 +32,14 @@
     "moment-timezone": "^0.5.33",
     "pino": "^6.11.3",
     "pino-pretty": "^5.1.0",
-    "serverless-http": "^2.7.0"
+    "serverless-http": "^3.2.0"
   },
   "devDependencies": {
     "eslint": "^5.16.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-plugin-import": "^2.23.4",
-    "serverless": "^2.51.2",
-    "serverless-offline": "^7.0.0"
+    "serverless": "^3.38.0",
+    "serverless-offline": "^13.3.3"
   },
   "jest": {
     "testEnvironment": "node",
