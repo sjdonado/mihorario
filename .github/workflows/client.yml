@@ -17,7 +17,7 @@ jobs:
         run: npm ci --legacy-peer-deps
       - name: Setup firebase api key
         working-directory: client
-        run: npm run build:update ${{ secrets.FIREBASE_API_KEY }}
+        run: npm run build:update FIREBASE_API_KEY=${{ secrets.FIREBASE_API_KEY }} LAMBDA_API_URL=${{ secrets.LAMBDA_API_URL }}
       - name: Build
         working-directory: client
         env:

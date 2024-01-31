@@ -6,9 +6,9 @@ export const environment = {
     domain: 'mihorarioun.web.app',
     secure: true,
   },
-  apiUrl: 'https://e3pc8k5p2g.execute-api.us-east-1.amazonaws.com/dev/api/v1',
+  apiUrl: '{LAMBDA_API_URL}',
   firebase: {
-    apiKey: '{API_KEY}',
+    apiKey: '{FIREBASE_API_KEY}',
     authDomain: 'mihorarioun.firebaseapp.com',
     databaseURL: '',
     projectId: 'mihorarioun',
