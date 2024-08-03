@@ -1,16 +1,15 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { AppComponent } from 'src/app/app.component';
-import { StatisticsService } from 'src/app/services/statistics.service';
+import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
+import { AppComponent } from "src/app/app.component";
+import { StatisticsService } from "src/app/services/statistics.service";
 
 @Component({
-  selector: 'app-index',
-  templateUrl: './index.component.html',
-  styleUrls: ['./index.component.scss']
+  selector: "app-index",
+  templateUrl: "./index.component.html",
+  styleUrls: ["./index.component.scss"],
 })
 export class IndexComponent implements OnInit {
-
   public title: string;
-  @ViewChild('counter') counter: ElementRef;
+  @ViewChild("counter") counter: ElementRef;
 
   constructor(
     private appComponent: AppComponent,
@@ -19,13 +18,17 @@ export class IndexComponent implements OnInit {
 
   ngOnInit() {
     this.title = this.appComponent.title;
-    this.statisticsService.getStatistics().subscribe(
-      (response: any) => {
-        this.animateValue(this.counter.nativeElement, 0, response.data.totalUsersCounter, 5000);
-      }, (err) => {
-        console.log('Error: ' + err);
-      },
-    );
+  }
+
+  ngAfterViewInit() {
+    // this.statisticsService.getStatistics().subscribe(
+    //   (response: any) => {
+    //     this.animateValue(this.counter.nativeElement, 0, response.data.totalUsersCounter, 5000);
+    //   }, (err) => {
+    //     console.log('Error: ' + err);
+    //   },
+    // );
+    this.animateValue(this.counter.nativeElement, 0, 7833, 1000);
   }
 
   animateValue(obj, start, end, duration) {

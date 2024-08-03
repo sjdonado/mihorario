@@ -8,16 +8,21 @@
 }
 
 .features {
-  p, mat-icon {
+
+  p,
+  mat-icon {
     color: white;
   }
+
   p {
     margin: 4px;
     text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
   }
+
   div {
     padding-left: 20px;
   }
+
   .counter {
     margin-right: 0;
   }
@@ -33,6 +38,7 @@
 .link {
   cursor: pointer;
   text-align: center;
+
   &:hover {
     text-decoration: underline;
   }
@@ -43,9 +49,10 @@
   width: 160px;
   margin: auto;
   border-radius: 20px;
-  box-shadow: 0 2px 30px rgba(black, .2);
+  box-shadow: 0 2px 30px rgba(black, 0.2);
 
-  p, mat-icon {
+  p,
+  mat-icon {
     color: rgb(29, 29, 29);
   }
 
@@ -55,9 +62,44 @@
   }
 
   &:hover {
-    box-shadow: 0 2px 30px rgba(black, .4);
+    box-shadow: 0 2px 30px rgba(black, 0.4);
   }
+
   transition: 0.5s;
+}
+
+.button.disabled {
+  pointer-events: none;
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.banner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #ffcccb;
+  padding: 10px;
+  margin-bottom: 10px;
+  font-size: 0.9em;
+  width: 100%;
+  color: #d8000c;
+}
+
+.banner h2 {
+  letter-spacing: 0.4em !important;
+  font-weight: normal !important;
+}
+
+.banner p {
+  width: 100%;
+  margin: 0;
+  text-align: left;
+  margin: 4px 0;
+}
+
+.banner a {
+  text-decoration: underline;
 }
 
 @media all and (max-width: 767px) {
